@@ -17,12 +17,12 @@
     {
       "type" : "web",
       "quantity": 1,
-      "size": "echo"
+      "size": "eco"
     },
     {
       "type" :"worker",
       "quantity" : 1,
-      "size" : "echo"
+      "size" : "eco"
     }
   ],
   "buildpacks": [{
