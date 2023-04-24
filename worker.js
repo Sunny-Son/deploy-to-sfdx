@@ -23,7 +23,8 @@ exec(cmd)
 	logResult(result);
 	if(process.env.DXLOGINURL){
 		fs.writeFileSync('/app/tmp/devhub.key',process.env.DXLOGINURL,'utf8');
-		return exec(`sfdx force:auth:sfdxurl:store -f /app/tmp/devhub.key --setdefaultdevhubusername -a deployBotHub`);
+		//return exec(`sfdx force:auth:sfdxurl:store -f /app/tmp/devhub.key --setdefaultdevhubusername -a deployBotHub`);
+		return exec(`sfdx force:auth:sfdxurl:store -f /app/tmp/devhub.key --set-default-dev-hub -a deployBotHub`);
 	}
 	else {
 		return exec('pwd');
