@@ -40,6 +40,7 @@
     "utf-8-validate": "3.0.3",
     "ws": "3.2.0",
     "ioredis": "^3.2.1",
+    "Python": "^2.5.0",
     "got": "^8.0.1"
   },
   "devDependencies": {
