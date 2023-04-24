@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "An application that will deploy an SFDX project from a public Github repo",
   "main": "web.js",
+  "type":"module",
   "engines": {
     "node": "18.16.0"
   },
