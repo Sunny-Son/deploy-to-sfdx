@@ -37,13 +37,19 @@ app.get('/', async (req, res) => {
   logger.debug('+++SUNNY 2+++');
   logger.debug(action);
   if(typeof action==='undefined'){
+    logger.debug('+++SUNNY action==undefined +++');
     const message = await msgBuilder(process.env.GIT_REPOURL+'/tree/step0');
+    logger.debug('+++SUNNY action==undefined 2 +++');
     const visitor = ua(process.env.UA_ID);
+    logger.debug('+++SUNNY action==undefined 3 +++');
     visitor.pageview('/').send();
+    logger.debug('+++SUNNY action==undefined 4 +++');
     res.render('pages/index', { deployId:'',step:0,steps:message.steps });
   }
   else if(action=='nextstep'){
+    logger.debug('+++SUNNY action==nextstep +++');
     const message = await msgBuilder(process.env.GIT_REPOURL+'/tree/step'+req.query.step);
+    logger.debug('+++SUNNY action==nextstep 2 +++');
     logger.debug(req.query.step);
     res.render('pages/index', { deployId:'',step:parseInt(req.query.step),steps:message.steps });
   }
@@ -101,10 +107,14 @@ app.get('/', async (req, res) => {
 
 app.get('/launch', (req, res) => {
 
+  logger.debug('+++SUNNY launch = 1 = +++');
   const message = msgBuilder(req.query.template);
   // analytics
+  logger.debug('+++SUNNY launch = 2 = +++');
   const visitor = ua(process.env.UA_ID);
+  logger.debug('+++SUNNY launch = 3 = +++');
   visitor.pageview('/launch').send();
+  logger.debug('+++SUNNY launch = 4 = +++');
   visitor.event('Repo', req.query.template).send();
 
   mq.then( (mqConn) => {
