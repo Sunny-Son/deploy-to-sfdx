@@ -135,6 +135,17 @@ app.get('/launch', (req, res) => {
   });
 });
 
+app.get('/sunny', (req, res) => {
+
+  logger.debug('+++SUNNY /sunny = 1 = +++');
+  let action = req.query.action;
+  logger.debug('+++SUNNY /sunny = 2, query = ' + req.query.toString + '+++');
+  logger.debug('+++SUNNY /sunny = 3, action = ' + action + '+++');
+  const message = await msgBuilder(process.env.GIT_REPOURL+'/tree/step'+req.query.step);
+    if(req.query.step>0)message.SOusername=req.query.SOusername;
+    console.log(message);
+});
+
 app.get('/deploying/:deployId', (req, res) => {
   // show the page with .io to subscribe to a topic
   res.render('pages/messages', { deployId: req.params.deployId });
