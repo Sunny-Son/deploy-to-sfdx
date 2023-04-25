@@ -32,7 +32,9 @@ app.set('view engine', 'ejs');
 app.get('/', async (req, res) => {
   //const message = msgBuilder(req.query.template);
   // analytics
+  logger.debug('+++SUNNY 1+++');
   let action = req.query.action;
+  logger.debug('+++SUNNY 2+++');
   logger.debug(action);
   if(typeof action==='undefined'){
     const message = await msgBuilder(process.env.GIT_REPOURL+'/tree/step0');
