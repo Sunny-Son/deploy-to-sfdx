@@ -61,9 +61,12 @@ exec(cmd)
 	
 			logger.debug(msg);
 			const msgJSON = JSON.parse(msg.content.toString());
-			logger.debug(msgJSON);
-			logger.debug(msgJSON.deployId);
-			logger.debug(msgJSON.template);
+			logger.debug('msgJSON = ' + msgJSON);
+			console.log('msgJSON = ' + msgJSON);
+			logger.debug('deployId = ' + msgJSON.deployId);
+			console.log('deployId = ' + msgJSON.deployId);
+			logger.debug('template = ' + msgJSON.template);
+			console.log('template = ' + msgJSON.template);
 			visitor.event('Deploy Request', msgJSON.template).send();
 
 			// clone repo into local fs
@@ -74,6 +77,10 @@ exec(cmd)
 				gitCloneCmd = `cd tmp;git clone -b ${msgJSON.branch} --single-branch https://github.com/${msgJSON.username}/${msgJSON.repo}.git ${msgJSON.deployId}`;
 				logger.debug(gitCloneCmd);
 			} else {
+				logger.debug('+++ SUNNY +++ : It is not a branch!');
+				logger.debug('+++ SUNNY +++ : username : ' + msgJSON.username);
+				logger.debug('+++ SUNNY +++ : repo : ' + msgJSON.repo);
+				logger.debug('+++ SUNNY +++ : deployId : ' + msgJSON.deployId);
 				gitCloneCmd = `cd tmp;git clone https://github.com/${msgJSON.username}/${msgJSON.repo}.git ${msgJSON.deployId}`;
 			}
 			exec(gitCloneCmd)

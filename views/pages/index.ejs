@@ -32,9 +32,9 @@
 
                     </div>
                 </div>
-                <%if(deployId!=''){%> Deployment status for:<%}%> 
+                <%- if(deployId!=''){%> Deployment status for:<%}%> 
                 <strong id="deployId"><%= deployId %></strong>
-                    <%if(deployId!=''){%>
+                    <%- if(deployId!=''){%>
                         <img id="spinner" src="../dist/assets/images/loader.gif" style="width:27px;" />
                         <div id="status" class="slds-m-bottom_small sfdx-output"></div>
                     <%}%>
