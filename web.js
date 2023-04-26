@@ -82,8 +82,9 @@ app.get('/', async (req, res) => {
     visitor.pageview('/').send();
     visitor.event('load Data Model', {}).send();
     const message = await msgBuilder(process.env.GIT_REPOURL+'/tree/step'+req.query.step);
+    console.log('web.js : deploy : query.step : ' + req.query);
     if(req.query.step>0)message.SOusername=req.query.SOusername;
-    console.log(message);
+    console.log('web.js : deploy : consol.log 86line : ' + message);
     mq.then( (mqConn) => {
       let ok = mqConn.createChannel();
       ok = ok.then((ch) => {
@@ -159,7 +160,7 @@ const port = process.env.PORT || 8443;
 
 
 app.listen(port, () => {
-  logger.info(`Example app listening on port ${port}!`);
+  logger.info(`web.js : Example app listening on port ${port}!`);
 });
 
 mq.then( (mqConn) => {
@@ -167,16 +168,16 @@ mq.then( (mqConn) => {
 
 	let ok = mqConn.createChannel();
 	ok = ok.then((ch) => {
-    logger.debug('channel created');
+    logger.debug('web.js : channel created');
     return ch.assertExchange(ex, 'fanout', { durable: false })
     .then( (exch) => {
-      logger.debug('exchange asserted');
+      logger.debug('web.js : exchange asserted');
       return ch.assertQueue('', { exclusive: true });
     }).then( (q) => {
-      logger.debug('queue asserted');
+      logger.debug('web.js : queue asserted');
       ch.bindQueue(q.queue, ex, '');
       ch.consume(q.queue, (msg) => {
-        logger.debug('heard a message from the worker');
+        logger.debug('web.js : heard a message from the worker');
         const parsedMsg = JSON.parse(msg.content.toString());
         logger.debug(parsedMsg);
         wsInstance.getWss().clients.forEach((client) => {

@@ -98,11 +98,14 @@
             let protoc = location.protocol=='https:'?'wss':'ws';
             const HOST = protoc+'://' + location.hostname + ':' + location.port + '/deploying/' + deployId;//location.href.replace(/^http/, 'ws');
             let msgCounter = 0;
-            console.log('++ Sunny : host : ', HOST);
+            console.log('++ Sunny : index.ejs : host : ', HOST);
 
             var username=localStorage.getItem('username');
+            console.log('++ Sunny : index.ejs : username : ', username);
             var password=localStorage.getItem('password');
+            console.log('++ Sunny : index.ejs : password : ', password);
             var loginUrl=localStorage.getItem('loginUrl');
+            console.log('++ Sunny : index.ejs : loginUrl : ', loginUrl);
             var instanceUrl=localStorage.getItem('instanceUrl');
             if(username!=null && password!=null && loginUrl!=null){
                 document.getElementById("username").innerHTML = username;
