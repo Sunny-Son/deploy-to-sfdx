@@ -4,13 +4,14 @@
 
        <div class="slds-grid slds-wrap slds-grid_pull-padded">
             <div class="slds-p-horizontal_small slds-size_8-of-12">
+                
                 <% include ../partials/progress %>
                 <div class="slds-card">
-                        <div class="slds-text-heading_medium"><% steps[step].title %></div>
+                        <div class="slds-text-heading_medium"><%- steps[step].title %></div>
                         <div class="slds-text-body_regular">
-                                <% steps[step].body %>
+                                <%- steps[step].body %>
                         </div>
-                        <center><button class="slds-button slds-button_brand" onclick="launch();"><% steps[step].button %></button></center>                                          
+                        <center><button class="slds-button slds-button_brand" onclick="launch();"><%- steps[step].button %></button></center>                                          
                         <br/>               
                         <button id="nextstepbtn" class="slds-button slds-button_brand slds-hide" onclick="window.location.href='/?action=nextstep&step=<%= step+1 %>'">Next Step</button>          
                 </div> 
@@ -31,9 +32,9 @@
 
                     </div>
                 </div>
-                <% if(deployId!=''){%> Deployment status for:<%}%> 
+                <%if(deployId!=''){%> Deployment status for:<%}%> 
                 <strong id="deployId"><%= deployId %></strong>
-                    <% if(deployId!=''){%>
+                    <%if(deployId!=''){%>
                         <img id="spinner" src="../dist/assets/images/loader.gif" style="width:27px;" />
                         <div id="status" class="slds-m-bottom_small sfdx-output"></div>
                     <%}%>
@@ -88,8 +89,6 @@
         </div>
 
         <script>
-    
-    //res.render('pages/index', { deployId:'',step:0,steps:message.steps });
             const deployIdInput = document.getElementById('deployId');
             console.log('deployIdInput', deployIdInput);
 
@@ -97,7 +96,7 @@
             console.log('deployId', deployId);
             // works for both http and https
             let protoc = location.protocol=='https:'?'wss':'ws';
-            const HOST = protoc +'://' + location.hostname + ':' + location.port + '/deploying/' + deployId;//location.href.replace(/^http/, 'ws');
+            const HOST = protoc+'://' + location.hostname + ':' + location.port + '/deploying/' + deployId;//location.href.replace(/^http/, 'ws');
             let msgCounter = 0;
             console.log('host', HOST);
 
