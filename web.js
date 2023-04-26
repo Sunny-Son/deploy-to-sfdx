@@ -39,11 +39,9 @@ app.get('/', async (req, res) => {
   if(typeof action==='undefined'){
     logger.debug('+++SUNNY action==undefined +++');
     const message = await msgBuilder(process.env.GIT_REPOURL+'/tree/step0');
-    logger.debug('+++SUNNY action==undefined 2 +++');
     const visitor = ua(process.env.UA_ID);
     logger.debug('+++SUNNY action==undefined 3 +++');
     visitor.pageview('/').send();
-    logger.debug('+++SUNNY action==undefined 4 +++');
     console.log('web.js message = ', message);
     res.render('pages/index', { deployId:'',step:0,steps:message.steps });
   }

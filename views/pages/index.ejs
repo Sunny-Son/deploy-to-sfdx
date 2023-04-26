@@ -90,15 +90,15 @@
 
         <script>
             const deployIdInput = document.getElementById('deployId');
-            console.log('deployIdInput', deployIdInput);
+            console.log('++ Sunny : deployIdInput : ', deployIdInput);
 
             const deployId = deployIdInput.innerText;
-            console.log('deployId', deployId);
+            console.log('++ Sunny : deployId : ', deployId);
             // works for both http and https
             let protoc = location.protocol=='https:'?'wss':'ws';
             const HOST = protoc+'://' + location.hostname + ':' + location.port + '/deploying/' + deployId;//location.href.replace(/^http/, 'ws');
             let msgCounter = 0;
-            console.log('host', HOST);
+            console.log('++ Sunny : host : ', HOST);
 
             var username=localStorage.getItem('username');
             var password=localStorage.getItem('password');

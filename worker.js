@@ -55,38 +55,38 @@ exec(cmd)
 
 		// this consumer eats deploys, creates local folders, and chops up the tasks into steps
 		ch.consume('deploys', (msg) => {
-			logger.debug('HEARD a message from the web');
+			logger.debug('worker.js : HEARD a message from the web');
 			const visitor = ua(process.env.UA_ID || 0);
 			// do a whole bunch of stuff here!
 	
-			logger.debug(msg);
+			logger.debug('worker.js : msg: ' + msg);
 			const msgJSON = JSON.parse(msg.content.toString());
-			logger.debug('msgJSON = ' + msgJSON);
-			console.log('msgJSON = ' + msgJSON);
-			logger.debug('deployId = ' + msgJSON.deployId);
-			console.log('deployId = ' + msgJSON.deployId);
-			logger.debug('template = ' + msgJSON.template);
-			console.log('template = ' + msgJSON.template);
+			logger.debug('worker.js : msgJSON = ' + msgJSON);
+			console.log('worker.js : msgJSON = ' + msgJSON);
+			logger.debug('worker.js : deployId = ' + msgJSON.deployId);
+			console.log('worker.js : deployId = ' + msgJSON.deployId);
+			logger.debug('worker.js : template = ' + msgJSON.template);
+			console.log('worker.js : template = ' + msgJSON.template);
 			visitor.event('Deploy Request', msgJSON.template).send();
 
 			// clone repo into local fs
 			// checkout only the specified branch, if specified
 			let gitCloneCmd;
 			if (msgJSON.branch){
-				logger.debug('It is a branch!');
+				logger.debug('worker.js : It is a branch!');
 				gitCloneCmd = `cd tmp;git clone -b ${msgJSON.branch} --single-branch https://github.com/${msgJSON.username}/${msgJSON.repo}.git ${msgJSON.deployId}`;
-				logger.debug(gitCloneCmd);
+				logger.debug('worker.js : gitclonecmd : ' + gitCloneCmd);
 			} else {
-				logger.debug('+++ SUNNY +++ : It is not a branch!');
-				logger.debug('+++ SUNNY +++ : username : ' + msgJSON.username);
-				logger.debug('+++ SUNNY +++ : repo : ' + msgJSON.repo);
-				logger.debug('+++ SUNNY +++ : deployId : ' + msgJSON.deployId);
+				logger.debug('+++ worker.js :  +++ : It is not a branch!');
+				logger.debug('+++ worker.js :  +++ : username : ' + msgJSON.username);
+				logger.debug('+++ worker.js :  +++ : repo : ' + msgJSON.repo);
+				logger.debug('+++ worker.js :  +++ : deployId : ' + msgJSON.deployId);
 				gitCloneCmd = `cd tmp;git clone https://github.com/${msgJSON.username}/${msgJSON.repo}.git ${msgJSON.deployId}`;
 			}
 			exec(gitCloneCmd)
 			.then( (result) => {
 				// git outputs to stderr for unfathomable reasons
-				logger.debug(result.stderr);
+				logger.debug('worker.js : result.stderr ' + result.stderr);
 				ch.publish(ex, '', bufferKey(result.stderr, msgJSON.deployId));
 				return exec(`cd tmp;cd ${msgJSON.deployId};ls`);
 			})
@@ -95,31 +95,33 @@ exec(cmd)
 				// ch.publish(ex, '', bufferKey('Cloning the repository', msgJSON.deployId));
 				// ch.publish(ex, '', bufferKey(result.stdout, msgJSON.deployId));
 				// grab the deploy script from the repo
-				logger.debug(`going to look in the directory tmp/${msgJSON.deployId}/orgInit.sh`);
+				logger.debug(`worker.js : going to look in the directory tmp/${msgJSON.deployId}/orgInit.sh`);
 
 				// use the default file if there's not one
 				if (!fs.existsSync(`tmp/${msgJSON.deployId}/orgInit.sh`)) {
 					const parsedLines = [];
-					logger.debug('no orgInit.sh.  Will use default');
+					logger.debug('worker.js : no orgInit.sh.  Will use default');
 					parsedLines.push(`cd tmp;cd ${msgJSON.deployId};sfdx force:org:create -f config/project-scratch-def.json -s -d 1`);
 					parsedLines.push(`cd tmp;cd ${msgJSON.deployId};sfdx force:source:push`);
-					parsedLines.push(`cd tmp;cd ${msgJSON.deployId};sfdx force:org:open`);
+					//parsedLines.push(`cd tmp;cd ${msgJSON.deployId};sf project deploy start`);
+					parsedLines.push(`cd tmp;cd ${msgJSON.deployId};sf org open`);
+					//원복
 					return parsedLines;
 				} else { // read the lines
-					logger.debug('found a orgInit.sh');
+					logger.debug('worker.js : found a orgInit.sh');
 					return lineParse(msgJSON, ch, visitor);
 				}
 			})
 			.then( (parsedLines) => {
-				logger.debug('these are the parsed lines:');
-				logger.debug(parsedLines);
+				logger.debug('worker.js : these are the parsed lines:');
+				logger.debug('worker.js : parsedLines : ' + parsedLines);
 				// some kind of error occurred, already handled
 				if (!parsedLines) {
 					logger.error('line parsing failed');
 					ch.ack(msg);
 					return;
 				} else {
-					logger.debug('got back parsed lines');
+					logger.debug('worker.js : got back parsed lines');
 					let localLineRunner = new lineRunner(msgJSON, parsedLines, ch, visitor);
 					return localLineRunner.runLines();	
 				}
