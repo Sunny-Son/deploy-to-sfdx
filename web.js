@@ -44,6 +44,7 @@ app.get('/', async (req, res) => {
     logger.debug('+++SUNNY action==undefined 3 +++');
     visitor.pageview('/').send();
     logger.debug('+++SUNNY action==undefined 4 +++');
+    console.log('web.js message = ', message);
     res.render('pages/index', { deployId:'',step:0,steps:message.steps });
   }
   else if(action=='nextstep'){
