@@ -164,7 +164,7 @@ app.listen(port, () => {
 });
 
 mq.then( (mqConn) => {
-  logger.debug('mq connection good');
+  logger.debug('web.js : mq connection good');
 
 	let ok = mqConn.createChannel();
 	ok = ok.then((ch) => {
