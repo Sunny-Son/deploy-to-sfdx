@@ -89,7 +89,9 @@ app.get('/', async (req, res) => {
       let ok = mqConn.createChannel();
       ok = ok.then((ch) => {
         ch.assertQueue('deploys', { durable: true });
-        ch.sendToQueue('deploys', new Buffer(JSON.stringify(message)));
+        console.log('web.js : msg to mq : ' + JSON.stringify(message));
+        //ch.sendToQueue('deploys', new Buffer(JSON.stringify(message))); deprecated
+        ch.sendToQueue('deploys', Buffer.from(JSON.stringify(message)));
       });
       return ok;
     }).then( () => {
@@ -121,7 +123,8 @@ app.get('/launch', (req, res) => {
     let ok = mqConn.createChannel();
     ok = ok.then((ch) => {
       ch.assertQueue('deploys', { durable: true });
-      ch.sendToQueue('deploys', new Buffer(JSON.stringify(message)));
+      //ch.sendToQueue('deploys', new Buffer(JSON.stringify(message))); deprecated
+      ch.sendToQueue('deploys', Buffer.from(JSON.stringify(message)));
     });
     return ok;
   }).then( () => {
