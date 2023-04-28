@@ -63,7 +63,7 @@ exec(cmd)
 			logger.debug('worker.js : msg: ' + msg);
 			const msgJSON = JSON.parse(msg.content.toString());
 			logger.debug('worker.js : msgJSON = ' + msgJSON);
-			console.log('worker.js : msgJSON = ' + msgJSON);
+			console.log('worker.js : msgJSON = ' + msgJSON.toString);
 			logger.debug('worker.js : deployId = ' + msgJSON.deployId);
 			console.log('worker.js : deployId = ' + msgJSON.deployId);
 			logger.debug('worker.js : template = ' + msgJSON.template);
@@ -84,10 +84,12 @@ exec(cmd)
 				logger.debug('+++ worker.js :  +++ : deployId : ' + msgJSON.deployId);
 				gitCloneCmd = `cd tmp;git clone https://github.com/${msgJSON.username}/${msgJSON.repo}.git ${msgJSON.deployId}`;
 			}
+			logger.debug('worker.js : gitCloneCmd' + gitCloneCmd);
 			exec(gitCloneCmd)
 			.then( (result) => {
 				// git outputs to stderr for unfathomable reasons
-				logger.debug('worker.js : result.stderr ' + result.stderr);
+				logger.debug('worker.js : result.stderr : ' + result.stderr);
+				logger.debug('worker.js : result.stdout : ' + result.stdout);
 				ch.publish(ex, '', bufferKey(result.stderr, msgJSON.deployId));
 				return exec(`cd tmp;cd ${msgJSON.deployId};ls`);
 			})
@@ -132,6 +134,7 @@ exec(cmd)
 				logger.debug('worker.js : send back to q');
 				ch.publish(ex, '', bufferKey('ALLDONE', msgJSON.deployId));
 				visitor.event('deploy complete', msgJSON.template).send();
+				logger.debug('worker.js : deploy complete');
 				ch.ack(msg);
 
 				// clean up after a minute
@@ -141,6 +144,7 @@ exec(cmd)
 				exec(`cd tmp;rm -rf ${msgJSON.deployId}`);
 			})
 			.then((cleanResult) => {
+				logger.debug('worker.js : cleanResult');
 				logResult(cleanResult);
 			})
 			.catch((err) => {
