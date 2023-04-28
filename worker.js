@@ -129,6 +129,7 @@ exec(cmd)
 			})
 			.then( () => {
 				// this is true whether we errored or not
+				logger.debug('worker.js : send back to q');
 				ch.publish(ex, '', bufferKey('ALLDONE', msgJSON.deployId));
 				visitor.event('deploy complete', msgJSON.template).send();
 				ch.ack(msg);
@@ -143,7 +144,7 @@ exec(cmd)
 				logResult(cleanResult);
 			})
 			.catch((err) => {
-				logger.error('Error (worker.js): ', err);
+				logger.error('Worker.js : Error (worker.js): ', err);
 				ch.ack(msg);
 				exec(`cd tmp;rm -rf ${msgJSON.deployId}`);
 			});
