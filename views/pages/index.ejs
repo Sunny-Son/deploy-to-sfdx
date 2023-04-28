@@ -76,6 +76,14 @@
                     <br/>
                     <br/>
                     <article class="slds-tile">
+                        <h3 class="slds-tile__title slds-truncate" title="Login to Org">In last resort, delete it </h3>    
+                        <div class="slds-tile__detail">
+                                <center>   
+                                        <button onclick="deleteorg();" class="slds-button slds-button_destructive">Delete</button>
+                                </center>
+                            </div>
+                    </article>
+                    <article class="slds-tile">
                         <h3 class="slds-tile__title slds-truncate" title="Login to Org">In last resort, start over! </h3>    
                         <div class="slds-tile__detail">
                                 <center>   
@@ -254,6 +262,16 @@
                 document.getElementById("noorg").setAttribute("style", "display : block");
                 document.getElementById("loginBlock").setAttribute("style", "display : none");
                 window.location.href='/?action=nextstep&step=0';
+            }
+
+            var deleteorg = function(){
+                //document.getElementById("username").innerHTML = '';
+                //document.getElementById("password").innerHTML = '';
+                //document.getElementById("passwordBlock").setAttribute("style", "display : none");
+                //document.getElementById("loginUrl").href='';
+                //document.getElementById("noorg").setAttribute("style", "display : block");
+                //document.getElementById("loginBlock").setAttribute("style", "display : none");
+                window.location.href='/?action=sunny&username='+username;
             }
   
             var launch=function(){
