@@ -154,7 +154,7 @@ app.get('/deploying/:deployId', (req, res) => {
 
 app.ws('/deploying/:deployId', (ws, req) => {
     logger.debug('client connected!');
-    // ws.send('welcome to the socket!');
+    ws.send('welcome to the socket!');
     ws.on('close', () => logger.info('Client disconnected'));
   }
 );

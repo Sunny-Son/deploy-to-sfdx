@@ -1,4 +1,4 @@
-<% include ../partials/head %>
+<%- include ('../partials/head') %>
 
 <main class="slds-card">
 	<div id="loaderBlock"><h2 class="slds-text-heading_medium slds-p-top_medium slds-p-bottom_medium sfdx-wrap"><img src="../dist/assets/images/loader.gif" style="width:27px;" /> Deploying <strong id="deployId"><%= deployId %></strong></h2></div>
@@ -58,13 +58,13 @@
 		// works for both http and https
 		const HOST = location.href.replace(/^http/, 'ws');
 		let msgCounter = 0;
-		console.log(HOST);
+		console.log('message.ejs : Host : ' + HOST);
 
 		const deployIdInput = document.getElementById('deployId');
-		console.log(deployIdInput);
+		console.log('message.ejs : deployIdInput : ' + deployIdInput);
 
 		const deployId = deployIdInput.innerText;
-		console.log(deployId);
+		console.log('message.ejs : deployId : ' + deployId);
 
 		const ws = new WebSocket(HOST);
 		let pinger;
@@ -180,4 +180,4 @@
 	</script>
 
 </main>
-<% include ../partials/footer %>
+<%- include ('../partials/footer') %>
