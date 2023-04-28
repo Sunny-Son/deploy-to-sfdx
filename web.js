@@ -180,7 +180,7 @@ mq.then( (mqConn) => {
         logger.debug('web.js : heard a message from the worker');
         const parsedMsg = JSON.parse(msg.content.toString());
         logger.debug(parsedMsg);
-        console.log('parsed msg : ' + parsedMsg);
+        console.log('parsed msg : ' + parsedMsg.toString);
         wsInstance.getWss().clients.forEach((client) => {
           if (client.upgradeReq.url.includes(parsedMsg.deployId)) {
             client.send(msg.content.toString());
@@ -199,5 +199,8 @@ mq.then( (mqConn) => {
 })
 .catch( (mqerr) => {
   logger.error(`MQ error ${mqerr}`);
+})
+.catch( (error) => {
+  logger.error(`general error ${error}`);
 });
 
