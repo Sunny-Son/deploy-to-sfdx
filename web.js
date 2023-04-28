@@ -182,13 +182,14 @@ mq.then( (mqConn) => {
       ch.consume(q.queue, (msg) => {
         logger.debug('web.js : heard a message from the worker');
         const parsedMsg = JSON.parse(msg.content.toString());
-        logger.debug(parsedMsg);
-        console.log('parsed msg : ' + parsedMsg.toString);
+        //logger.debug(parsedMsg);
+        console.log('parsed msg.content : ' + parsedMsg.content);
         wsInstance.getWss().clients.forEach((client) => {
           if (client.upgradeReq.url.includes(parsedMsg.deployId)) {
             client.send(msg.content.toString());
             // close connection when ALLDONE
             if (parsedMsg.content === 'ALLDONE') {
+              logger.debug('web.js : receive ALLDONE');
               client.close();
             }
           }

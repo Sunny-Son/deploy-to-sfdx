@@ -60,13 +60,10 @@ exec(cmd)
 			const visitor = ua(process.env.UA_ID || 0);
 			// do a whole bunch of stuff here!
 	
-			logger.debug('worker.js : msg: ' + msg);
 			const msgJSON = JSON.parse(msg.content.toString());
 			logger.debug('worker.js : msgJSON = ' + msgJSON);
-			console.log('worker.js : msgJSON = ' + msgJSON.toString);
-			logger.debug('worker.js : deployId = ' + msgJSON.deployId);
+			console.log('worker.js : msgJSON = ' + msgJSON.content);
 			console.log('worker.js : deployId = ' + msgJSON.deployId);
-			logger.debug('worker.js : template = ' + msgJSON.template);
 			console.log('worker.js : template = ' + msgJSON.template);
 			visitor.event('Deploy Request', msgJSON.template).send();
 
@@ -76,7 +73,7 @@ exec(cmd)
 			if (msgJSON.branch){
 				logger.debug('worker.js : It is a branch!');
 				gitCloneCmd = `cd tmp;git clone -b ${msgJSON.branch} --single-branch https://github.com/${msgJSON.username}/${msgJSON.repo}.git ${msgJSON.deployId}`;
-				logger.debug('worker.js : gitclonecmd : ' + gitCloneCmd);
+				logger.debug('worker.js : gitclonecmd : [' + gitCloneCmd + ']');
 			} else {
 				logger.debug('+++ worker.js :  +++ : It is not a branch!');
 				logger.debug('+++ worker.js :  +++ : username : ' + msgJSON.username);
@@ -84,13 +81,13 @@ exec(cmd)
 				logger.debug('+++ worker.js :  +++ : deployId : ' + msgJSON.deployId);
 				gitCloneCmd = `cd tmp;git clone https://github.com/${msgJSON.username}/${msgJSON.repo}.git ${msgJSON.deployId}`;
 			}
-			logger.debug('worker.js : gitCloneCmd' + gitCloneCmd);
 			exec(gitCloneCmd)
 			.then( (result) => {
 				// git outputs to stderr for unfathomable reasons
-				logger.debug('worker.js : result.stderr : ' + result.stderr);
-				logger.debug('worker.js : result.stdout : ' + result.stdout);
+				logger.debug('worker.js : result.stderr : [' + result.stderr + ']');
+				logger.debug('worker.js : result.stdout : [' + result.stdout + ']');
 				ch.publish(ex, '', bufferKey(result.stderr, msgJSON.deployId));
+				ch.ack(msg);
 				return exec(`cd tmp;cd ${msgJSON.deployId};ls`);
 			})
 			.then( (result) => {
