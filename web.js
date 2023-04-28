@@ -154,7 +154,7 @@ app.get('/deploying/:deployId', (req, res) => {
 
 app.ws('/deploying/:deployId', (ws, req) => {
     logger.debug('client connected!');
-    ws.send('welcome to the socket!');
+    //ws.send('welcome to the socket!');
     ws.on('close', () => logger.info('Client disconnected'));
   }
 );
@@ -179,6 +179,25 @@ mq.then( (mqConn) => {
     }).then( (q) => {
       logger.debug('web.js : queue asserted');
       ch.bindQueue(q.queue, ex, '');
+
+      ch.consume(q.queue, (msg) => {
+        logger.debug('web.js : heard a message from the worker');
+        const parsedMsg = JSON.parse(msg.content.toString());
+        //logger.debug(parsedMsg);
+        console.log('parsed msg.content : ' + parsedMsg.content);
+        wsInstance.getWss().clients.forEach((client) => {
+          
+            client.send(msg.content.toString());
+            // close connection when ALLDONE
+            if (parsedMsg.content === 'ALLDONE') {
+              logger.debug('web.js : receive ALLDONE');
+              client.close();
+            }
+        });
+
+        ch.ack(msg);
+      }, { noAck: false });
+/*
       ch.consume(q.queue, (msg) => {
         logger.debug('web.js : heard a message from the worker');
         const parsedMsg = JSON.parse(msg.content.toString());
@@ -196,7 +215,7 @@ mq.then( (mqConn) => {
         });
 
         ch.ack(msg);
-      }, { noAck: false });
+      }, { noAck: false }); */
     });
   });
   return ok;

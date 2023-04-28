@@ -87,7 +87,7 @@ exec(cmd)
 				logger.debug('worker.js : result.stderr : [' + result.stderr + ']');
 				logger.debug('worker.js : result.stdout : [' + result.stdout + ']');
 				ch.publish(ex, '', bufferKey(result.stderr, msgJSON.deployId));
-				ch.ack(msg);
+				//ch.ack(msg);
 				return exec(`cd tmp;cd ${msgJSON.deployId};ls`);
 			})
 			.then( (result) => {

@@ -95,14 +95,14 @@
 			};
 
 		ws.onopen = function () {
-			console.log('WS is open!');
+			console.log('message.ejs : WS is open!');
 			pinger = setInterval(function(){
 				ws.send('ping');
 			}, 5000);
 		};
 
 		ws.onclose = function(){
-			console.log('WS is closing');
+			console.log('message.ejs : WS is closing');
 			clearInterval(pinger);
 		}
 
