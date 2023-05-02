@@ -109,9 +109,9 @@
             console.log('++ Sunny : index.ejs : host : ', HOST);
 
             var username=localStorage.getItem('username');
-            console.log('++ Sunny : index.ejs : username : ', username);
+            //console.log('++ Sunny : index.ejs : username : ', username);
             var password=localStorage.getItem('password');
-            console.log('++ Sunny : index.ejs : password : ', password);
+            //console.log('++ Sunny : index.ejs : password : ', password);
             var loginUrl=localStorage.getItem('loginUrl');
             console.log('++ Sunny : index.ejs : loginUrl : ', loginUrl);
             var instanceUrl=localStorage.getItem('instanceUrl');
@@ -230,7 +230,8 @@
                     localStorage.setItem("instanceUrl",goodstuff.result.instanceUrl);
                     document.getElementById("instanceUrl").innerHTML = goodstuff.result.instanceUrl;
                 }else if (content.includes('ALLDONE')) {
-                    document.getElementById("nextstepbtn").setAttribute("style", "display : block");
+                    console.log('ALL DONE!!!!!!!!!!');
+                    document.getElementById("nextstepbtn").setAttribute("style", "display : none");
                     document.getElementById("spinner").setAttribute("style", "display : none");
                 } else if (content.includes('instanceUrl')) {
                    msgCounter--;

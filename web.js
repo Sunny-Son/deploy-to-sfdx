@@ -184,7 +184,7 @@ mq.then( (mqConn) => {
         logger.debug('web.js : heard a message from the worker');
         const parsedMsg = JSON.parse(msg.content.toString());
         //logger.debug(parsedMsg);
-        console.log('parsed msg.content : ' + parsedMsg.content);
+        //console.log('parsed msg.content : ' + parsedMsg.content);
         wsInstance.getWss().clients.forEach((client) => {
           
             client.send(msg.content.toString());
