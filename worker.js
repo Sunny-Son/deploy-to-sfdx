@@ -115,7 +115,7 @@ exec(cmd)
 				}
 			})
 			.then( (parsedLines) => {
-				logger.debug('worker.js : these are the parsed lines:');
+				//logger.debug('worker.js : these are the parsed lines:');
 				logger.debug('worker.js : parsedLines : ' + parsedLines);
 				// some kind of error occurred, already handled
 				if (!parsedLines) {
@@ -123,7 +123,7 @@ exec(cmd)
 					ch.ack(msg);
 					return;
 				} else {
-					logger.debug('worker.js : got back parsed lines');
+					//logger.debug('worker.js : got back parsed lines');
 					let localLineRunner = new lineRunner(msgJSON, parsedLines, ch, visitor);
 					return localLineRunner.runLines();	
 				}
