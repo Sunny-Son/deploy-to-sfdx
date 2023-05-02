@@ -18,7 +18,8 @@ logger.debug('I am a worker and I am up!');
 let cmd='pwd';
 //sfdx msm:user:password:set -p SFPL2018 -g User -l User --json
 //if(process.env.DXLOGINURL)cmd='echo y | sfdx plugins:install sfdx-msm-plugin'
-if(process.env.DXLOGINURL)cmd='echo y | sfdx plugins:install shane-sfdx-plugins'
+//if(process.env.DXLOGINURL)cmd='echo y | sfdx plugins:install shane-sfdx-plugins'
+if(process.env.DXLOGINURL)cmd='echo y | sfdx plugins:install sfdx-migration-automatic'
 exec(cmd)
 // auth to the hub
 .then( (result) => {
