@@ -191,6 +191,8 @@
                     localStorage.setItem("password",goodstuff.result.password);
                     document.getElementById("passwordBlock").setAttribute("style", "display : block");
                     defaultContent('Password Generated');
+                } else if (content.includes('idMap')) {
+                    defaultContent('Loaded some data (see console logs for details)');
                 } else if (content.includes('pushedSource')) {
 
                     defaultContent('Source Pushed');
