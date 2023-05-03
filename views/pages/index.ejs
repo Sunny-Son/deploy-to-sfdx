@@ -226,8 +226,9 @@
                 } else if (content.includes('accessToken')) {
                     let goodstuff = JSON.parse(content);
                     //console.log(goodstuff);
-                    localStorage.setItem("accessToken",goodstuff.result.accessToken);
-                    localStorage.setItem("instanceUrl",goodstuff.result.instanceUrl);
+                    console.log('+++ SUNNY : accessToken : [goodstuff.authFields.accessToken]');
+                    localStorage.setItem("accessToken",goodstuff.authFields.accessToken);
+                    localStorage.setItem("instanceUrl",goodstuff.authFields.instanceUrl);
                     document.getElementById("instanceUrl").innerHTML = goodstuff.result.instanceUrl;
                 }else if (content.includes('ALLDONE')) {
                     //console.log('ALL DONE!!!!!!!!!!');
