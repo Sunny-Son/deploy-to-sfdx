@@ -185,6 +185,7 @@
                     localStorage.setItem("loginUrl",goodstuff.result.url);
                     document.getElementById("noorg").setAttribute("style", "display : none");
                     document.getElementById("loginBlock").setAttribute("style", "display : block");
+                    msgCounter--;
                 } else if (content.includes('password')) {
                     let goodstuff = JSON.parse(content);
                     document.getElementById("password").innerHTML = goodstuff.result.password;
@@ -203,8 +204,8 @@
                     let goodstuff = JSON.parse(content);
                     //console.log(goodstuff);
                     console.log('+++ SUNNY : accessToken : [goodstuff.authFields.accessToken]');
-                    localStorage.setItem("accessToken",goodstuff.accessToken);
-                    localStorage.setItem("instanceUrl",goodstuff.instanceUrl);
+                    localStorage.setItem("accessToken",goodstuff.result.authFields.accessToken);
+                    localStorage.setItem("instanceUrl",goodstuff.result.authFields.instanceUrl);
                     document.getElementById("instanceUrl").innerHTML = goodstuff.instanceUrl; 
                     document.getElementById("username").innerHTML = goodstuff.result.username;
                     localStorage.setItem("username",goodstuff.result.username);
