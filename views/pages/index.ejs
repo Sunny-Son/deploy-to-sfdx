@@ -190,6 +190,8 @@
                     let goodstuff = JSON.parse(content);
                     document.getElementById("password").innerHTML = goodstuff.result.password;
                     localStorage.setItem("password",goodstuff.result.password);
+                    document.getElementById("username").innerHTML = goodstuff.result.username;
+                    localStorage.setItem("username",goodstuff.result.username);
                     document.getElementById("passwordBlock").setAttribute("style", "display : block");
                     defaultContent('Password Generated');
                 } else if (content.includes('idMap')) {
@@ -204,10 +206,11 @@
                     let goodstuff = JSON.parse(content);
                     //console.log(goodstuff);
                     //console.log('+++ SUNNY : accessToken1 : [ ' + goodstuff.authFields.accessToken + ']');
-                    console.log('+++ SUNNY : accessToken2 : [ ' + goodstuff.result.accessToken + ']');
+                    //console.log('+++ SUNNY : accessToken2 : [ ' + goodstuff.result.accessToken + ']');
                     console.log('+++ SUNNY : accessToken3 : [ ' + goodstuff.result.authFields.accessToken + ']');
-                    localStorage.setItem("accessToken",goodstuff.result.accessToken);
-                    localStorage.setItem("instanceUrl",goodstuff.result.instanceUrl);
+                    console.log('+++ SUNNY : instanceUrl3 : [ ' + goodstuff.result.authFields.instanceUrl + ']');
+                    localStorage.setItem("accessToken",goodstuff.result.authFields.accessToken);
+                    localStorage.setItem("instanceUrl",goodstuff.result.authFields.instanceUrl);
                     document.getElementById("instanceUrl").innerHTML = goodstuff.result.instanceUrl; 
                     document.getElementById("username").innerHTML = goodstuff.result.username;
                     localStorage.setItem("username",goodstuff.result.username);
