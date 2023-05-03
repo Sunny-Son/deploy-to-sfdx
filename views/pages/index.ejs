@@ -203,7 +203,7 @@
                 } else if (content.includes('accessToken')) {
                     let goodstuff = JSON.parse(content);
                     //console.log(goodstuff);
-                    console.log('+++ SUNNY : accessToken1 : [ ' + goodstuff.authFields.accessToken + ']');
+                    //console.log('+++ SUNNY : accessToken1 : [ ' + goodstuff.authFields.accessToken + ']');
                     console.log('+++ SUNNY : accessToken2 : [ ' + goodstuff.result.accessToken + ']');
                     console.log('+++ SUNNY : accessToken3 : [ ' + goodstuff.result.authFields.accessToken + ']');
                     localStorage.setItem("accessToken",goodstuff.result.accessToken);
