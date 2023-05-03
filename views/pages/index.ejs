@@ -98,7 +98,7 @@
 
         <script>
             const deployIdInput = document.getElementById('deployId');
-            console.log('++ Sunny : deployIdInput : ', deployIdInput);
+            //console.log('++ Sunny : deployIdInput : ', deployIdInput);
 
             const deployId = deployIdInput.innerText;
             console.log('++ Sunny : deployId : ', deployId);
@@ -106,16 +106,16 @@
             let protoc = location.protocol=='https:'?'wss':'ws';
             const HOST = protoc+'://' + location.hostname + ':' + location.port + '/deploying/' + deployId;//location.href.replace(/^http/, 'ws');
             let msgCounter = 0;
-            console.log('++ Sunny : index.ejs : host : ', HOST);
+            //console.log('++ Sunny : index.ejs : host : ', HOST);
 
             var username=localStorage.getItem('username');
             //console.log('++ Sunny : index.ejs : username : ', username);
             var password=localStorage.getItem('password');
             //console.log('++ Sunny : index.ejs : password : ', password);
             var loginUrl=localStorage.getItem('loginUrl');
-            console.log('++ Sunny : index.ejs : loginUrl : ', loginUrl);
+            //console.log('++ Sunny : index.ejs : loginUrl : ', loginUrl);
             var instanceUrl=localStorage.getItem('instanceUrl');
-            console.log('++ Sunny : index.ejs : instanceUrl : ', instanceUrl);
+            //console.log('++ Sunny : index.ejs : instanceUrl : ', instanceUrl);
             if(username!=null && password!=null && loginUrl!=null){
                 document.getElementById("username").innerHTML = username;
                 document.getElementById("password").innerHTML = password;
@@ -137,7 +137,7 @@
 
                 ws.onmessage = function (event) {
                     msgCounter++;
-                    console.log(event);
+                    //console.log(event);
                     let parsedData;
                     try {
                         parsedData = JSON.parse(event.data);
@@ -147,7 +147,7 @@
                     }
                     if (parsedData) {
                         if (parsedData.deployId === deployId) {
-                            console.log(parsedData);
+                            //console.log(parsedData);
                             displayContent(parsedData.content);
                         } else {
                             console.log('not mine');
@@ -178,7 +178,7 @@
                     console.log(content);
                     document.getElementById("errorBlock").setAttribute("style", "display : block");
                 } else if (content.includes('secur/frontdoor')) {
-                    console.log('This is the login url in JSON');
+                    //console.log('This is the login url in JSON');
                     let goodstuff = JSON.parse(content);
                     var link = document.getElementById("loginUrl");
                     link.href = goodstuff.result.url;
@@ -225,12 +225,12 @@
                     defaultContent('Scratch org created with username ' + goodstuff.result.username);
                 } else if (content.includes('accessToken')) {
                     let goodstuff = JSON.parse(content);
-                    console.log(goodstuff);
+                    //console.log(goodstuff);
                     localStorage.setItem("accessToken",goodstuff.result.accessToken);
                     localStorage.setItem("instanceUrl",goodstuff.result.instanceUrl);
                     document.getElementById("instanceUrl").innerHTML = goodstuff.result.instanceUrl;
                 }else if (content.includes('ALLDONE')) {
-                    console.log('ALL DONE!!!!!!!!!!');
+                    //console.log('ALL DONE!!!!!!!!!!');
                     document.getElementById("nextstepbtn").setAttribute("style", "display : none");
                     document.getElementById("spinner").setAttribute("style", "display : none");
                 } else if (content.includes('instanceUrl')) {

@@ -84,12 +84,12 @@ app.get('/', async (req, res) => {
     const message = await msgBuilder(process.env.GIT_REPOURL+'/tree/step'+req.query.step);
     console.log('web.js : deploy : query.step : ' + req.query);
     if(req.query.step>0)message.SOusername=req.query.SOusername;
-    console.log('web.js : deploy : consol.log 86line : ' + message);
+    //console.log('web.js : deploy : consol.log 86line : ' + message);
     mq.then( (mqConn) => {
       let ok = mqConn.createChannel();
       ok = ok.then((ch) => {
         ch.assertQueue('deploys', { durable: true });
-        console.log('web.js : msg to mq : ' + JSON.stringify(message));
+        //console.log('web.js : msg to mq : ' + JSON.stringify(message));
         //ch.sendToQueue('deploys', new Buffer(JSON.stringify(message))); deprecated
         ch.sendToQueue('deploys', Buffer.from(JSON.stringify(message)));
       });
