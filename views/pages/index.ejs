@@ -207,11 +207,11 @@
                     //console.log(goodstuff);
                     //console.log('+++ SUNNY : accessToken1 : [ ' + goodstuff.authFields.accessToken + ']');
                     //console.log('+++ SUNNY : accessToken2 : [ ' + goodstuff.result.accessToken + ']');
-                    console.log('+++ SUNNY : accessToken3 : [ ' + goodstuff.result.authFields.accessToken + ']');
-                    console.log('+++ SUNNY : instanceUrl3 : [ ' + goodstuff.result.authFields.instanceUrl + ']');
+                    //console.log('+++ SUNNY : accessToken3 : [ ' + goodstuff.result.authFields.accessToken + ']');
+                    //console.log('+++ SUNNY : instanceUrl3 : [ ' + goodstuff.result.authFields.instanceUrl + ']');
                     localStorage.setItem("accessToken",goodstuff.result.authFields.accessToken);
                     localStorage.setItem("instanceUrl",goodstuff.result.authFields.instanceUrl);
-                    document.getElementById("instanceUrl").innerHTML = goodstuff.result.instanceUrl; 
+                    document.getElementById("instanceUrl").innerHTML = goodstuff.result.authFields.instanceUrl; 
                     document.getElementById("username").innerHTML = goodstuff.result.username;
                     localStorage.setItem("username",goodstuff.result.username);
                     defaultContent('Scratch org created with username ' + goodstuff.result.username);
