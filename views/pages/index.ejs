@@ -203,9 +203,12 @@
                     let goodstuff = JSON.parse(content);
                     //console.log(goodstuff);
                     console.log('+++ SUNNY : accessToken : [goodstuff.authFields.accessToken]');
-                    localStorage.setItem("accessToken",goodstuff.authFields.accessToken);
-                    localStorage.setItem("instanceUrl",goodstuff.authFields.instanceUrl);
+                    localStorage.setItem("accessToken",goodstuff.result.accessToken);
+                    localStorage.setItem("instanceUrl",goodstuff.result.instanceUrl);
                     document.getElementById("instanceUrl").innerHTML = goodstuff.result.instanceUrl; 
+                    document.getElementById("username").innerHTML = goodstuff.result.username;
+                    localStorage.setItem("username",goodstuff.result.username);
+                    defaultContent('Scratch org created with username ' + goodstuff.result.username);
                 } 
                 else if (content.includes('username') && content.includes('orgId')) {
                     let goodstuff = JSON.parse(content);
