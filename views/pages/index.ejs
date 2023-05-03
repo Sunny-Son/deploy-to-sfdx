@@ -194,26 +194,7 @@
                 } else if (content.includes('idMap')) {
                     defaultContent('Loaded some data (see console logs for details)');
                 } else if (content.includes('pushedSource')) {
-
                     defaultContent('Source Pushed');
-                    // // let's create an array to share
-                    // var element = document.getElementById("status");
-                    // var para = document.createElement("p");
-                    // para.classList.add('slds-m-vertical_medium');
-                    // var ul = document.createElement("ul");
-                    // ul.classList.add('slds-list_vertical');
-
-                    // let goodstuff = JSON.parse(content);
-                    // for (let line of goodstuff.result.pushedSource){
-                    // 	var li = document.createElement("li");
-                    // 	var node = document.createTextNode(line.state + ' ' + line.fullName + ' (' + line.type + ')' );
-                    // 	li.appendChild(node);
-                    // 	ul.appendChild(li);
-                    // }
-                    // para.appendChild(ul);
-                    // var element = document.getElementById("status");
-                    // element.appendChild(para);
-                    //refId
                 } else if (content.includes('Import Results')) {
                     defaultContent('Loaded some data (see console logs for details)');
                 } else if (content.includes('EXECUTION_FINISHED')) {
@@ -223,26 +204,36 @@
                     document.getElementById("username").innerHTML = goodstuff.result.username;
                     localStorage.setItem("username",goodstuff.result.username);
                     defaultContent('Scratch org created with username ' + goodstuff.result.username);
-                } else if (content.includes('accessToken')) {
+                } /*else if (content.includes('accessToken')) {
                     let goodstuff = JSON.parse(content);
                     //console.log(goodstuff);
                     console.log('+++ SUNNY : accessToken : [goodstuff.authFields.accessToken]');
                     localStorage.setItem("accessToken",goodstuff.authFields.accessToken);
                     localStorage.setItem("instanceUrl",goodstuff.authFields.instanceUrl);
-                    document.getElementById("instanceUrl").innerHTML = goodstuff.result.instanceUrl;
-                }else if (content.includes('ALLDONE')) {
+                    document.getElementById("instanceUrl").innerHTML = goodstuff.result.instanceUrl; 
+                } */ 
+                else if (content.includes('ALLDONE')) {
                     //console.log('ALL DONE!!!!!!!!!!');
                     document.getElementById("nextstepbtn").setAttribute("style", "display : none");
                     document.getElementById("spinner").setAttribute("style", "display : none");
                     document.getElementById("deleteorgBlock").setAttribute("style", "display : block");
+                    defaultContent('Done !!');
                 } else if (content.includes('instanceUrl')) {
                    msgCounter--;
-                }
-                else if (content.includes('=== Source Status')) {
+                } else if (content.includes('=== Source Status')) {
                    msgCounter--;
-                }else {
+                } else {
                     // everything unspecified
                     defaultContent(content);
+                }
+
+                if (content.includes('accessToken')) {
+                    let goodstuff = JSON.parse(content);
+                    //console.log(goodstuff);
+                    console.log('+++ SUNNY : accessToken : [goodstuff.authFields.accessToken]');
+                    localStorage.setItem("accessToken",goodstuff.authFields.accessToken);
+                    localStorage.setItem("instanceUrl",goodstuff.authFields.instanceUrl);
+                    document.getElementById("instanceUrl").innerHTML = goodstuff.result.instanceUrl; 
                 }
 
             }
