@@ -6,6 +6,8 @@ const logger = require('heroku-logger');
 // const cookieParser = require('cookie-parser');
 const msgBuilder = require('./lib/deployMsgBuilder');
 
+var sunnytrailhead = require('./trailhead');
+
 const ex = 'deployMsg';
 
 // const http = require('http');
@@ -160,6 +162,22 @@ app.get('/checkdashboard', (req, res) => {
   logger.debug('+++SUNNY username = [' + req.query.username + ']+++');
   logger.debug('+++SUNNY password = [' + req.query.password + ']+++');
   return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
+});
+
+app.get('/trailhead', (req, res) => {
+
+  //https://sunny-deployer1.herokuapp.com/checkdashboard?action=check&username=sdlkfaj@example.com&password=aldkfjas
+  //https://sunny-deployer1.herokuapp.com/checkdashboard?action=checkdata&username=sdlkfaj@example.com&password=aldkfjas
+  logger.debug('+++SUNNY /trailhead = 1 = +++');
+  let action = req.query.action;
+  logger.debug('+++SUNNY /trailhead = 2, query = [' + req.query + ']+++');
+  logger.debug('+++SUNNY /trailhead = 3, action = [' + action + ']+++');
+  logger.debug('+++SUNNY /trailhead username = [' + req.query.username + ']+++');
+  logger.debug('+++SUNNY /trailhead password = [' + req.query.password + ']+++');
+  if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
+    return login(req.query.username,req.query.password,action);
+  }
+  //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
 app.get('/deploying/:deployId', (req, res) => {

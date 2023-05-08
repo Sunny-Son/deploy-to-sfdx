@@ -1,60 +1,60 @@
 <%- include ('../partials/head') %>
 
     <main class="slds-card">
-        <div class="slds-p-horizontal_small slds-size_8-of-12">
-            <div class="slds-card">
-                    <div class="slds-text-heading_medium">Ready to go?</div>
-                    <div class="slds-text-body_regular">
-                            아래의 3가지 퀘스트를 마치시면 됩니다.
-                    </div>
-                    <div class="slds-text-body_regular">
-                        참고 user name : <%- username %>, password :  <%- password %>
-                </div>
-                    <br/>               
-            </div> 
-
-            <div class="slds-card">
-                <div class="slds-text-heading_medium">Question #1</div>
+        
+        <div class="slds-card">
+                <div class="slds-text-heading_medium">Ready to go?</div>
                 <div class="slds-text-body_regular">
-                        리포트를 만들어 봅시다 #1
+                        아래의 3가지 퀘스트를 마치시면 됩니다.
                 </div>
-                <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
-            </div> 
-
-            <div class="slds-card">
-                <div class="slds-text-heading_medium">Question #2</div>
                 <div class="slds-text-body_regular">
-                        리포트를 만들어 봅시다 #2
-                </div>
-                <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
-            </div> 
-
-            <div class="slds-card">
-                <div class="slds-text-heading_medium">Question #3</div>
-                <div class="slds-text-body_regular">
-                        리포트를 만들어 봅시다 #3
-                </div>
-                <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
-            </div> 
-
-            <div id="errorBlock" style="display: none;">
-                <div class="slds-notify_container slds-is-relative slds-m-bottom_large sfdx-wrap">
-
-                    <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
-                        <span class="slds-assistive-text">Error</span>
-
-                        <div class="slds-notify__content">
-                            <h2 class="slds-text-heading_small ">
-                                <strong id="errorTest">An error occurred while deploying.</strong>&nbsp;See the browser console logs for more
-                                information.
-                            </h2>
-                        </div>
-                    </div>
-
-                </div>
+                    참고 user name : <%- username %>, password :  <%- password %>
             </div>
-            
+                <br/>               
+        </div> 
+
+        <div class="slds-card">
+            <div class="slds-text-heading_medium">Question #1</div>
+            <div class="slds-text-body_regular">
+                    리포트를 만들어 봅시다 #1
+            </div>
+            <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
+        </div> 
+
+        <div class="slds-card">
+            <div class="slds-text-heading_medium">Question #2</div>
+            <div class="slds-text-body_regular">
+                    리포트를 만들어 봅시다 #2
+            </div>
+            <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
+        </div> 
+
+        <div class="slds-card">
+            <div class="slds-text-heading_medium">Question #3</div>
+            <div class="slds-text-body_regular">
+                    리포트를 만들어 봅시다 #3
+            </div>
+            <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
+        </div> 
+
+        <div id="errorBlock" style="display: none;">
+            <div class="slds-notify_container slds-is-relative slds-m-bottom_large sfdx-wrap">
+
+                <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">
+                            <strong id="errorTest">An error occurred while deploying.</strong>&nbsp;See the browser console logs for more
+                            information.
+                        </h2>
+                    </div>
+                </div>
+
+            </div>
         </div>
+        
+    
             
         
 
@@ -63,7 +63,11 @@
   
 
             question1_launch=function() {
-                defaultContent('Questions !!');
+                //defaultContent('Questions !!');
+                fetch("/?action=nextstep&step=0")
+                    .then((response) => console.log("response:", response))
+                    .catch((error) => console.log("error:", error));
+
             }
 
         </script>
