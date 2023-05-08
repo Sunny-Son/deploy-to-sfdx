@@ -11,6 +11,10 @@
     "GIT_REPOURL": {
       "description": "The link to the base SFDX project repo (e.g: https://github.com/mjacquet/gestion-embauche)",
       "value": ""
+    },
+    "LOG_LEVEL": {
+      "description": "Put your log level, DEBUG is recommended for debugging",
+      "value": ""
     }
   },
   "formation": [
