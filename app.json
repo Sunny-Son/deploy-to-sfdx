@@ -1,7 +1,7 @@
 {
   "name": "SFDX Workshop Deployer",
   "description": "An application that will deploy SFDX project from a public Github repo branches step by steps",
-  "repository": "https://github.com/mjacquet/deploy-to-sfdx",
+  "repository": "https://github.com/Sunny-Son/deploy-to-sfdx111",
   "keywords": ["deploy", "sfdx", "salesforcedx"],
   "env": {
     "DXLOGINURL": {
