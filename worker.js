@@ -10,11 +10,11 @@ const logResult = require('./lib/logging');
 const lineParse = require('./lib/lineParse');
 
 const setTimeoutPromise = util.promisify(setTimeout);
-const ex = 'deployMsg';
+const ex = 'deployMsg'; 
 
-logger.debug('I am a worker and I am up!');
+logger.info('I am a worker and I am up!');   
 
-// load helpful plugins in cloud only
+// load helpful plugins in cloud only,,, can you see?
 let cmd='pwd';
 //sfdx msm:user:password:set -p SFPL2018 -g User -l User --json
 //if(process.env.DXLOGINURL)cmd='echo y | sfdx plugins:install sfdx-msm-plugin'
