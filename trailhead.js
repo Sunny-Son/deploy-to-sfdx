@@ -1,7 +1,7 @@
 var jsforce = require("jsforce");
 var path = require("path");
 var configpath = path.normalize("./");
-var config = require(configpath+"config.js");
+//var config = require(configpath+"config.js");
 var conn = new jsforce.Connection();
 //var conn;
 
@@ -10,6 +10,7 @@ var loggedIn = false;
 //Sign up for a free Developer Edition at https://developer.salesforce.com/signup
 
 //For username / password flow
+/*
 var username = process.env.username || config.username || null;
 var password = process.env.password || config.password || null;
 var varinstanceUrl = process.env.instanceUrl || config.instanceUrl || null;
@@ -33,6 +34,7 @@ Learn more here:
 https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_authentication.htm
 
 */
+var deployToWeb = false;
 
 if(deployToWeb) {
     var port = process.env.PORT || 8675;
