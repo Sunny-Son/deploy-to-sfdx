@@ -2,100 +2,70 @@
 
     <main class="slds-card">
 
-       <div class="slds-grid slds-wrap slds-grid_pull-padded">
-            <div class="slds-p-horizontal_small slds-size_8-of-12">
-                
-               <!-- <%- include ('../partials/progress') %>  -->
-                <div class="slds-card">
-                        <div class="slds-text-heading_medium"><%- steps[step].title %></div>
-                        <div class="slds-text-body_regular">
-                                <%- steps[step].body %>
-                        </div>
-                        <center><button class="slds-button slds-button_brand" id="launchbtn" onclick="launch();"><%- steps[step].button %></button></center>                                          
-                        <br/>               
-                        <button id="nextstepbtn" class="slds-button slds-button_brand slds-hide" onclick="window.location.href='/?action=nextstep&step=<%= step+1 %>'">Next Step</button>          
-                </div> 
-
-                <div id="errorBlock" style="display: none;">
-                    <div class="slds-notify_container slds-is-relative slds-m-bottom_large sfdx-wrap">
-
-                        <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
-                            <span class="slds-assistive-text">Error</span>
-
-                            <div class="slds-notify__content">
-                                <h2 class="slds-text-heading_small ">
-                                    <strong id="errorTest">An error occurred while deploying.</strong>&nbsp;See the browser console logs for more
-                                    information.
-                                </h2>
-                            </div>
-                        </div>
-
+       
+        <div class="slds-p-horizontal_small slds-size_8-of-12">
+            
+            <!-- <%- include ('../partials/progress') %>  -->
+            <div class="slds-card">
+                    <div class="slds-text-heading_medium"><%- steps[step].title %></div>
+                    <div class="slds-text-body_regular">
+                            <%- steps[step].body %>
                     </div>
-                </div>
-                <%if(deployId!=''){%> Deployment status for:<%}%> 
-                <strong id="deployId"><%= deployId %></strong>
-                    <%if(deployId!=''){%>
-                        <img id="spinner" src="../dist/assets/images/loader.gif" style="width:27px;" />
-                        <div id="status" class="slds-m-bottom_small sfdx-output"></div>
-                    <%}%>
+                    <center><button class="slds-button slds-button_brand" id="launchbtn" onclick="launch();"><%- steps[step].button %></button></center>                                          
+                    <br/>               
+                    <button id="nextstepbtn" class="slds-button slds-button_brand slds-hide" onclick="window.location.href='/?action=nextstep&step=<%= step+1 %>'">Next Step</button>          
+            </div> 
 
-            </div>
-            <div class="slds-size_4-of-12 slds-theme_shade" style="border: 1px solid #d8dde6;border-radius: 0.25rem;">
-                <div class="slds-card__header slds-grid">
-                    <header class="slds-has-flexi-truncate">
-                        <h2>
-                            <span class="slds-text-heading_small">Org infos</span>
-                        </h2>
-                    </header>
+            <div class="slds-card">
+                <div class="slds-text-heading_medium">Question #1</div>
+                <div class="slds-text-body_regular">
+                        리포트를 만들어 봅시다 #1
                 </div>
-                <div class="slds-card__body slds-card__body_inner">
-                    <p id="noorg">No Active Organisation</p>
+                <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
+            </div> 
 
-                    <article class="slds-tile" id="passwordBlock" style="display: none;">
-                        <h3 class="slds-tile__title slds-truncate" title="Login to Org">Credentials</h3>
-                        <div class="slds-tile__detail">
-                            <dl class="slds-list_horizontal slds-wrap">
-                                <dt class="slds-item_label slds-text-color_weak" title="First Label">Username:</dt>
-                                <dd class="slds-item_detail" title="Description for first label" id="username"></dd>
-                                <dt class="slds-item_label slds-text-color_weak" title="Second Label">Password:</dt>
-                                <dd class="slds-item_detail" title="Description for second label" id="password"></dd>
-                                <dt class="slds-item_label slds-text-color_weak" title="Second Label">Instance Url:</dt>
-                                <dd class="slds-item_detail" title="Description for second label" id="instanceUrl"></dd>
-                            </dl>
+            <div class="slds-card">
+                <div class="slds-text-heading_medium">Question #2</div>
+                <div class="slds-text-body_regular">
+                        리포트를 만들어 봅시다 #2
+                </div>
+                <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
+            </div> 
+
+            <div class="slds-card">
+                <div class="slds-text-heading_medium">Question #3</div>
+                <div class="slds-text-body_regular">
+                        리포트를 만들어 봅시다 #3
+                </div>
+                <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
+            </div> 
+
+            <div id="errorBlock" style="display: none;">
+                <div class="slds-notify_container slds-is-relative slds-m-bottom_large sfdx-wrap">
+
+                    <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                        <span class="slds-assistive-text">Error</span>
+
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading_small ">
+                                <strong id="errorTest">An error occurred while deploying.</strong>&nbsp;See the browser console logs for more
+                                information.
+                            </h2>
                         </div>
-                    </article>
-                    <article class="slds-tile" id="loginBlock" style="display: none;">
-                            <div class="slds-tile__detail">
-                                <center>   
-                                    <a href="" id="loginUrl" target="_blank" class="slds-button slds-button_brand">Open</a>
-                                </center>
-                            </div>
-                    </article>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <!--
-                    <article class="slds-tile" id="deleteorgBlock" style="display: none;">
-                        <h3 class="slds-tile__title slds-truncate" title="Login to Org">이 Org를 삭제하시겠습니까? </h3>    
-                        <div class="slds-tile__detail">
-                                <center>   
-                                        <button onclick="deleteorg();" class="slds-button slds-button_destructive">Delete</button>
-                                </center>
-                            </div>
-                    </article>-->
-                    <article class="slds-tile">
-                        <h3 class="slds-tile__title slds-truncate" title="Login to Org">Org 정보 초기화 </h3>    
-                        <div class="slds-tile__detail">
-                                <center>   
-                                        <button onclick="reinit();" class="slds-button slds-button_destructive">Re-init</button>
-                                </center>
-                            </div>
-                    </article>
-                    
+                    </div>
+
                 </div>
             </div>
+            <%if(deployId!=''){%> Deployment status for:<%}%> 
+            <strong id="deployId"><%= deployId %></strong>
+                <%if(deployId!=''){%>
+                    <img id="spinner" src="../dist/assets/images/loader.gif" style="width:27px;" />
+                    <div id="status" class="slds-m-bottom_small sfdx-output"></div>
+                <%}%>
+
         </div>
+            
+        
 
         <script>
             const deployIdInput = document.getElementById('deployId');
@@ -282,6 +252,9 @@
                 
             }
 
+            question1_launch=function() {
+                defaultContent('Questions !!');
+            }
 
         </script>
         

@@ -128,6 +128,7 @@ app.get('/launch', (req, res) => {
     });
     return ok;
   }).then( () => {
+    logger.debug('web.js : /deploying/message.deployId}');
     // return the deployId page
     return res.redirect(`/deploying/${message.deployId}`);
   }, (mqerr) => {
@@ -138,17 +139,29 @@ app.get('/launch', (req, res) => {
   });
 });
 
-app.get('/sunny', (req, res) => {
+app.get('/delete', (req, res) => {
 
   logger.debug('+++SUNNY /sunny = 1 = +++');
   let action = req.query.action;
   logger.debug('+++SUNNY /sunny = 2, query = ' + req.query.toString + '+++');
   logger.debug('+++SUNNY /sunny = 3, action = ' + action + '+++');
-    console.log(message);
+  logger.debug('+++SUNNY username = [' + req.query.username + ']');
+  
+});
+
+app.get('/checkdashboard', (req, res) => {
+  logger.debug('+++SUNNY /sunny = 1 = +++');
+  let action = req.query.action;
+  logger.debug('+++SUNNY /sunny = 2, query = ' + req.query.toString + '+++');
+  logger.debug('+++SUNNY /sunny = 3, action = ' + action + '+++');
+  logger.debug('+++SUNNY username = [' + req.query.username + ']');
+  logger.debug('+++SUNNY password = [' + req.query.password + ']');
+  
 });
 
 app.get('/deploying/:deployId', (req, res) => {
   // show the page with .io to subscribe to a topic
+  logger.debug('+++ SUNNY : DeployId/:deployId');
   res.render('pages/messages', { deployId: req.params.deployId });
 });
 
@@ -186,7 +199,6 @@ mq.then( (mqConn) => {
         //logger.debug(parsedMsg);
         //console.log('parsed msg.content : ' + parsedMsg.content);
         wsInstance.getWss().clients.forEach((client) => {
-          
             client.send(msg.content.toString());
             // close connection when ALLDONE
             if (parsedMsg.content === 'ALLDONE') {
