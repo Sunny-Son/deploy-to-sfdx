@@ -7,13 +7,14 @@
             
             <!-- <%- include ('../partials/progress') %>  -->
             <div class="slds-card">
-                    <div class="slds-text-heading_medium"><%- steps[step].title %></div>
+                    <div class="slds-text-heading_medium">Ready to go?</div>
                     <div class="slds-text-body_regular">
-                            <%- steps[step].body %>
+                            아래의 3가지 퀘스트를 마치시면 됩니다.
                     </div>
-                    <center><button class="slds-button slds-button_brand" id="launchbtn" onclick="launch();"><%- steps[step].button %></button></center>                                          
+                    <div class="slds-text-body_regular">
+                        참고 user name : <%- username %>, password :  <%- password %>
+                </div>
                     <br/>               
-                    <button id="nextstepbtn" class="slds-button slds-button_brand slds-hide" onclick="window.location.href='/?action=nextstep&step=<%= step+1 %>'">Next Step</button>          
             </div> 
 
             <div class="slds-card">

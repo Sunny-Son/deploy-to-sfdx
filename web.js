@@ -96,6 +96,7 @@ app.get('/', async (req, res) => {
       return ok;
     }).then( () => {
       // return the deployId page
+      logger.debug('Ready to call index.ejs : deployId[' +  message.deployId + '],[step:' + parseInt(req.query.step) + '],[steps:' + message.steps + ']');
       return res.render('pages/index', { deployId: message.deployId ,step:parseInt(req.query.step),steps:message.steps});
     }, (mqerr) => {
       logger.error(mqerr);
@@ -150,13 +151,15 @@ app.get('/delete', (req, res) => {
 });
 
 app.get('/checkdashboard', (req, res) => {
+
+  //https://sunny-deployer1.herokuapp.com/checkdashboard?action=check&username=sdlkfaj@example.com&password=aldkfjas
   logger.debug('+++SUNNY /sunny = 1 = +++');
   let action = req.query.action;
-  logger.debug('+++SUNNY /sunny = 2, query = ' + req.query.toString + '+++');
-  logger.debug('+++SUNNY /sunny = 3, action = ' + action + '+++');
-  logger.debug('+++SUNNY username = [' + req.query.username + ']');
-  logger.debug('+++SUNNY password = [' + req.query.password + ']');
-  
+  logger.debug('+++SUNNY /sunny = 2, query = [' + req.query + ']+++');
+  logger.debug('+++SUNNY /sunny = 3, action = [' + action + ']+++');
+  logger.debug('+++SUNNY username = [' + req.query.username + ']+++');
+  logger.debug('+++SUNNY password = [' + req.query.password + ']+++');
+  return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
 app.get('/deploying/:deployId', (req, res) => {
