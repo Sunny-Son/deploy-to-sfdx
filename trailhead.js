@@ -44,7 +44,7 @@ var response_good  = {
   };
   
   var response_bad  = {
-    status:500,
+    status:200,
     ok: false,
     redirected: false,
   };

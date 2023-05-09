@@ -180,7 +180,8 @@ app.get('/trailhead', (req, res) => {
   //if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null && req.query.instanceurl != null) {
   //  return sunnytrailhead.login(req.query.username,req.query.password,req.query.instanceurl,action);
   if((action == 'checkTravelApprovalRecord' || action == 'checkDashboards' || action == 'checkReports') && req.query.username != null && req.query.password != null) {
-    return sunnytrailhead.login(req.query.username,req.query.password,action);
+    //return sunnytrailhead.login(req.query.username,req.query.password,action);
+    res.end(sunnytrailhead.login(req.query.username,req.query.password,action));
   }
   //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
