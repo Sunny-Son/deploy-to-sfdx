@@ -67,13 +67,20 @@ function login(varusername, varpassword, callbackstring) {
                 
                 console.log('callbackstring : [' + callbackstring + ']');
                 //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
-                if(callbackstring == 'checkTravelApprovalRecord') return checkTravelApprovalRecord();
+                if(callbackstring == 'checkTravelApprovalRecord') {
+                    console.log('trailhead.js : checkTravelApprovalRecord');
+                    return checkTravelApprovalRecord();
+                }
                 //if(callbackstring == 'checkDashboards') callback=checkDashboards;
                 if(callbackstring == 'checkDashboards') {
                     console.log('trailhead.js : checkDashboards');
                     return checkDashboards();
                 }
-                if(callbackstring == 'checkReports') callback=checkReports;
+                if(callbackstring == 'checkReports') {
+                    console.log('trailhead.js : checkReports');
+                    return checkReports();
+                 //   callback=checkReports;
+                }
                 //console.log('action = ' + callback);
                 //if(callback){return callback();}
             }
