@@ -181,11 +181,16 @@ app.get('/trailhead', (req, res) => {
   //logger.debug('+++SUNNY /trailhead instanceurl = [' + req.query.instanceurl + ']+++');
   //if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null && req.query.instanceurl != null) {
   //  return sunnytrailhead.login(req.query.username,req.query.password,req.query.instanceurl,action);
-  if((action == 'checkTravelApprovalRecord' || action == 'checkDashboards' || action == 'checkReports') && req.query.username != null && req.query.password != null) {
+  //if((action == 'checkTravelApprovalRecord' || action == 'checkDashboards' || action == 'checkReports') && req.query.username != null && req.query.password != null) {
     //return sunnytrailhead.login(req.query.username,req.query.password,action);
     // Add to separate login
     //res.send(sunnytrailhead.login(req.query.username,req.query.password,action));
-    res.send(sunnytrailhead.trailhead(action));
+  if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
+    res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
+  } else if(action == 'checkDashboards' && req.query.username != null && req.query.password != null) {
+    res.send(sunnytrailhead.trailhead_checkDashboards());
+  } else if(action == 'checkReports' && req.query.username != null && req.query.password != null) {
+    res.send(sunnytrailhead.trailhead_checkReports());
   }
   //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
