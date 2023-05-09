@@ -68,7 +68,11 @@ function login(varusername, varpassword, callbackstring) {
                 console.log('callbackstring : [' + callbackstring + ']');
                 //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
                 if(callbackstring == 'checkTravelApprovalRecord') return checkTravelApprovalRecord();
-                if(callbackstring == 'checkDashboards') callback=checkDashboards;
+                //if(callbackstring == 'checkDashboards') callback=checkDashboards;
+                if(callbackstring == 'checkDashboards') {
+                    console.log('trailhead.js : checkDashboards');
+                    return checkDashboards();
+                }
                 if(callbackstring == 'checkReports') callback=checkReports;
                 //console.log('action = ' + callback);
                 //if(callback){return callback();}
@@ -213,53 +217,53 @@ function checkReports() {
 
 
 function checkDashboards() {
+    console.log('trailhead.js : checkDashboard : begin');
+    conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard", function(err, result) {
+        if (err) { return console.error(err); }
+        console.log("total : " + result.totalSize);
+        for (var i=0; i<result.records.length; i++) {
+            var record = result.records[i];
+            console.log(record);
+            console.log("Id: " + record.Id);
+            console.log("DeveloperName : " + record.DeveloperName);
+            console.log("Report Folder Name: " + record.FolderName);
+            console.log("Report Title: " + record.Title);
 
-  conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard", function(err, result) {
-    if (err) { return console.error(err); }
-    console.log("total : " + result.totalSize);
-    for (var i=0; i<result.records.length; i++) {
-        var record = result.records[i];
-        console.log(record);
-        console.log("Id: " + record.Id);
-        console.log("DeveloperName : " + record.DeveloperName);
-        console.log("Report Folder Name: " + record.FolderName);
-        console.log("Report Title: " + record.Title);
+            if(record.Title != 'Travel Requests Dashboard') continue;
+            else console.log('title passed');
+            if(record.FolderName != 'Private Dashboards') continue;
+            else console.log('FolderName passed');
 
-        if(record.Title != 'Travel Requests Dashboard') continue;
-        else console.log('title passed');
-        if(record.FolderName != 'Private Dashboards') continue;
-        else console.log('FolderName passed');
+            var _request = {
+            url: '',
+            method: 'get',
+            body: '',
+            headers : {
+                    "Content-Type" : "application/json"
+                }
+            };
 
-        var _request = {
-          url: '',
-          method: 'get',
-          body: '',
-          headers : {
-                 "Content-Type" : "application/json"
-             }
-        };
+            _request.url = '/services/data/v57.0/analytics/dashboards/' + record.Id + '/describe';
 
-        _request.url = '/services/data/v57.0/analytics/dashboards/' + record.Id + '/describe';
-
-        conn.request(_request, function(err, resp) {
-          //console.log(JSON.stringify(resp));
-          var vardashboardcheck = JSON.stringify(resp);
-          if(vardashboardcheck.includes('\"header\":\"Travel Requests by Department\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Department__c\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Bar\"')
-            && vardashboardcheck.includes('\"name\":\"RowCount\"')
-            && vardashboardcheck.includes('\"header\":\"Travel Requests by Month\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Trip_End_Date__c\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Out_of_State__c\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-            && vardashboardcheck.includes('\"groupByType\":\"stacked\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-          ) {
-            console.log("success :" + JSON.stringify(response_good));
-            return response_good;
-          }
-        });
-    }
+            conn.request(_request, function(err, resp) {
+            //console.log(JSON.stringify(resp));
+            var vardashboardcheck = JSON.stringify(resp);
+            if(vardashboardcheck.includes('\"header\":\"Travel Requests by Department\"')
+                && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Department__c\"')
+                && vardashboardcheck.includes('\"visualizationType\":\"Bar\"')
+                && vardashboardcheck.includes('\"name\":\"RowCount\"')
+                && vardashboardcheck.includes('\"header\":\"Travel Requests by Month\"')
+                && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Trip_End_Date__c\"')
+                && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Out_of_State__c\"')
+                && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
+                && vardashboardcheck.includes('\"groupByType\":\"stacked\"')
+                && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
+            ) {
+                console.log("success :" + JSON.stringify(response_good));
+                return response_good;
+            }
+            });
+        }
     });
 
     console.log("fail :" + JSON.stringify(response_bad));
