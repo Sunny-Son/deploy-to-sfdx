@@ -85,9 +85,10 @@ if(deployToWeb) {
 
 //Log in using username and password, set loggedIn to true and handle a callback
 //
-function login(varusername, varpassword, varinstanceurl, callback) {
-    //conn.loginUrl = 'https://test.salesforce.com';
-    conn.loginUrl = varinstanceurl;
+function login(varusername, varpassword, varinstanceurl, callbackstring) {
+    conn.loginUrl = 'https://test.salesforce.com';
+    //conn.loginUrl = varinstanceurl;
+    var callback = null;
     if(varusername && varpassword) {
         console.log('loginurl = ' + conn.loginUrl);
         conn.login(varusername, varpassword, function(err, res) {
@@ -96,6 +97,8 @@ function login(varusername, varpassword, varinstanceurl, callback) {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
                 console.log(res);
+                console.log('action = ' + callback);
+                if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
                 if(callback){callback();}
             }
           });
