@@ -61,11 +61,11 @@
         <script>
 
         var varusername = '<%- JSON.stringify(username) %>';
-        varusername.replace('\\"','');
+        varusername.replace('\"','');
         console.log('++ Sunny : varusername : [', varusername + ']');
 
         var varpassword = '<%- JSON.stringify(password) %>';
-        varpassword.replace('\\"','');
+        varpassword.replace('\"','');
         console.log('++ Sunny : varpassword : [', varpassword + ']');
 
         question1_launch=function() {
@@ -76,7 +76,10 @@
                     console.log("response:", response);
                     defaultContent1(response);}
                 )
-                .catch((error) => console.log("error:", error));
+                .catch((error) => {
+                    console.log("error:", error);
+                    defaultContent1(error);}
+                )
 
         }
 
