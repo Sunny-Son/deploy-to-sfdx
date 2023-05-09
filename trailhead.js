@@ -118,13 +118,13 @@ function displayTravelApprovalRecord() {
       });
 }
 
-function checkTravelApprovalRecord() {
+async function checkTravelApprovalRecord() {
     var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
     query_string += ' FROM Travel_Approval__c';
     query_string += ' WHERE Destination_State__c = \'KR\'';
     query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
     console.log('checkTravelApprovalRecord : ready to query');
-    conn.query(query_string, function(err, result) {
+    await conn.query(query_string, function(err, result) {
         if (err) { 
             esponse_bad.errormsg = 'Unknown Error';
             console.log("fail :" + JSON.stringify(response_bad));
