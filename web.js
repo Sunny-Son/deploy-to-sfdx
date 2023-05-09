@@ -166,8 +166,10 @@ app.get('/checkdashboard', (req, res) => {
 
 app.get('/trailhead', (req, res) => {
 
-  //https://sunny-deployer1.herokuapp.com/checkdashboard?action=check&username=sdlkfaj@example.com&password=aldkfjas
-  //https://sunny-deployer1.herokuapp.com/checkdashboard?action=checkdata&username=sdlkfaj@example.com&password=aldkfjas
+  //https://sunny-deployer1.herokuapp.com/trailhead?action=check&username=sdlkfaj@example.com&password=aldkfjas
+  //https://sunny-deployer1.herokuapp.com/trailhead?action=checkdata&username=sdlkfaj@example.com&password=aldkfjas
+  //"/trailhead?action=checkTravelApprovalRecord&username=" + varusername + "&password=" + varpassword;
+
   logger.debug('+++SUNNY /trailhead = 1 = +++');
   let action = req.query.action;
   logger.debug('+++SUNNY /trailhead = 2, query = [' + req.query + ']+++');

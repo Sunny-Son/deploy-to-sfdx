@@ -68,7 +68,7 @@
 
         question1_launch=function() {
             //defaultContent('Questions !!');
-            var _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + varpassword + "&password=" + varpassword;
+            var _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + varusername + "&password=" + varpassword;
             fetch(_urlstr)
                 .then((response) => console.log("response:", response))
                 .catch((error) => console.log("error:", error));
