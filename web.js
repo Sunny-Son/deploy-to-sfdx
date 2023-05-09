@@ -161,6 +161,8 @@ app.get('/checkdashboard', (req, res) => {
   logger.debug('+++SUNNY /sunny = 3, action = [' + action + ']+++');
   logger.debug('+++SUNNY username = [' + req.query.username + ']+++');
   logger.debug('+++SUNNY password = [' + req.query.password + ']+++');
+  // Add to separate login
+  sunnytrailhead.login(req.query.username,req.query.password);
   return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
@@ -181,7 +183,9 @@ app.get('/trailhead', (req, res) => {
   //  return sunnytrailhead.login(req.query.username,req.query.password,req.query.instanceurl,action);
   if((action == 'checkTravelApprovalRecord' || action == 'checkDashboards' || action == 'checkReports') && req.query.username != null && req.query.password != null) {
     //return sunnytrailhead.login(req.query.username,req.query.password,action);
-    res.send(sunnytrailhead.login(req.query.username,req.query.password,action));
+    // Add to separate login
+    //res.send(sunnytrailhead.login(req.query.username,req.query.password,action));
+    res.send(sunnytrailhead.trailhead(action));
   }
   //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });

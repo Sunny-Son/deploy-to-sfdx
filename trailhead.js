@@ -53,7 +53,7 @@ var response_good  = {
   
 //Log in using username and password, set loggedIn to true and handle a callback
 //
-function login(varusername, varpassword, callbackstring) {
+function login(varusername, varpassword) {
     conn.loginUrl = 'https://test.salesforce.com';
     //conn.loginUrl = varinstanceurl;
     var callback = null;
@@ -65,33 +65,42 @@ function login(varusername, varpassword, callbackstring) {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
                 console.log(res);
-                
-                console.log('callbackstring : [' + callbackstring + ']');
-                //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
-                if(callbackstring == 'checkTravelApprovalRecord') {
-                    console.log('trailhead.js : checkTravelApprovalRecord');
-                    var _return_value = checkTravelApprovalRecord();
-                    console.log(_return_value);
-                    return _return_value;
-                }
-                //if(callbackstring == 'checkDashboards') callback=checkDashboards;
-                if(callbackstring == 'checkDashboards') {
-                    console.log('trailhead.js : checkDashboards');
-                    return checkDashboards();
-                }
-                if(callbackstring == 'checkReports') {
-                    console.log('trailhead.js : checkReports');
-                    return checkReports();
-                 //   callback=checkReports;
-                }
-                //console.log('action = ' + callback);
-                //if(callback){return callback();}
+                return;
             }
           });
     }
     else {
         console.log("Username and password not setup.")
     }
+
+}
+
+
+function trailhead(callbackstring) {
+    try {
+        console.log('callbackstring : [' + callbackstring + ']');
+        //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
+        if(callbackstring == 'checkTravelApprovalRecord') {
+            console.log('trailhead.js : checkTravelApprovalRecord');
+            var _return_value = checkTravelApprovalRecord();
+            console.log(_return_value);
+            return _return_value;
+        }
+        //if(callbackstring == 'checkDashboards') callback=checkDashboards;
+        if(callbackstring == 'checkDashboards') {
+            console.log('trailhead.js : checkDashboards');
+            return checkDashboards();
+        }
+        if(callbackstring == 'checkReports') {
+            console.log('trailhead.js : checkReports');
+            return checkReports();
+            //   callback=checkReports;
+        }
+    } catch(err) {
+        console.error(err);
+    }
+    
+    return response_bad;
 
 }
 
@@ -314,7 +323,7 @@ function displayDashboards2() {
 //
 //where command is one of the case statements below
 //module.exports = { login, checkTravelApprovalRecord, checkReports, checkDashboards};
-module.exports = { login };
+module.exports = { login, trailhead };
 
 var callback = null;
 if (process.argv[2]) {
