@@ -75,9 +75,14 @@
             fetch(_urlstr)
                 .then((response) => {
                     console.log("response:", response);
-                    defaultContent(response, statusnumber);
-                    document.getElementById("question1").disabled = true;
-                    document.getElementById("question1").innerHTML = "Done";
+                    defaultContent(response.ok, statusnumber);
+                    if(response.ok == true) {
+                        document.getElementById("question1").disabled = true;
+                        document.getElementById("question1").innerHTML = "Done";
+                        defaultContent(response.ok, statusnumber);
+                    } else {
+                        defaultContent(response.errormsg, statusnumber);
+                    }
                     }
                 )
                 .catch((error) => {
