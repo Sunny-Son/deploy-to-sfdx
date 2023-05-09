@@ -10,8 +10,6 @@
                 <div class="slds-text-body_regular">
                     참고 user name : <%- username %>, password :  <%- password %>
                 </div>
-                <input type="hidden" id="_username" value="<%- username %>" >
-                <input type="hidden" id="_password" value="<%- password %>" >
                 <br/>               
                 
         </div> 
@@ -19,7 +17,7 @@
         <div class="slds-card">
             <div class="slds-text-heading_medium">Question #1</div>
             <div class="slds-text-body_regular">
-                    리포트를 만들어 봅시다 #1
+                    실제 데이터를 하나 입력합니다 #1
             </div>
             <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
             <div id="status1" class="slds-m-bottom_small sfdx-output"></div>
@@ -28,17 +26,19 @@
         <div class="slds-card">
             <div class="slds-text-heading_medium">Question #2</div>
             <div class="slds-text-body_regular">
-                    리포트를 만들어 봅시다 #2
+                    2개의 리포트를 만들어 봅시다 #2
             </div>
             <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
+            <div id="status2" class="slds-m-bottom_small sfdx-output"></div>
         </div> 
 
         <div class="slds-card">
             <div class="slds-text-heading_medium">Question #3</div>
             <div class="slds-text-body_regular">
-                    리포트를 만들어 봅시다 #3
+                    앞의 리포트를 활용하여 대시보드를 만들어 봅시다 #3
             </div>
             <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
+            <div id="status3" class="slds-m-bottom_small sfdx-output"></div>
         </div> 
 
         <div id="errorBlock" style="display: none;">
@@ -70,26 +70,27 @@
 
         question1_launch=function() {
             //defaultContent('Questions !!');
+            const statusnumber = "status1";
             var _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + varusername + "&password=" + varpassword;
             fetch(_urlstr)
                 .then((response) => {
                     console.log("response:", response);
-                    defaultContent1(response);}
+                    defaultContent(response, statusnumber);}
                 )
                 .catch((error) => {
                     console.log("error:", error);
-                    defaultContent1(error);}
+                    defaultContent(error, statusnumber);}
                 )
 
         }
 
-        defaultContent1 = function (content) {
+        defaultContent = function (content, varwhere) {
             var para = document.createElement("p");
             para.classList.add('slds-m-vertical_medium');
-            var node = document.createTextNode(msgCounter + '. ' + content);
+            var node = document.createTextNode(content);
             para.appendChild(node);
 
-            var element = document.getElementById("status1");
+            var element = document.getElementById(varwhere);
             element.appendChild(para);
         }
 
