@@ -2,6 +2,7 @@ var jsforce = require("jsforce");
 var path = require("path");
 var configpath = path.normalize("./");
 //var config = require(configpath+"config.js");
+const logger = require('heroku-logger');
 var conn = new jsforce.Connection();
 //var conn;
 
@@ -48,9 +49,10 @@ var response_good  = {
     redirected: false,
   };
 
+  
 //Log in using username and password, set loggedIn to true and handle a callback
 //
-function login(varusername, varpassword, varinstanceurl, callbackstring) {
+function login(varusername, varpassword, callbackstring) {
     conn.loginUrl = 'https://test.salesforce.com';
     //conn.loginUrl = varinstanceurl;
     var callback = null;
@@ -63,6 +65,7 @@ function login(varusername, varpassword, varinstanceurl, callbackstring) {
                 console.log("Succcessfully logged into Salesforce.");
                 console.log(res);
                 
+                console.log('callbackstring : [' + callbackstring + ']');
                 //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
                 if(callbackstring == 'checkTravelApprovalRecord') return checkTravelApprovalRecord();
                 if(callbackstring == 'checkDashboards') callback=checkDashboards;
