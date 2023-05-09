@@ -76,13 +76,13 @@ function login(varusername, varpassword) {
 }
 
 
-async function trailhead(callbackstring) {
+function trailhead(callbackstring) {
     try {
         console.log('callbackstring : [' + callbackstring + ']');
         //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
         if(callbackstring == 'checkTravelApprovalRecord') {
             console.log('trailhead.js : checkTravelApprovalRecord');
-            var _return_value = await checkTravelApprovalRecord();
+            var _return_value = checkTravelApprovalRecord();
             console.log(_return_value);
             return _return_value;
         }
@@ -124,6 +124,37 @@ function checkTravelApprovalRecord() {
     query_string += ' WHERE Destination_State__c = \'KR\'';
     query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
     console.log('checkTravelApprovalRecord : ready to query');
+    conn.query(query_string)
+        .then (function(err, result) {
+            console.log("total : " + result.totalSize);
+            if(result.totalSize > 0) {
+                for (var i=0; i<result.records.length; i++) {
+                    var record = result.records[i];
+                    console.log("Department: " + record.Department__c);
+                    console.log("Destination State: " + record.Destination_State__c);
+                    console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
+                    console.log("Total Expenses: " + record.Total_Expenses__c);
+                }
+                console.log("success :" + JSON.stringify(response_good));
+                    return JSON.stringify(response_good);
+                } else {
+                    console.log("Task #1 isn't achived yet");
+                    response_bad.errormsg = 'There is no data yet!! please input!!';
+                    console.log("fail :" + JSON.stringify(response_bad));
+                    return JSON.stringify(response_bad);
+                }
+        }, function(err) {
+            return JSON.stringify(response_bad);
+        });
+}
+
+/*
+function checkTravelApprovalRecord() {
+    var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
+    query_string += ' FROM Travel_Approval__c';
+    query_string += ' WHERE Destination_State__c = \'KR\'';
+    query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
+    console.log('checkTravelApprovalRecord : ready to query');
     conn.query(query_string, function(err, result) {
         if (err) { 
             esponse_bad.errormsg = 'Unknown Error';
@@ -149,7 +180,7 @@ function checkTravelApprovalRecord() {
         }
       });
 }
-
+*/
 function displayReports() {
     conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report", function(err, result) {
         if (err) { return console.error(err); }
