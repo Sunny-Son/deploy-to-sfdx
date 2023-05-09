@@ -97,6 +97,7 @@ function checkTravelApprovalRecord() {
     query_string += ' FROM Travel_Approval__c';
     query_string += ' WHERE Destination_State__c = \'KR\'';
     query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
+    console.log('checkTravelApprovalRecord : ready to query');
     conn.query(query_string, function(err, result) {
         if (err) { return console.error(err); }
         console.log("total : " + result.totalSize);
