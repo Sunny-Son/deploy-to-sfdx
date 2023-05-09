@@ -132,7 +132,7 @@ function checkTravelApprovalRecord() {
             return response_good;
         } else {
           console.log("Task #1 isn't achived yet");
-          esponse_bad.errormsg = 'There is no data yet!! please input!!';
+          response_bad.errormsg = 'There is no data yet!! please input!!';
           console.log("fail :" + JSON.stringify(response_bad));
             return response_bad;
         }
