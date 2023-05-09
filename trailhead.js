@@ -140,12 +140,12 @@ function checkTravelApprovalRecord() {
             console.log("Total Expenses: " + record.Total_Expenses__c);
           }
           console.log("success :" + JSON.stringify(response_good));
-            return response_good;
+            return JSON.stringify(response_good);
         } else {
           console.log("Task #1 isn't achived yet");
           response_bad.errormsg = 'There is no data yet!! please input!!';
           console.log("fail :" + JSON.stringify(response_bad));
-            return response_bad;
+            return JSON.stringify(response_bad);
         }
       });
 }
@@ -232,7 +232,7 @@ function checkReports() {
                   return response_bad;
                 }
                 console.log("success :" + JSON.stringify(response_good));
-                return response_good;
+                return JSON.stringify(response_good);
               } else {
                 //console.log('FAIL : You should create report!!!');
               }
@@ -244,7 +244,7 @@ function checkReports() {
     } else response_bad.errormsg = 'Unknown Error';
 
     console.log("fail :" + JSON.stringify(response_bad));
-    return response_bad;
+    return JSON.stringify(response_bad);
 }
 
 
