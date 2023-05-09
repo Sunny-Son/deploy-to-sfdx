@@ -108,7 +108,7 @@ function checkTravelApprovalRecord() {
             return response_good;
         } else {
           console.log("Task #1 isn't achived yet");
-          console.log("fail :" + JSON.stringify(response_));
+          console.log("fail :" + JSON.stringify(response_bad));
             return response_bad;
         }
       });
