@@ -10,8 +10,8 @@
                 <div class="slds-text-body_regular">
                     참고 user name : <%- username %>, password :  <%- password %>
                 </div>
-                <input type="hidden" id="username" value="<%- username %>" >
-                <input type="hidden" id="password" value="<%- password %>" >
+                <input type="hidden" id="_username" value="<%- username %>" >
+                <input type="hidden" id="_password" value="<%- password %>" >
                 <br/>               
         </div> 
 
@@ -58,14 +58,15 @@
 
         <script>
 
-        const varusername = document.getElementById('username');
+        console.log('username : [' + username + ']');
+        var varusername = document.getElementById("_username:");
         console.log('++ Sunny : varusername : [', varusername + ']');
-        const _varusernamehtml = varusername.innerHTML;
+        var _varusernamehtml = varusername.innerHTML;
         console.log('++ Sunny : _varusername : [', _varusernamehtml + ']');
-        const _varusername = varusername.innerText;
+        var _varusername = varusername.innerText;
         console.log('++ Sunny : _varusername : [', _varusername + ']');
 
-        const varpassword = document.getElementById('password');
+        const varpassword = document.getElementById('_password');
         const _varpassword = varpassword.innerText;
         console.log('++ Sunny : _varpassword : [', _varpassword + ']');
 
