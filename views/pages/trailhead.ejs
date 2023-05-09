@@ -60,12 +60,12 @@
 
         <script>
 
-        var varusername = '<%- JSON.stringify(username) %>';
-        varusername.replace('\"','');
+        var varusername = '<%- JSON.stringify(username) %>'.replaceAll('"', '');
+        //varusername.replace('\"','');
         console.log('++ Sunny : varusername : [', varusername + ']');
 
-        var varpassword = '<%- JSON.stringify(password) %>';
-        varpassword.replace('\"','');
+        var varpassword = '<%- JSON.stringify(password) %>'.replaceAll('"', '');
+        //varpassword.replace('\"','');
         console.log('++ Sunny : varpassword : [', varpassword + ']');
 
         question1_launch=function() {
