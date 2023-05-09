@@ -55,15 +55,24 @@
         </div>
 
         <script>
-        
-            question1_launch=function() {
-                //defaultContent('Questions !!');
-                var _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + username + "&password=" + password;
-                fetch(_urlstr)
-                    .then((response) => console.log("response:", response))
-                    .catch((error) => console.log("error:", error));
 
-            }
+        const varusername = document.getElementById('username');
+        const _varusername = varusername.innerText;
+        console.log('++ Sunny : _varusername : ', _varusername);
+
+        const varpassword = document.getElementById('password');
+        const _varpassword = varpassword.innerText;
+        console.log('++ Sunny : _varpassword : ', _varpassword);
+
+
+        question1_launch=function() {
+            //defaultContent('Questions !!');
+            var _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + _varusername + "&password=" + _varpassword;
+            fetch(_urlstr)
+                .then((response) => console.log("response:", response))
+                .catch((error) => console.log("error:", error));
+
+        }
 
         </script>
         
