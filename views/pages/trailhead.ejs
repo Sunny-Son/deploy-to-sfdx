@@ -58,7 +58,9 @@
 
         <script>
 
-        console.log('username : [' + username + ']');
+        //console.log('username : [' + <%= username %> + ']');
+        var clientGameState = '<%- JSON.stringify(username) %>';
+        console.log('++ Sunny : clientGameState : [', clientGameState + ']');
         var varusername = document.getElementById("_username:");
         console.log('++ Sunny : varusername : [', varusername + ']');
         var _varusernamehtml = varusername.innerHTML;
