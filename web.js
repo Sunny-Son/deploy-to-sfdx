@@ -174,7 +174,7 @@ app.get('/trailhead', (req, res) => {
   logger.debug('+++SUNNY /trailhead = 3, action = [' + action + ']+++');
   logger.debug('+++SUNNY /trailhead username = [' + req.query.username + ']+++');
   logger.debug('+++SUNNY /trailhead password = [' + req.query.password + ']+++');
-  logger.debug('+++SUNNY /trailhead instanceurl = [' + req.query.instanceurl + ']+++');
+  //logger.debug('+++SUNNY /trailhead instanceurl = [' + req.query.instanceurl + ']+++');
   //if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null && req.query.instanceurl != null) {
   //  return sunnytrailhead.login(req.query.username,req.query.password,req.query.instanceurl,action);
   if((action == 'checkTravelApprovalRecord' || action == 'checkDashboards' || action == 'checkReports') && req.query.username != null && req.query.password != null) {

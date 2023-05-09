@@ -62,11 +62,13 @@ function login(varusername, varpassword, varinstanceurl, callbackstring) {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
                 console.log(res);
-                console.log('action = ' + callback);
-                if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
+                
+                //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
+                if(callbackstring == 'checkTravelApprovalRecord') return checkTravelApprovalRecord();
                 if(callbackstring == 'checkDashboards') callback=checkDashboards;
                 if(callbackstring == 'checkReports') callback=checkReports;
-                if(callback){return callback();}
+                //console.log('action = ' + callback);
+                //if(callback){return callback();}
             }
           });
     } 
