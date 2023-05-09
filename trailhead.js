@@ -76,14 +76,14 @@ function login(varusername, varpassword) {
 }
 
 
-function trailhead(callbackstring) {
+async function trailhead(callbackstring) {
     try {
         console.log('callbackstring : [' + callbackstring + ']');
         //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
         if(callbackstring == 'checkTravelApprovalRecord') {
             console.log('trailhead.js : checkTravelApprovalRecord');
-            var _return_value = checkTravelApprovalRecord();
-            console.log(_return_value);
+            var _return_value = await checkTravelApprovalRecord();
+            await console.log(_return_value);
             return _return_value;
         }
         //if(callbackstring == 'checkDashboards') callback=checkDashboards;
@@ -117,7 +117,7 @@ function displayTravelApprovalRecord() {
         }
       });
 }
-
+/*
 function checkTravelApprovalRecord() {
     var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
     query_string += ' FROM Travel_Approval__c';
@@ -137,25 +137,25 @@ function checkTravelApprovalRecord() {
                 }
                 console.log("success :" + JSON.stringify(response_good));
                     return JSON.stringify(response_good);
-                } else {
-                    console.log("Task #1 isn't achived yet");
-                    response_bad.errormsg = 'There is no data yet!! please input!!';
-                    console.log("fail :" + JSON.stringify(response_bad));
-                    return JSON.stringify(response_bad);
-                }
+            } else {
+                console.log("Task #1 isn't achived yet");
+                response_bad.errormsg = 'There is no data yet!! please input!!';
+                console.log("fail :" + JSON.stringify(response_bad));
+                return JSON.stringify(response_bad);
+            }
         }, function(err) {
             return JSON.stringify(response_bad);
         });
 }
+*/
 
-/*
-function checkTravelApprovalRecord() {
+async function checkTravelApprovalRecord() {
     var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
     query_string += ' FROM Travel_Approval__c';
     query_string += ' WHERE Destination_State__c = \'KR\'';
     query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
     console.log('checkTravelApprovalRecord : ready to query');
-    conn.query(query_string, function(err, result) {
+    await conn.query(query_string, function(err, result) {
         if (err) { 
             esponse_bad.errormsg = 'Unknown Error';
             console.log("fail :" + JSON.stringify(response_bad));
@@ -180,7 +180,7 @@ function checkTravelApprovalRecord() {
         }
       });
 }
-*/
+
 function displayReports() {
     conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report", function(err, result) {
         if (err) { return console.error(err); }
