@@ -104,9 +104,12 @@ function checkTravelApprovalRecord() {
             console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
             console.log("Total Expenses: " + record.Total_Expenses__c);
           }
-          return 
+          console.log("success :" + JSON.stringify(response_good));
+            return response_good;
         } else {
           console.log("Task #1 isn't achived yet");
+          console.log("fail :" + JSON.stringify(response_));
+            return response_bad;
         }
       });
 }
@@ -176,7 +179,8 @@ function checkReports() {
                   //console.log(vardetailcolumns);
                 } else {
                   console.error('need detailcolumns exactly');
-                  return false;
+                  console.log("fail :" + JSON.stringify(response_bad));
+                  return response_bad;
                 }
 
                 if(vargroupingColumnInfo.includes('Travel_Approval__c.Department__c')) {
@@ -184,16 +188,19 @@ function checkReports() {
                   //console.log(vargroupingColumnInfo);
                 } else {
                   console.error('need Grouping exactly');
-                  return false;
+                  console.log("fail :" + JSON.stringify(response_bad));
+                  return response_bad;
                 }
-                return true;
+                console.log("success :" + JSON.stringify(response_good));
+                return response_good;
               } else {
                 //console.log('FAIL : You should create report!!!');
               }
           });
       }
     });
-    return false;
+    console.log("fail :" + JSON.stringify(response_bad));
+    return response_bad;
 }
 
 
