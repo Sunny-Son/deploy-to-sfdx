@@ -64,6 +64,8 @@ function login(varusername, varpassword, varinstanceurl, callbackstring) {
                 console.log(res);
                 console.log('action = ' + callback);
                 if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
+                if(callbackstring == 'checkDashboards') callback=checkDashboards;
+                if(callbackstring == 'checkReports') callback=checkReports;
                 if(callback){return callback();}
             }
           });

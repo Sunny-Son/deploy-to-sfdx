@@ -177,7 +177,7 @@ app.get('/trailhead', (req, res) => {
   logger.debug('+++SUNNY /trailhead instanceurl = [' + req.query.instanceurl + ']+++');
   //if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null && req.query.instanceurl != null) {
   //  return sunnytrailhead.login(req.query.username,req.query.password,req.query.instanceurl,action);
-  if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
+  if((action == 'checkTravelApprovalRecord' || action == 'checkDashboards' || action == 'checkReports') && req.query.username != null && req.query.password != null) {
     return sunnytrailhead.login(req.query.username,req.query.password,action);
   }
   //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
