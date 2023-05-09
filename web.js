@@ -168,7 +168,7 @@ app.get('/trailhead', (req, res) => {
 
   //https://sunny-deployer1.herokuapp.com/trailhead?action=check&username=sdlkfaj@example.com&password=aldkfjas
   //https://sunny-deployer1.herokuapp.com/trailhead?action=checkdata&username=sdlkfaj@example.com&password=aldkfjas
-  //"/trailhead?action=checkTravelApprovalRecord&username=" + varusername + "&password=" + varpassword;
+  //https://sunny-deployer1.herokuapp.com/trailhead?action=checkTravelApprovalRecord&username=test-sv8vdb3tqsgz@example.com&password=Pe1ntiz]zijcs
 
   logger.debug('+++SUNNY /trailhead = 1 = +++');
   let action = req.query.action;
@@ -181,7 +181,7 @@ app.get('/trailhead', (req, res) => {
   //  return sunnytrailhead.login(req.query.username,req.query.password,req.query.instanceurl,action);
   if((action == 'checkTravelApprovalRecord' || action == 'checkDashboards' || action == 'checkReports') && req.query.username != null && req.query.password != null) {
     //return sunnytrailhead.login(req.query.username,req.query.password,action);
-    res.end(sunnytrailhead.login(req.query.username,req.query.password,action));
+    res.send(sunnytrailhead.login(req.query.username,req.query.password,action));
   }
   //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });

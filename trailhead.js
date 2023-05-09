@@ -70,7 +70,9 @@ function login(varusername, varpassword, callbackstring) {
                 //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
                 if(callbackstring == 'checkTravelApprovalRecord') {
                     console.log('trailhead.js : checkTravelApprovalRecord');
-                    return checkTravelApprovalRecord();
+                    var _return_value = checkTravelApprovalRecord();
+                    console.log(_return_value);
+                    return _return_value;
                 }
                 //if(callbackstring == 'checkDashboards') callback=checkDashboards;
                 if(callbackstring == 'checkDashboards') {
@@ -86,7 +88,7 @@ function login(varusername, varpassword, callbackstring) {
                 //if(callback){return callback();}
             }
           });
-    } 
+    }
     else {
         console.log("Username and password not setup.")
     }
