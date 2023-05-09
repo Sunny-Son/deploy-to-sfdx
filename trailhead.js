@@ -76,13 +76,13 @@ function login(varusername, varpassword) {
 }
 
 
-function trailhead(callbackstring) {
+async function trailhead(callbackstring) {
     try {
         console.log('callbackstring : [' + callbackstring + ']');
         //if(callbackstring == 'checkTravelApprovalRecord') callback=checkTravelApprovalRecord;
         if(callbackstring == 'checkTravelApprovalRecord') {
             console.log('trailhead.js : checkTravelApprovalRecord');
-            var _return_value = checkTravelApprovalRecord();
+            var _return_value = await checkTravelApprovalRecord();
             console.log(_return_value);
             return _return_value;
         }
@@ -118,13 +118,13 @@ function displayTravelApprovalRecord() {
       });
 }
 
-async function checkTravelApprovalRecord() {
+function checkTravelApprovalRecord() {
     var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
     query_string += ' FROM Travel_Approval__c';
     query_string += ' WHERE Destination_State__c = \'KR\'';
     query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
     console.log('checkTravelApprovalRecord : ready to query');
-    await conn.query(query_string, function(err, result) {
+    conn.query(query_string, function(err, result) {
         if (err) { 
             esponse_bad.errormsg = 'Unknown Error';
             console.log("fail :" + JSON.stringify(response_bad));
