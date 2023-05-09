@@ -58,24 +58,17 @@
 
         <script>
 
-        //console.log('username : [' + <%= username %> + ']');
-        var clientGameState = '<%- JSON.stringify(username) %>';
-        console.log('++ Sunny : clientGameState : [', clientGameState + ']');
-        var varusername = document.getElementById("_username:");
+        var varusername = '<%- JSON.stringify(username) %>';
+        varusername.replace('\\"','');
         console.log('++ Sunny : varusername : [', varusername + ']');
-        var _varusernamehtml = varusername.innerHTML;
-        console.log('++ Sunny : _varusername : [', _varusernamehtml + ']');
-        var _varusername = varusername.innerText;
-        console.log('++ Sunny : _varusername : [', _varusername + ']');
 
-        const varpassword = document.getElementById('_password');
-        const _varpassword = varpassword.innerText;
-        console.log('++ Sunny : _varpassword : [', _varpassword + ']');
-
+        var varpassword = '<%- JSON.stringify(password) %>';
+        varpassword.replace('\\"','');
+        console.log('++ Sunny : varpassword : [', varpassword + ']');
 
         question1_launch=function() {
             //defaultContent('Questions !!');
-            var _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + _varusername + "&password=" + _varpassword;
+            var _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + varpassword + "&password=" + varpassword;
             fetch(_urlstr)
                 .then((response) => console.log("response:", response))
                 .catch((error) => console.log("error:", error));
