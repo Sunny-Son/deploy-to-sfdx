@@ -47,6 +47,7 @@ var response_good  = {
     status:200,
     ok: false,
     redirected: false,
+    errormsg: null,
   };
 
   
@@ -113,7 +114,11 @@ function checkTravelApprovalRecord() {
     query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
     console.log('checkTravelApprovalRecord : ready to query');
     conn.query(query_string, function(err, result) {
-        if (err) { return console.error(err); }
+        if (err) { 
+            esponse_bad.errormsg = 'Unknown Error';
+            console.log("fail :" + JSON.stringify(response_bad));
+            return response_bad;
+        }
         console.log("total : " + result.totalSize);
         if(result.totalSize > 0) {
           for (var i=0; i<result.records.length; i++) {
@@ -127,6 +132,7 @@ function checkTravelApprovalRecord() {
             return response_good;
         } else {
           console.log("Task #1 isn't achived yet");
+          esponse_bad.errormsg = 'There is no data yet!! please input!!';
           console.log("fail :" + JSON.stringify(response_bad));
             return response_bad;
         }
@@ -166,6 +172,7 @@ function checkReports() {
   conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report", function(err, result) {
       if (err) { return console.error(err); }
       //console.log("total : " + result.totalSize);
+      var _report_exist = false;
       console.log('++ checkReports : Travel Requests by Department');
       for (var i=0; i<result.records.length; i++) {
           var record = result.records[i];
@@ -184,6 +191,7 @@ function checkReports() {
               if (varreportname == 'Travel Requests by Department') {
                 var string_meta = meta.reportMetadata.toString();
                 console.log('Passed #1 - Report Name');
+                _report_exist = true;
                 //var varreportname = meta.reportMetadata.name;
                 //console.log(varreportname);
 
@@ -198,6 +206,7 @@ function checkReports() {
                   //console.log(vardetailcolumns);
                 } else {
                   console.error('need detailcolumns exactly');
+                  response_bad.errormsg = 'need detailcolumns exactly';
                   console.log("fail :" + JSON.stringify(response_bad));
                   return response_bad;
                 }
@@ -207,6 +216,7 @@ function checkReports() {
                   //console.log(vargroupingColumnInfo);
                 } else {
                   console.error('need Grouping exactly');
+                  response_bad.errormsg = 'need Grouping exactly';
                   console.log("fail :" + JSON.stringify(response_bad));
                   return response_bad;
                 }
@@ -218,6 +228,10 @@ function checkReports() {
           });
       }
     });
+    if(_report_exist == false) {
+        esponse_bad.errormsg = 'Create Report Please';
+    } else response_bad.errormsg = 'Unknown Error';
+
     console.log("fail :" + JSON.stringify(response_bad));
     return response_bad;
 }
