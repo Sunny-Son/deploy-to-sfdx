@@ -19,26 +19,35 @@
             <div class="slds-text-body_regular">
                     실제 데이터를 하나 입력합니다 #1
             </div>
-            <center><button class="slds-button slds-button_brand" id="question1" onclick="question1_launch();">확인하기</button></center>
-            <div id="status1" class="slds-m-bottom_small sfdx-output"></div>
+            <center><button class="slds-button slds-button_brand" id="question10" onclick="question_launch(10);">확인하기</button></center>
+            <div id="status10" class="slds-m-bottom_small sfdx-output"></div>
         </div> 
 
         <div class="slds-card">
             <div class="slds-text-heading_medium">Question #2</div>
             <div class="slds-text-body_regular">
-                    2개의 리포트를 만들어 봅시다 #2
+                    Field를 추가해 보겠습니다.
             </div>
-            <center><button class="slds-button slds-button_brand" id="question2" onclick="question2_launch();">확인하기</button></center>
-            <div id="status2" class="slds-m-bottom_small sfdx-output"></div>
+            <center><button class="slds-button slds-button_brand" id="question20" onclick="question_launch(20);">확인하기</button></center>
+            <div id="status20" class="slds-m-bottom_small sfdx-output"></div>
         </div> 
 
         <div class="slds-card">
             <div class="slds-text-heading_medium">Question #3</div>
             <div class="slds-text-body_regular">
-                    앞의 리포트를 활용하여 대시보드를 만들어 봅시다 #3
+                    2개의 리포트를 만들어 봅시다
             </div>
-            <center><button class="slds-button slds-button_brand" id="question3" onclick="question3_launch();">확인하기</button></center>
-            <div id="status3" class="slds-m-bottom_small sfdx-output"></div>
+            <center><button class="slds-button slds-button_brand" id="question30" onclick="question_launch(30);">확인하기</button></center>
+            <div id="status30" class="slds-m-bottom_small sfdx-output"></div>
+        </div> 
+
+        <div class="slds-card">
+            <div class="slds-text-heading_medium">Question #4</div>
+            <div class="slds-text-body_regular">
+                    앞의 리포트를 활용하여 대시보드를 만들어 봅시다
+            </div>
+            <center><button class="slds-button slds-button_brand" id="question40" onclick="question_launch(40);">확인하기</button></center>
+            <div id="status40" class="slds-m-bottom_small sfdx-output"></div>
         </div> 
 
         <div id="errorBlock" style="display: none;">
@@ -72,6 +81,56 @@
 
         //varpassword.replace('\"','');
         console.log('++ Sunny : varpassword : [', varpassword + ']');
+
+
+        var statusnumber = "status10";
+        var elementnumber = "question10";
+        var _urlstr;
+
+        question_launch= async function(seq) {
+            //defaultContent('Questions !!');
+            switch(seq) {
+                case 10:    statusnumber = "status10";
+                            elementnumber = "question10";
+                            _urlstr = "/trailhead?action=checkTravelApprovalRecord";
+                            break;
+                case 20:    statusnumber = "status20";
+                            elementnumber = "question4";
+                            _urlstr = "/trailhead?action=checkFieldCheck";
+                            break;
+                case 30:    statusnumber = "status30";
+                            elementnumber = "question4";
+                            _urlstr = "/trailhead?action=checkReports";
+                            break;
+                case 40:    statusnumber = "status40";
+                            elementnumber = "question4";
+                            _urlstr = "/trailhead?action=checkDashboards";
+                            break;
+            }
+
+            let response = await fetch(_urlstr);
+        
+            console.log(response);
+            console.log("response:", response.status);
+            console.log("response:", response.statusText);
+            
+            if(response.status == 200) {
+                let raw_data = await response.text();
+
+                console.log("response data :", raw_data);
+                data = JSON.parse(raw_data);
+                
+                if(data.ok == true) {
+                    console.log("data.ok = true");
+                    document.getElementById(elementnumber).disabled = true;
+                    document.getElementById(elementnumber).innerHTML = "Done";
+                    defaultContent(data.successmsg, statusnumber);
+                } else {
+                    console.log("data.ok = false");
+                    defaultContent(data.errormsg, statusnumber);
+                }
+            } else defaultContent(response.statusText, statusnumber);
+        }
 
         question1_launch= async function() {
             //defaultContent('Questions !!');
@@ -132,6 +191,65 @@
         question3_launch= async function() {
             //defaultContent('Questions !!');
             const statusnumber = "status3";
+            const elementnumber = "question3";
+            var _urlstr = "/trailhead?action=checkDashboards";
+            let response = await fetch(_urlstr);
+        
+            console.log(response);
+            console.log("response:", response.status);
+            console.log("response:", response.statusText);
+            
+            if(response.status == 200) {
+                let raw_data = await response.text();
+
+                console.log("response data :", raw_data);
+                data = JSON.parse(raw_data);
+                
+                if(data.ok == true) {
+                    console.log("data.ok = true");
+                    document.getElementById(elementnumber).disabled = true;
+                    document.getElementById(elementnumber).innerHTML = "Done";
+                    defaultContent(data.successmsg, statusnumber);
+                } else {
+                    console.log("data.ok = false");
+                    defaultContent(data.errormsg, statusnumber);
+                }
+            } else defaultContent(response.statusText, statusnumber);
+        }
+
+        question4_launch= async function() {
+            //defaultContent('Questions !!');
+            const statusnumber = "status4";
+            const elementnumber = "question4";
+            var _urlstr = "/trailhead?action=checkDashboards";
+            let response = await fetch(_urlstr);
+        
+            console.log(response);
+            console.log("response:", response.status);
+            console.log("response:", response.statusText);
+            
+            if(response.status == 200) {
+                let raw_data = await response.text();
+
+                console.log("response data :", raw_data);
+                data = JSON.parse(raw_data);
+                
+                if(data.ok == true) {
+                    console.log("data.ok = true");
+                    document.getElementById(elementnumber).disabled = true;
+                    document.getElementById(elementnumber).innerHTML = "Done";
+                    defaultContent(data.successmsg, statusnumber);
+                } else {
+                    console.log("data.ok = false");
+                    defaultContent(data.errormsg, statusnumber);
+                }
+            } else defaultContent(response.statusText, statusnumber);
+        }
+/*
+        question3_launch= async function() {
+            //defaultContent('Questions !!');
+            const statusnumber = "status3";
+            const elementnumber = "question3";
             var _urlstr = "/trailhead?action=checkDashboards";
             let response = await fetch(_urlstr);
         
@@ -156,7 +274,7 @@
                 }
             } else defaultContent(response.statusText, statusnumber);
         }
-
+*/
         defaultContent = function (content, varwhere) {
             var para = document.createElement("p");
             para.classList.add('slds-m-vertical_medium');

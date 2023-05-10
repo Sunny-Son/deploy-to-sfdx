@@ -160,6 +160,32 @@ async function trailhead_checkTravelApprovalRecord() {
       return _tmp1;
 }
 
+async function trailhead_checkFieldCheck() {
+    var _tmp1;
+  
+    await conn.describe("Travel_Approval__c", function(err, meta) {
+        if (err) { return console.error(err); }
+        console.log("total : " + meta.totalSize);
+        console.log('Label : ' + meta.label);
+        console.log('Num of Fields : ' + meta.fields.length);
+        //console.log('Num of Fields : ' + JSON.stringify(meta));
+
+        response_bad.errormsg = 'Please create field';
+        _tmp1 = response_bad;
+
+        for (var i=0; i<meta.fields.length; i++) {
+            var record = meta.fields[i].name;
+            console.log("[" + i + "] field name : [" + record + "]");
+            if(record == 'Trip_End_Date__c') {
+                response_good.successmsg = 'Field found';
+                _tmp1 = response_good;
+            }
+        }
+    });
+  
+    return _tmp1;
+  }
+
 function displayReports() {
     conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report", function(err, result) {
         if (err) { return console.error(err); }
@@ -446,7 +472,7 @@ function displayDashboards2() {
 }
 
 //module.exports = { login, checkTravelApprovalRecord, checkReports, checkDashboards};
-module.exports = { login, trailhead_checkTravelApprovalRecord, trailhead_checkDashboards, trailhead_checkReports};
+module.exports = { login, trailhead_checkTravelApprovalRecord, trailhead_checkFieldCheck, trailhead_checkDashboards, trailhead_checkReports};
 
 var callback = null;
 if (process.argv[2]) {
