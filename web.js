@@ -215,7 +215,8 @@ app.get('/trailhead', async (req, res) => {
 
       //1- You can do res.status(200).send("You message here");
       
-      await res.status(200).send(result);
+      //await res.status(200).send(result);
+      res.json({ok: false});
     } catch (e) {
       console.log(e);
       res.sendStatus(500);
