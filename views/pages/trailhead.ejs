@@ -74,6 +74,7 @@
             var _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + varusername + "&password=" + varpassword;
             let response = await fetch(_urlstr);
         
+            console.log(response);
             console.log("response:", response.status);
             console.log("response:", response.statusText);
             
@@ -81,12 +82,13 @@
                 let data = await response.text();
 
                 console.log("response data :", data);
-                if(response.ok == true) {
+                
+                if(data.ok == true) {
                     document.getElementById("question1").disabled = true;
                     document.getElementById("question1").innerHTML = "Done";
-                    defaultContent(response.data.successmsg, statusnumber);
+                    defaultContent(data.successmsg, statusnumber);
                 } else {
-                    defaultContent(response.data.errormsg, statusnumber);
+                    defaultContent(data.errormsg, statusnumber);
                 }
             } else defaultContent(response.statusText, statusnumber);
 
