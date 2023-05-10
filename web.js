@@ -186,10 +186,15 @@ app.get('/trailhead', (req, res) => {
     // Add to separate login
     //res.send(sunnytrailhead.login(req.query.username,req.query.password,action));
   if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
-    res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
+    logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
+    (async() => {
+      res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
+    })();
   } else if(action == 'checkDashboards' && req.query.username != null && req.query.password != null) {
+    logger.debug('+++ SUNNY : web.js : trailhead_checkDashboards');
     res.send(sunnytrailhead.trailhead_checkDashboards());
   } else if(action == 'checkReports' && req.query.username != null && req.query.password != null) {
+    logger.debug('+++ SUNNY : web.js : trailhead_checkReports');
     res.send(sunnytrailhead.trailhead_checkReports());
   }
   //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
