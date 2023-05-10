@@ -6,7 +6,10 @@ const logger = require('heroku-logger');
 // const cookieParser = require('cookie-parser');
 const msgBuilder = require('./lib/deployMsgBuilder');
 
-var sunnytrailhead = require('./trailhead');
+//var sunnytrailhead = require('./trailhead');
+
+
+var jsforce = require("jsforce");
 
 const ex = 'deployMsg';
 
@@ -162,7 +165,8 @@ app.get('/checkdashboard', (req, res) => {
   logger.debug('+++SUNNY username = [' + req.query.username + ']+++');
   logger.debug('+++SUNNY password = [' + req.query.password + ']+++');
   // Add to separate login
-  sunnytrailhead.login(req.query.username,req.query.password);
+  //sunnytrailhead.login(req.query.username,req.query.password);
+  login(req.query.username,req.query.password);
   return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
@@ -188,17 +192,19 @@ app.get('/trailhead',  (req, res) => {
   if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
     
-      sunnytrailhead.trailhead_checkTravelApprovalRecord().then(result => res.send(result));
+      trailhead_checkTravelApprovalRecord().then(result => res.send(result));
       //res.send({result: _result})
       //res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
     
-  } else if(action == 'checkDashboards' && req.query.username != null && req.query.password != null) {
+  } 
+  /*
+  else if(action == 'checkDashboards' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkDashboards');
     res.send(sunnytrailhead.trailhead_checkDashboards());
   } else if(action == 'checkReports' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkReports');
     res.send(sunnytrailhead.trailhead_checkReports());
-  }
+  }*/
   //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
@@ -282,3 +288,58 @@ mq.then( (mqConn) => {
   logger.error(`general error ${error}`);
 });
 
+function login(varusername, varpassword) {
+  conn.loginUrl = 'https://test.salesforce.com';
+  //conn.loginUrl = varinstanceurl;
+  var callback = null;
+  if(varusername && varpassword) {
+      console.log('loginurl = ' + conn.loginUrl);
+      conn.login(varusername, varpassword, function(err, res) {
+          if (err) { return console.error(err); }
+          else {
+              loggedIn = true;
+              console.log("Succcessfully logged into Salesforce.");
+              console.log(res);
+              return;
+          }
+        });
+  }
+  else {
+      console.log("Username and password not setup.")
+  }
+
+}
+
+// May 10th 2023 Insun
+async function trailhead_checkTravelApprovalRecord() {
+  var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
+  query_string += ' FROM Travel_Approval__c';
+  query_string += ' WHERE Destination_State__c = \'KR\'';
+  query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
+  console.log('checkTravelApprovalRecord : ready to query');
+  await conn.query(query_string, function(err, result) {
+      if (err) { 
+          esponse_bad.errormsg = 'Unknown Error';
+          console.log("fail :" + JSON.stringify(response_bad));
+          return response_bad;
+      }
+      console.log("total : " + result.totalSize);
+      if(result.totalSize > 0) {
+          for (var i=0; i<result.records.length; i++) {
+              var record = result.records[i];
+              console.log("Department: " + record.Department__c);
+              console.log("Destination State: " + record.Destination_State__c);
+              console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
+              console.log("Total Expenses: " + record.Total_Expenses__c);
+          }
+          response_good.successmsg = 'You put the data exactly!!';
+          console.log("success :" + JSON.stringify(response_good));
+          return JSON.stringify(response_good);
+      } else {
+          //console.log("Task #1 isn't achived yet");
+          response_bad.errormsg = 'There is no data yet!! please input!!';
+          console.log("fail :" + JSON.stringify(response_bad));
+          return JSON.stringify(response_bad);
+      }
+    });
+}
