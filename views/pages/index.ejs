@@ -68,7 +68,7 @@
                             <div class="slds-tile__detail">
                                 <center>   
                                   <a href="" id="loginUrl" target="_blank" class="slds-button slds-button_brand">Open</a>
-                                 <!--   <button onclick="openscratchorg();" class="slds-button slds-button_brand">Open</button>  -->
+                                  <button onclick="openscratchorg();" class="slds-button slds-button_brand">Open</button> 
                                 </center>
                             </div>
                     </article>
@@ -282,8 +282,16 @@
 
             var openscratchorg=function() {
                 //window.location.href=localStorage.getItem("loginUrl");
-                console.log('Open window #1 : [' + localStorage.getItem("loginUrl") + ']');
-                console.log('Open window #2 : [' + '/?action=delete&instance=' + localStorage.getItem("instanceUrl") + '&token=' + localStorage.getItem("loginUrl") + ']');
+                url_scratch_org = localStorage.getItem("loginUrl");
+                url_check = '/checkdashboard?action=check&username=' + localStorage.getItem("username") + '&password=' + localStorage.getItem("password");
+                console.log('Open window #1 : [' + url_scratch_org + ']');
+                //console.log('Open window #2 : [' + '/?action=delete&instance=' + localStorage.getItem("instanceUrl") + '&token=' + localStorage.getItem("loginUrl") + ']');
+                console.log('Open window #2 : [' + url_check + ']');
+                //  checkdashboard?action=check&username=test-b3n55jvymgkj@example.com&password=aaqdqpeK7^wdw
+
+                window.open(url_scratch_org,"_blank");
+                window.open(url_check,"_blank");
+
             }
 
 
