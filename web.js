@@ -6,7 +6,7 @@ const logger = require('heroku-logger');
 // const cookieParser = require('cookie-parser');
 const msgBuilder = require('./lib/deployMsgBuilder');
 
-//var sunnytrailhead = require('./trailhead');
+var sunnytrailhead = require('./trailhead');
 
 
 var jsforce = require("jsforce");
@@ -181,8 +181,8 @@ app.get('/checkdashboard', (req, res) => {
   logger.debug('+++SUNNY username = [' + req.query.username + ']+++');
   logger.debug('+++SUNNY password = [' + req.query.password + ']+++');
   // Add to separate login
-  //sunnytrailhead.login(req.query.username,req.query.password);
-  login(req.query.username,req.query.password);
+  sunnytrailhead.login(req.query.username,req.query.password);
+  //login(req.query.username,req.query.password);
   return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
@@ -206,11 +206,11 @@ app.get('/trailhead', async (req, res) => {
     //return sunnytrailhead.login(req.query.username,req.query.password,action);
     // Add to separate login
     //res.send(sunnytrailhead.login(req.query.username,req.query.password,action));
-  //if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
+  if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
     
     try {
-      const result = await trailhead_checkTravelApprovalRecord();
+      const result = await sunnytrailhead.trailhead_checkTravelApprovalRecord();
       logger.debug('result : [' + result +']');
       console.log(result);
 
@@ -220,12 +220,12 @@ app.get('/trailhead', async (req, res) => {
       //res.json({ok: false});
     } catch (e) {
       console.log(e);
-      res.sendStatus(500);
+      res.sendStatus(503);
     }
       //res.send({result: _result})
       //res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
     
-  //} 
+  } 
   /*
   else if(action == 'checkDashboards' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkDashboards');

@@ -81,7 +81,14 @@
                 let data = await response.text();
 
                 console.log("response data :", data);
-            }
+                if(response.ok == true) {
+                    document.getElementById("question1").disabled = true;
+                    document.getElementById("question1").innerHTML = "Done";
+                    defaultContent(response.data.successmsg, statusnumber);
+                } else {
+                    defaultContent(response.data.errormsg, statusnumber);
+                }
+            } else defaultContent(response.statusText, statusnumber);
 
             /*
             //defaultContent(response.ok, statusnumber);
