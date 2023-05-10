@@ -103,7 +103,7 @@
             //console.log('++ Sunny : deployIdInput : ', deployIdInput);
 
             const deployId = deployIdInput.innerText;
-            console.log('++ Sunny : deployId : ', deployId);
+            //console.log('++ Sunny : deployId : ', deployId);
             // works for both http and https
             let protoc = location.protocol=='https:'?'wss':'ws';
             const HOST = protoc+'://' + location.hostname + ':' + location.port + '/deploying/' + deployId;//location.href.replace(/^http/, 'ws');
@@ -111,13 +111,13 @@
             //console.log('++ Sunny : index.ejs : host : ', HOST);
 
             var username=localStorage.getItem('username');
-            console.log('++ Sunny : index.ejs : username : ', username);
+            //console.log('++ Sunny : index.ejs : username : ', username);
             var password=localStorage.getItem('password');
-            console.log('++ Sunny : index.ejs : password : ', password);
+            //console.log('++ Sunny : index.ejs : password : ', password);
             var loginUrl=localStorage.getItem('loginUrl');
-            console.log('++ Sunny : index.ejs : loginUrl : ', loginUrl);
+            //console.log('++ Sunny : index.ejs : loginUrl : ', loginUrl);
             var instanceUrl=localStorage.getItem('instanceUrl');
-            console.log('++ Sunny : index.ejs : instanceUrl : ', instanceUrl);
+            //console.log('++ Sunny : index.ejs : instanceUrl : ', instanceUrl);
             if(username!=null && password!=null && loginUrl!=null){
                 document.getElementById("username").innerHTML = username;
                 document.getElementById("password").innerHTML = password;
@@ -132,10 +132,6 @@
             if (typeof deployId != 'undefined' && deployId != null && deployId != '') {
                 const ws = new WebSocket(HOST);
                 let pinger;
-
-                // const deployId = deployIdInput.value;
-
-                // console.log(deployId);
 
                 ws.onmessage = function (event) {
                     msgCounter++;
@@ -207,11 +203,8 @@
                     defaultContent('Executed Apex (see console logs for details)');
                 } else if (content.includes('accessToken')) {
                     let goodstuff = JSON.parse(content);
-                    //console.log(goodstuff);
-                    //console.log('+++ SUNNY : accessToken1 : [ ' + goodstuff.authFields.accessToken + ']');
-                    //console.log('+++ SUNNY : accessToken2 : [ ' + goodstuff.result.accessToken + ']');
-                    console.log('+++ SUNNY : accessToken3 : [ ' + goodstuff.result.authFields.accessToken + ']');
-                    console.log('+++ SUNNY : instanceUrl3 : [ ' + goodstuff.result.authFields.instanceUrl + ']');
+                    //console.log('+++ SUNNY : accessToken3 : [ ' + goodstuff.result.authFields.accessToken + ']');
+                    //console.log('+++ SUNNY : instanceUrl3 : [ ' + goodstuff.result.authFields.instanceUrl + ']');
                     localStorage.setItem("accessToken",goodstuff.result.authFields.accessToken);
                     localStorage.setItem("instanceUrl",goodstuff.result.authFields.instanceUrl);
                     document.getElementById("instanceUrl").innerHTML = goodstuff.result.authFields.instanceUrl; 

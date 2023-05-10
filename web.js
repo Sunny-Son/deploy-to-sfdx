@@ -9,9 +9,6 @@ const msgBuilder = require('./lib/deployMsgBuilder');
 var sunnytrailhead = require('./trailhead');
 var qs = require('querystring');
 
-var jsforce = require("jsforce");
-var conn = new jsforce.Connection();
-
 var response_good  = {
   status : 200,
   ok : true,
@@ -26,10 +23,7 @@ var response_bad  = {
   errormsg : null,
 };
 
-
 const ex = 'deployMsg';
-
-// const http = require('http');
 
 const mq = require('amqplib').connect(process.env.CLOUDAMQP_URL || 'amqp://localhost');
 
@@ -48,7 +42,6 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
-// app.use(cookieParser());
 
 app.get('/', async (req, res) => {
   //const message = msgBuilder(req.query.template);
@@ -331,66 +324,3 @@ mq.then( (mqConn) => {
 .catch( (error) => {
   logger.error(`general error ${error}`);
 });
-
-/*
-function login(varusername, varpassword) {
-  conn.loginUrl = 'https://test.salesforce.com';
-  //conn.loginUrl = varinstanceurl;
-  var callback = null;
-  if(varusername && varpassword) {
-      console.log('loginurl = ' + conn.loginUrl);
-      conn.login(varusername, varpassword, function(err, res) {
-          if (err) { return console.error(err); }
-          else {
-              loggedIn = true;
-              console.log("Succcessfully logged into Salesforce.");
-              console.log(res);
-              return;
-          }
-        });
-  }
-  else {
-      console.log("Username and password not setup.")
-  }
-
-}
-
-// May 10th 2023 Insun
-async function trailhead_checkTravelApprovalRecord() {
-  var _tmp1;
-  var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
-  query_string += ' FROM Travel_Approval__c';
-  query_string += ' WHERE Destination_State__c = \'KR\'';
-  query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
-  console.log('checkTravelApprovalRecord : ready to query');
-  await conn.query(query_string, function(err, result) {
-      if (err) { 
-          response_bad.errormsg = 'Unknown Error';
-          console.log("fail :" + JSON.stringify(response_bad));
-          _tmp1 = JSON.stringify(response_bad);
-          //return response_bad;
-      } else {
-      console.log("total : " + result.totalSize);
-      if(result.totalSize > 0) {
-          for (var i=0; i<result.records.length; i++) {
-              var record = result.records[i];
-              console.log("Department: " + record.Department__c);
-              console.log("Destination State: " + record.Destination_State__c);
-              console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
-              console.log("Total Expenses: " + record.Total_Expenses__c);
-          }
-          response_good.successmsg = 'You put the data exactly!!';
-          console.log("success :" + JSON.stringify(response_good));
-          _tmp1 = JSON.stringify(response_good);
-          //return JSON.stringify(response_good);
-      } else {
-          //console.log("Task #1 isn't achived yet");
-          response_bad.errormsg = 'There is no data yet!! please input!!';
-          console.log("fail :" + JSON.stringify(response_bad));
-          _tmp1 = response_bad;
-          //return JSON.stringify(response_bad);
-      }}
-    });
-    return _tmp1;
-}
-*/

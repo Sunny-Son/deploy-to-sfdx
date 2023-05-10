@@ -4,38 +4,8 @@ var configpath = path.normalize("./");
 //var config = require(configpath+"config.js");
 const logger = require('heroku-logger');
 var conn = new jsforce.Connection();
-//var conn;
 
 var loggedIn = false;
-
-//Sign up for a free Developer Edition at https://developer.salesforce.com/signup
-
-//For username / password flow
-/*
-var username = process.env.username || config.username || null;
-var password = process.env.password || config.password || null;
-var varinstanceUrl = process.env.instanceUrl || config.instanceUrl || null;
-var varaccesstoken = process.env.accesstoken || config.accesstoken || null;
-
-
-var production = process.env.production || config.production || false; //for sandbox and scratch orgs, set to false
-if(production === "true" || production === "false") { production = (production === "true"); }
-
-var deployToWeb = process.env.deployToWeb || config.deployToWeb ||true;
-if(deployToWeb === "true" || deployToWeb === "false") { deployToWeb = (deployToWeb === "true"); }
-
-console.log('production : ' + production);
-/*
-
-Commented code below can be used to set up a web based oauth flow instead
-of username and password.  Doing so will require a connected app and a user
-with the correct IP permissions.
-
-Learn more here:
-https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_authentication.htm
-
-*/
-
 
 var response_good  = {
     status:200,
@@ -174,13 +144,13 @@ async function trailhead_checkTravelApprovalRecord() {
                     console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
                     console.log("Total Expenses: " + record.Total_Expenses__c);
                 }
-                response_good.successmsg = 'You put the data exactly!!';
+                response_good.successmsg = '데이터를 정확하게 입력하셨습니다!!! Passed!!';
                 console.log("success :" + JSON.stringify(response_good));
                 _tmp1 = response_good;
                 //return JSON.stringify(response_good);
             } else {
                 //console.log("Task #1 isn't achived yet");
-                response_bad.errormsg = 'There is no data yet!! please input!!';
+                response_bad.errormsg = '데이터가 정확하지 않습니다. 다시 확인 부탁드립니다.';
                 console.log("fail :" + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
                 //return JSON.stringify(response_bad);
@@ -227,7 +197,7 @@ async function trailhead_checkReports() {
         //console.log("total : " + result.totalSize);
         console.log('++ checkReports : Travel Requests by Department');
         if(result.records.length == 0) {
-          response_bad.errormsg = '[Travel Requests by Department] Report is not existing';
+          response_bad.errormsg = '[Travel Requests by Department] 라는 리포트가 존재하지 않습니다';
           console.log("fail :" + JSON.stringify(response_bad));
           _tmp1 = response_bad;
           //return response_bad;
@@ -255,17 +225,17 @@ async function trailhead_checkReports() {
             if(vargroupingColumnInfo.includes('Travel_Approval__c.Department__c')) {
                 console.log('Passed #3 - Grouping');
                 //console.log(vargroupingColumnInfo);
-                response_good.successmsg = 'Your report is perfect';
+                response_good.successmsg = '리포트를 정확하게 생성하셨습니다.';
                 console.log("success :" + JSON.stringify(response_good));
                 _tmp1 = response_good;
             } else {
-                response_bad.errormsg = 'need Grouping exactly';
+                response_bad.errormsg = '그룹 지정이 되지 않았습니다.';
                 console.log("fail :" + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
                 //return response_bad;
             }
         } else {
-            response_bad.errormsg = 'need detailcolumns exactly';
+            response_bad.errormsg = '지정된 컬럼들을 모두 선택하지 않으셨습니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             //return response_bad;
@@ -350,7 +320,7 @@ async function trailhead_checkDashboards() {
         if (err) { return console.error(err); }
         console.log('++ checkReports : Travel Requests Dashboard');
         if(result.records.length == 0) {
-          response_bad.errormsg = '[Travel Requests Dashboard] dashboard under [private folder] is not existing';
+          response_bad.errormsg = '[Travel Requests Dashboard] 대시보드가 [private folder] 에 존재하지 않습니다.';
           console.log("fail :" + JSON.stringify(response_bad));
           _tmp1 = response_bad;
           //return response_bad;
@@ -388,12 +358,12 @@ async function trailhead_checkDashboards() {
             && vardashboardcheck.includes('\"groupByType\":\"stacked\"')
             && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
         ) {
-            response_good.successmsg = 'Your Dashboard is perfect';
+            response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. Passed!';
             console.log("success :" + JSON.stringify(response_good));
             _tmp1 = response_good;
             //return response_good;
         } else {
-            response_bad.errormsg = 'Please check the Dashboard again';
+            response_bad.errormsg = '대시보드를 다시 확인하시기 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             //return response_bad;
@@ -475,10 +445,6 @@ function displayDashboards2() {
       });
 }
 
-//to test out the above code on the command line:
-//node index.js {command}
-//
-//where command is one of the case statements below
 //module.exports = { login, checkTravelApprovalRecord, checkReports, checkDashboards};
 module.exports = { login, trailhead_checkTravelApprovalRecord, trailhead_checkDashboards, trailhead_checkReports};
 
