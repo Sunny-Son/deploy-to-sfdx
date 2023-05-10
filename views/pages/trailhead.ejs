@@ -75,7 +75,13 @@
             fetch(_urlstr)
                 .then((response) => {
                     console.log("response:", response);
-                    defaultContent(response.ok, statusnumber);
+                    console.log("response:", response.text);
+                    console.log("response:", response.statusText);
+                    console.log("response:", response.body);
+                    console.log("response:", response.json);
+                    console.log("response:", response.statusText);
+
+                    //defaultContent(response.ok, statusnumber);
                     if(response.ok == true) {
                         document.getElementById("question1").disabled = true;
                         document.getElementById("question1").innerHTML = "Done";
