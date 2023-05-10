@@ -7,7 +7,7 @@ const logger = require('heroku-logger');
 const msgBuilder = require('./lib/deployMsgBuilder');
 
 var sunnytrailhead = require('./trailhead');
-
+var qs = require('querystring');
 
 var jsforce = require("jsforce");
 var conn = new jsforce.Connection();
@@ -176,12 +176,14 @@ app.get('/checkdashboard', (req, res) => {
   //https://sunny-deployer1.herokuapp.com/checkdashboard?action=check&username=sdlkfaj@example.com&password=aldkfjas
   logger.debug('+++SUNNY /sunny = 1 = +++');
   let action = req.query.action;
+  let _chk_username = qs.unescape(eq.query.username);
+  let _chk_password = qs.unescape(eq.query.password);
   logger.debug('+++SUNNY /sunny = 2, query = [' + req.query + ']+++');
   logger.debug('+++SUNNY /sunny = 3, action = [' + action + ']+++');
-  logger.debug('+++SUNNY username = [' + req.query.username + ']+++');
-  logger.debug('+++SUNNY password = [' + req.query.password + ']+++');
+  logger.debug('+++SUNNY username = [' + _chk_username + ']+++');
+  logger.debug('+++SUNNY password = [' + _chk_password + ']+++');
   // Add to separate login
-  sunnytrailhead.login(req.query.username,req.query.password);
+  sunnytrailhead.login(_chk_username,_chk_password);
   //login(req.query.username,req.query.password);
   return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
