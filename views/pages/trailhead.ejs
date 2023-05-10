@@ -67,7 +67,7 @@
         console.log('++ Sunny : varusername : [', varusername + ']');
 
         var _1_password = '<%- JSON.stringify(password) %>';
-        var _2_password = decodeURIComponent(_1_username);
+        var _2_password = decodeURIComponent(_1_password);
         var varpassword = _2_password.replaceAll('"', '');
 
         //varpassword.replace('\"','');
@@ -76,7 +76,7 @@
         question1_launch= async function() {
             //defaultContent('Questions !!');
             const statusnumber = "status1";
-            var _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + varusername + "&password=" + varpassword;
+            var _urlstr = "/trailhead?action=checkTravelApprovalRecord";
             let response = await fetch(_urlstr);
         
             console.log(response);
@@ -104,7 +104,7 @@
         question2_launch= async function() {
             //defaultContent('Questions !!');
             const statusnumber = "status2";
-            var _urlstr = "/trailhead?action=checkReports&username=" + varusername + "&password=" + varpassword;
+            var _urlstr = "/trailhead?action=checkReports";
             let response = await fetch(_urlstr);
         
             console.log(response);
@@ -132,7 +132,7 @@
         question3_launch= async function() {
             //defaultContent('Questions !!');
             const statusnumber = "status3";
-            var _urlstr = "/trailhead?action=checkDashboards&username=" + varusername + "&password=" + varpassword;
+            var _urlstr = "/trailhead?action=checkDashboards";
             let response = await fetch(_urlstr);
         
             console.log(response);

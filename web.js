@@ -198,8 +198,8 @@ app.get('/trailhead', async (req, res) => {
   let action = req.query.action;
   logger.debug('+++SUNNY /trailhead = 2, query = [' + req.query + ']+++');
   logger.debug('+++SUNNY /trailhead = 3, action = [' + action + ']+++');
-  logger.debug('+++SUNNY /trailhead username = [' + req.query.username + ']+++');
-  logger.debug('+++SUNNY /trailhead password = [' + req.query.password + ']+++');
+  //logger.debug('+++SUNNY /trailhead username = [' + req.query.username + ']+++');
+  //logger.debug('+++SUNNY /trailhead password = [' + req.query.password + ']+++');
   //res.send({ title: 'GeeksforGeeks' });
   //logger.debug('+++SUNNY /trailhead instanceurl = [' + req.query.instanceurl + ']+++');
   //if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null && req.query.instanceurl != null) {
@@ -208,7 +208,8 @@ app.get('/trailhead', async (req, res) => {
     //return sunnytrailhead.login(req.query.username,req.query.password,action);
     // Add to separate login
     //res.send(sunnytrailhead.login(req.query.username,req.query.password,action));
-  if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
+  //if(action == 'checkTravelApprovalRecord' && _chk_username != null && _chk_password != null) {
+  if(action == 'checkTravelApprovalRecord') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
     
     try {
@@ -223,7 +224,7 @@ app.get('/trailhead', async (req, res) => {
     
   }
   
-  else if(action == 'checkDashboards' && req.query.username != null && req.query.password != null) {
+  else if(action == 'checkDashboards') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkDashboards');
     try {
       const result = await sunnytrailhead.trailhead_checkDashboards();
@@ -235,7 +236,7 @@ app.get('/trailhead', async (req, res) => {
       res.sendStatus(503);
     }
     //res.send(sunnytrailhead.trailhead_checkDashboards());
-  } else if(action == 'checkReports' && req.query.username != null && req.query.password != null) {
+  } else if(action == 'checkReports') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkReports');
     try {
       const result = await sunnytrailhead.trailhead_checkReports();
