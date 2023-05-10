@@ -166,7 +166,7 @@ app.get('/checkdashboard', (req, res) => {
   return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
-app.get('/trailhead', (req, res) => {
+app.get('/trailhead', async (req, res) => {
 
   //https://sunny-deployer1.herokuapp.com/trailhead?action=check&username=sdlkfaj@example.com&password=aldkfjas
   //https://sunny-deployer1.herokuapp.com/trailhead?action=checkdata&username=sdlkfaj@example.com&password=aldkfjas
@@ -187,9 +187,11 @@ app.get('/trailhead', (req, res) => {
     //res.send(sunnytrailhead.login(req.query.username,req.query.password,action));
   if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
-    (async() => {
-      res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
-    })();
+    
+      let _result = await sunnytrailhead.trailhead_checkTravelApprovalRecord();
+      res.send({result: _result})
+      //res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
+    
   } else if(action == 'checkDashboards' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkDashboards');
     res.send(sunnytrailhead.trailhead_checkDashboards());
