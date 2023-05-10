@@ -182,35 +182,29 @@ app.get('/checkdashboard', (req, res) => {
 });
 
 app.get('/trailhead', async (req, res) => {
-
-  //https://sunny-deployer1.herokuapp.com/trailhead?action=check&username=sdlkfaj@example.com&password=aldkfjas
-  //https://sunny-deployer1.herokuapp.com/trailhead?action=checkdata&username=sdlkfaj@example.com&password=aldkfjas
-  //https://sunny-deployer1.herokuapp.com/trailhead?action=checkTravelApprovalRecord&username=test-sv8vdb3tqsgz@example.com&password=Pe1ntiz]zijcs
-
-  logger.debug('+++SUNNY /trailhead = 1 = +++');
+  //logger.debug('+++SUNNY /trailhead = 1 = +++');
   let action = req.query.action;
-  logger.debug('+++SUNNY /trailhead = 2, query = [' + req.query + ']+++');
-  logger.debug('+++SUNNY /trailhead = 3, action = [' + action + ']+++');
+  //logger.debug('+++SUNNY /trailhead = 2, query = [' + req.query + ']+++');
+  logger.debug('+++ /trailhead, action = [' + action + ']+++');
 
   if(action == 'checkTravelApprovalRecord') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
     
     try {
       const result = await sunnytrailhead.trailhead_checkTravelApprovalRecord();
-      logger.debug('result : [' + result +']');
+      //logger.debug('result : [' + result +']');
       console.log(result);
       await res.status(200).send(result);
     } catch (e) {
       console.log(e);
       res.sendStatus(503);
     }
-    
   }
   else if(action == 'checkDashboards') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkDashboards');
     try {
       const result = await sunnytrailhead.trailhead_checkDashboards();
-      logger.debug('result : [' + result +']');
+      //logger.debug('result : [' + result +']');
       console.log(result);
       await res.status(200).send(result);
     } catch (e) {
@@ -222,7 +216,7 @@ app.get('/trailhead', async (req, res) => {
     logger.debug('+++ SUNNY : web.js : trailhead_checkReports');
     try {
       const result = await sunnytrailhead.trailhead_checkReports();
-      logger.debug('result : [' + result +']');
+      //logger.debug('result : [' + result +']');
       console.log(result);
       await res.status(200).send(result);
     } catch (e) {
@@ -230,11 +224,11 @@ app.get('/trailhead', async (req, res) => {
       res.sendStatus(503);
     }
     //res.send(sunnytrailhead.trailhead_checkReports());
-  } else if(action == 'checkFieldCheck') {
-    logger.debug('+++ SUNNY : web.js : trailhead_checkFieldCheck');
+  } else if(action == 'checkField') {
+    logger.debug('+++ SUNNY : web.js : trailhead_checkField');
     try {
-      const result = await sunnytrailhead.trailhead_checkFieldCheck();
-      logger.debug('result : [' + result +']');
+      const result = await sunnytrailhead.trailhead_checkField();
+      //logger.debug('result : [' + result +']');
       console.log(result);
       await res.status(200).send(result);
     } catch (e) {

@@ -160,14 +160,14 @@ async function trailhead_checkTravelApprovalRecord() {
       return _tmp1;
 }
 
-async function trailhead_checkFieldCheck() {
+async function trailhead_checkField() {
     var _tmp1;
   
     await conn.describe("Travel_Approval__c", function(err, meta) {
         if (err) { return console.error(err); }
-        console.log("total : " + meta.totalSize);
-        console.log('Label : ' + meta.label);
-        console.log('Num of Fields : ' + meta.fields.length);
+        //console.log("total : " + meta.totalSize);
+        //console.log('Label : ' + meta.label);
+        //console.log('Num of Fields : ' + meta.fields.length);
         //console.log('Num of Fields : ' + JSON.stringify(meta));
 
         response_bad.errormsg = '제시된 필드를 추가해 주세요.';
@@ -472,7 +472,7 @@ function displayDashboards2() {
 }
 
 //module.exports = { login, checkTravelApprovalRecord, checkReports, checkDashboards};
-module.exports = { login, trailhead_checkTravelApprovalRecord, trailhead_checkFieldCheck, trailhead_checkDashboards, trailhead_checkReports};
+module.exports = { login, trailhead_checkTravelApprovalRecord, trailhead_checkField, trailhead_checkDashboards, trailhead_checkReports};
 
 var callback = null;
 if (process.argv[2]) {
