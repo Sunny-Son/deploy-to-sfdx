@@ -13,17 +13,17 @@ var jsforce = require("jsforce");
 var conn = new jsforce.Connection();
 
 var response_good  = {
-  status:200,
-  ok: true,
-  redirected: false,
-  successmsg: null,
+  status : 200,
+  ok : true,
+  redirected : false,
+  successmsg : null,
 };
 
 var response_bad  = {
-  status:200,
-  ok: false,
-  redirected: false,
-  errormsg: null,
+  status : 503,
+  ok : false,
+  redirected : false,
+  errormsg : null,
 };
 
 
@@ -205,17 +205,25 @@ app.get('/trailhead', async (req, res) => {
     //return sunnytrailhead.login(req.query.username,req.query.password,action);
     // Add to separate login
     //res.send(sunnytrailhead.login(req.query.username,req.query.password,action));
-  if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
+  //if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
     
+    try {
       const result = await trailhead_checkTravelApprovalRecord();
       logger.debug('result : [' + result +']');
       console.log(result);
-      res.send(result);
+
+      //1- You can do res.status(200).send("You message here");
+      
+      await res.status(200).send(result);
+    } catch (e) {
+      console.log(e);
+      res.sendStatus(500);
+    }
       //res.send({result: _result})
       //res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
     
-  } 
+  //} 
   /*
   else if(action == 'checkDashboards' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkDashboards');
@@ -339,10 +347,11 @@ async function trailhead_checkTravelApprovalRecord() {
   console.log('checkTravelApprovalRecord : ready to query');
   await conn.query(query_string, function(err, result) {
       if (err) { 
-          esponse_bad.errormsg = 'Unknown Error';
+          response_bad.errormsg = 'Unknown Error';
           console.log("fail :" + JSON.stringify(response_bad));
-          return response_bad;
-      }
+          _tmp1 = JSON.stringify(response_bad);
+          //return response_bad;
+      } else {
       console.log("total : " + result.totalSize);
       if(result.totalSize > 0) {
           for (var i=0; i<result.records.length; i++) {
@@ -355,14 +364,14 @@ async function trailhead_checkTravelApprovalRecord() {
           response_good.successmsg = 'You put the data exactly!!';
           console.log("success :" + JSON.stringify(response_good));
           _tmp1 = JSON.stringify(response_good);
-          return JSON.stringify(response_good);
+          //return JSON.stringify(response_good);
       } else {
           //console.log("Task #1 isn't achived yet");
           response_bad.errormsg = 'There is no data yet!! please input!!';
           console.log("fail :" + JSON.stringify(response_bad));
-          _tmp1 = JSON.stringify(response_bad);
-          return JSON.stringify(response_bad);
-      }
+          _tmp1 = response_bad;
+          //return JSON.stringify(response_bad);
+      }}
     });
     return _tmp1;
 }
