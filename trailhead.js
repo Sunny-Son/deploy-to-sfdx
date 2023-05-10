@@ -170,14 +170,14 @@ async function trailhead_checkFieldCheck() {
         console.log('Num of Fields : ' + meta.fields.length);
         //console.log('Num of Fields : ' + JSON.stringify(meta));
 
-        response_bad.errormsg = 'Please create field';
+        response_bad.errormsg = '제시된 필드를 추가해 주세요.';
         _tmp1 = response_bad;
 
         for (var i=0; i<meta.fields.length; i++) {
             var record = meta.fields[i].name;
             console.log("[" + i + "] field name : [" + record + "]");
-            if(record == 'Trip_End_Date__c') {
-                response_good.successmsg = 'Field found';
+            if(record == 'Transport_Type__c' &&  meta.fields[i].length == 255 && meta.fields[i].type == 'string') {
+                response_good.successmsg = '필드를 정확하게 생성하였습니다.';
                 _tmp1 = response_good;
             }
         }
