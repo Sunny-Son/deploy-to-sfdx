@@ -10,6 +10,8 @@ const msgBuilder = require('./lib/deployMsgBuilder');
 
 
 var jsforce = require("jsforce");
+var conn = new jsforce.Connection();
+
 
 const ex = 'deployMsg';
 
