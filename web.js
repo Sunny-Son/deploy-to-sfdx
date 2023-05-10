@@ -329,6 +329,7 @@ mq.then( (mqConn) => {
   logger.error(`general error ${error}`);
 });
 
+/*
 function login(varusername, varpassword) {
   conn.loginUrl = 'https://test.salesforce.com';
   //conn.loginUrl = varinstanceurl;
@@ -389,3 +390,4 @@ async function trailhead_checkTravelApprovalRecord() {
     });
     return _tmp1;
 }
+*/
