@@ -185,6 +185,7 @@
                     var link = document.getElementById("loginUrl");
                     link.href = goodstuff.result.url;
                     localStorage.setItem("loginUrl",goodstuff.result.url);
+                    console.log('++++ url : ' + goodstuff.result.url);
                     document.getElementById("noorg").setAttribute("style", "display : none");
                     document.getElementById("loginBlock").setAttribute("style", "display : block");
                     msgCounter--;
@@ -282,7 +283,7 @@
             var openscratchorg=function() {
                 //window.location.href=localStorage.getItem("loginUrl");
                 console.log('Open window #1 : [' + localStorage.getItem("loginUrl") + ']');
-                console.log('Open window #2 : [' + '/?action=delete&username=' + localStorage.getItem("username") + '&password=' + localStorage.getItem("password") + ']');
+                console.log('Open window #2 : [' + '/?action=delete&instance=' + localStorage.getItem("instanceUrl") + '&token=' + localStorage.getItem("loginUrl") + ']');
             }
 
 
