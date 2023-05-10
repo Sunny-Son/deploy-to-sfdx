@@ -12,6 +12,20 @@ const msgBuilder = require('./lib/deployMsgBuilder');
 var jsforce = require("jsforce");
 var conn = new jsforce.Connection();
 
+var response_good  = {
+  status:200,
+  ok: true,
+  redirected: false,
+  successmsg: null,
+};
+
+var response_bad  = {
+  status:200,
+  ok: false,
+  redirected: false,
+  errormsg: null,
+};
+
 
 const ex = 'deployMsg';
 
