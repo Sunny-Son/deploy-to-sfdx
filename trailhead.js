@@ -152,6 +152,7 @@ function checkTravelApprovalRecord() {
 
 // May 10th 2023 Insun
 async function trailhead_checkTravelApprovalRecord() {
+    var _tmp1;
     var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
     query_string += ' FROM Travel_Approval__c';
     query_string += ' WHERE Destination_State__c = \'KR\'';
@@ -161,27 +162,32 @@ async function trailhead_checkTravelApprovalRecord() {
         if (err) { 
             esponse_bad.errormsg = 'Unknown Error';
             console.log("fail :" + JSON.stringify(response_bad));
-            return response_bad;
-        }
-        console.log("total : " + result.totalSize);
-        if(result.totalSize > 0) {
-            for (var i=0; i<result.records.length; i++) {
-                var record = result.records[i];
-                console.log("Department: " + record.Department__c);
-                console.log("Destination State: " + record.Destination_State__c);
-                console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
-                console.log("Total Expenses: " + record.Total_Expenses__c);
-            }
-            response_good.successmsg = 'You put the data exactly!!';
-            console.log("success :" + JSON.stringify(response_good));
-            return JSON.stringify(response_good);
+            _tmp1 = response_bad;
+            //return response_bad;
         } else {
-            //console.log("Task #1 isn't achived yet");
-            response_bad.errormsg = 'There is no data yet!! please input!!';
-            console.log("fail :" + JSON.stringify(response_bad));
-            return JSON.stringify(response_bad);
+            console.log("total : " + result.totalSize);
+            if(result.totalSize > 0) {
+                for (var i=0; i<result.records.length; i++) {
+                    var record = result.records[i];
+                    console.log("Department: " + record.Department__c);
+                    console.log("Destination State: " + record.Destination_State__c);
+                    console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
+                    console.log("Total Expenses: " + record.Total_Expenses__c);
+                }
+                response_good.successmsg = 'You put the data exactly!!';
+                console.log("success :" + JSON.stringify(response_good));
+                _tmp1 = response_good;
+                //return JSON.stringify(response_good);
+            } else {
+                //console.log("Task #1 isn't achived yet");
+                response_bad.errormsg = 'There is no data yet!! please input!!';
+                console.log("fail :" + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                //return JSON.stringify(response_bad);
+            }
         }
       });
+      return _tmp1;
 }
 
 function displayReports() {
@@ -215,6 +221,7 @@ function displayReports() {
 
 // May 10th 2023 Insun
 async function trailhead_checkReports() {
+    var _tmp1 = null;
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Travel Requests by Department\'", function(err, result) {
         if (err) { return console.error(err); }
         //console.log("total : " + result.totalSize);
@@ -222,11 +229,14 @@ async function trailhead_checkReports() {
         if(result.records.length == 0) {
           response_bad.errormsg = '[Travel Requests by Department] Report is not existing';
           console.log("fail :" + JSON.stringify(response_bad));
-          return response_bad;
+          _tmp1 = response_bad;
+          //return response_bad;
         }
     });
-    console.log('Passed #1 - Report Name');
+    
+    if(_tmp1 != null) return _tmp1;
 
+    console.log('Passed #1 - Report Name');
     var record = result.records[0];
     await conn.analytics.report(record.Id).describe(function(err, meta) {
         //report.execute(function(err, result) {
@@ -242,28 +252,29 @@ async function trailhead_checkReports() {
             && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
         {
             console.log('Passed #2 - Columns');
+            if(vargroupingColumnInfo.includes('Travel_Approval__c.Department__c')) {
+                console.log('Passed #3 - Grouping');
+                //console.log(vargroupingColumnInfo);
+                response_good.successmsg = 'Your report is perfect';
+                console.log("success :" + JSON.stringify(response_good));
+                _tmp1 = response_good;
+            } else {
+                response_bad.errormsg = 'need Grouping exactly';
+                console.log("fail :" + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                //return response_bad;
+            }
         } else {
             response_bad.errormsg = 'need detailcolumns exactly';
             console.log("fail :" + JSON.stringify(response_bad));
-            return response_bad;
+            _tmp1 = response_bad;
+            //return response_bad;
         }
 
-        if(vargroupingColumnInfo.includes('Travel_Approval__c.Department__c')) {
-            console.log('Passed #3 - Grouping');
-            //console.log(vargroupingColumnInfo);
-        } else {
-            response_bad.errormsg = 'need Grouping exactly';
-            console.log("fail :" + JSON.stringify(response_bad));
-            return response_bad;
-        }
-        response_good.successmsg = 'Your report is perfect';
-        console.log("success :" + JSON.stringify(response_good));
-        return response_good;
+        
     });
 
-    response_bad.errormsg = 'Unknown error';
-    console.log("fail :" + JSON.stringify(response_bad));
-    return response_bad;
+    return _tmp1;
     /*
   await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report", function(err, result) {
       if (err) { return console.error(err); }
@@ -334,16 +345,20 @@ async function trailhead_checkReports() {
 }
 
 async function trailhead_checkDashboards() {
+    var _tmp1 = null;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Travel Requests Dashboard\' and FolderName = \'Private Dashboards\'", function(err, result) {
         if (err) { return console.error(err); }
         console.log('++ checkReports : Travel Requests Dashboard');
         if(result.records.length == 0) {
           response_bad.errormsg = '[Travel Requests Dashboard] dashboard under [private folder] is not existing';
           console.log("fail :" + JSON.stringify(response_bad));
-          return response_bad;
+          _tmp1 = response_bad;
+          //return response_bad;
         }
     });
     
+    if(_tmp1 != null) return _tmp1;
+
     console.log('Passed #1 - Dashboard Name');
     var record = result.records[0];
     console.log("total : " + result.totalSize);
@@ -375,13 +390,17 @@ async function trailhead_checkDashboards() {
         ) {
             response_good.successmsg = 'Your Dashboard is perfect';
             console.log("success :" + JSON.stringify(response_good));
-            return response_good;
+            _tmp1 = response_good;
+            //return response_good;
+        } else {
+            response_bad.errormsg = 'Please check the Dashboard again';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+            //return response_bad;
         }
     });
-
-    response_bad.errormsg = 'Please check the Dashboard again';
-    console.log("fail :" + JSON.stringify(response_bad));
-    return response_bad;
+    return _tmp1;
+    
 }
 
 /*

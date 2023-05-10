@@ -213,27 +213,39 @@ app.get('/trailhead', async (req, res) => {
       const result = await sunnytrailhead.trailhead_checkTravelApprovalRecord();
       logger.debug('result : [' + result +']');
       console.log(result);
-
-      //1- You can do res.status(200).send("You message here");
-      
       await res.status(200).send(result);
-      //res.json({ok: false});
     } catch (e) {
       console.log(e);
       res.sendStatus(503);
     }
-      //res.send({result: _result})
-      //res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
     
-  } 
-  /*
+  }
+  
   else if(action == 'checkDashboards' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkDashboards');
-    res.send(sunnytrailhead.trailhead_checkDashboards());
+    try {
+      const result = await sunnytrailhead.trailhead_checkDashboards();
+      logger.debug('result : [' + result +']');
+      console.log(result);
+      await res.status(200).send(result);
+    } catch (e) {
+      console.log(e);
+      res.sendStatus(503);
+    }
+    //res.send(sunnytrailhead.trailhead_checkDashboards());
   } else if(action == 'checkReports' && req.query.username != null && req.query.password != null) {
     logger.debug('+++ SUNNY : web.js : trailhead_checkReports');
-    res.send(sunnytrailhead.trailhead_checkReports());
-  }*/
+    try {
+      const result = await sunnytrailhead.trailhead_checkReports();
+      logger.debug('result : [' + result +']');
+      console.log(result);
+      await res.status(200).send(result);
+    } catch (e) {
+      console.log(e);
+      res.sendStatus(503);
+    }
+    //res.send(sunnytrailhead.trailhead_checkReports());
+  }
   //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
