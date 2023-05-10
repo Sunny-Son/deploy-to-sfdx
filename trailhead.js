@@ -160,7 +160,7 @@ async function trailhead_checkTravelApprovalRecord() {
     console.log('checkTravelApprovalRecord : ready to query');
     await conn.query(query_string, function(err, result) {
         if (err) { 
-            esponse_bad.errormsg = 'Unknown Error';
+            response_bad.errormsg = 'Unknown Error';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             //return response_bad;
