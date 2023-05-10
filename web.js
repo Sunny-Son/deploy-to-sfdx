@@ -209,6 +209,8 @@ app.get('/trailhead', async (req, res) => {
     logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
     
       const result = await trailhead_checkTravelApprovalRecord();
+      logger.debug('result : [' + result +']');
+      console.log(result);
       res.send(result);
       //res.send({result: _result})
       //res.send(sunnytrailhead.trailhead_checkTravelApprovalRecord());
@@ -329,6 +331,7 @@ function login(varusername, varpassword) {
 
 // May 10th 2023 Insun
 async function trailhead_checkTravelApprovalRecord() {
+  var _tmp1;
   var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
   query_string += ' FROM Travel_Approval__c';
   query_string += ' WHERE Destination_State__c = \'KR\'';
@@ -351,12 +354,15 @@ async function trailhead_checkTravelApprovalRecord() {
           }
           response_good.successmsg = 'You put the data exactly!!';
           console.log("success :" + JSON.stringify(response_good));
+          _tmp1 = JSON.stringify(response_good);
           return JSON.stringify(response_good);
       } else {
           //console.log("Task #1 isn't achived yet");
           response_bad.errormsg = 'There is no data yet!! please input!!';
           console.log("fail :" + JSON.stringify(response_bad));
+          _tmp1 = JSON.stringify(response_bad);
           return JSON.stringify(response_bad);
       }
     });
+    return _tmp1;
 }
