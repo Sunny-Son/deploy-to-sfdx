@@ -79,15 +79,18 @@
             console.log("response:", response.statusText);
             
             if(response.status == 200) {
-                let data = await response.text();
+                let raw_data = await response.text();
 
-                console.log("response data :", data);
+                console.log("response data :", raw_data);
+                data = JSON.parse(raw_data);
                 
                 if(data.ok == true) {
+                    console.log("data.ok = true");
                     document.getElementById("question1").disabled = true;
                     document.getElementById("question1").innerHTML = "Done";
                     defaultContent(data.successmsg, statusnumber);
                 } else {
+                    console.log("data.ok = false");
                     defaultContent(data.errormsg, statusnumber);
                 }
             } else defaultContent(response.statusText, statusnumber);
