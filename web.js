@@ -198,7 +198,7 @@ app.get('/trailhead', async (req, res) => {
   logger.debug('+++SUNNY /trailhead = 3, action = [' + action + ']+++');
   logger.debug('+++SUNNY /trailhead username = [' + req.query.username + ']+++');
   logger.debug('+++SUNNY /trailhead password = [' + req.query.password + ']+++');
-  res.send({ title: 'GeeksforGeeks' });
+  //res.send({ title: 'GeeksforGeeks' });
   //logger.debug('+++SUNNY /trailhead instanceurl = [' + req.query.instanceurl + ']+++');
   //if(action == 'checkTravelApprovalRecord' && req.query.username != null && req.query.password != null && req.query.instanceurl != null) {
   //  return sunnytrailhead.login(req.query.username,req.query.password,req.query.instanceurl,action);
@@ -216,8 +216,8 @@ app.get('/trailhead', async (req, res) => {
 
       //1- You can do res.status(200).send("You message here");
       
-      //await res.status(200).send(result);
-      res.json({ok: false});
+      await res.status(200).send(result);
+      //res.json({ok: false});
     } catch (e) {
       console.log(e);
       res.sendStatus(500);
