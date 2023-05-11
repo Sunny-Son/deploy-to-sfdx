@@ -251,7 +251,6 @@ async function trailhead_checkReports() {
         if(vardetailcolumns.includes('Travel_Approval__c.Out_of_State__c')
             && vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
             && vardetailcolumns.includes('Travel_Approval__c.Status__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Department__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
         {
@@ -303,28 +302,27 @@ async function trailhead_checkReports() {
         var vardetailcolumns = meta.reportMetadata.detailColumns;
         var vargroupingColumnInfo = JSON.stringify(meta.reportExtendedMetadata.groupingColumnInfo);
 
-        if(vardetailcolumns.includes('Travel_Approval__c.Out_of_State__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
+        if(vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
             && vardetailcolumns.includes('Travel_Approval__c.Department__c')
             && vardetailcolumns.includes('Travel_Approval__c.Status__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
+            && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c'))
         {
             console.log('Passed #2 - Columns');
-            if(vargroupingColumnInfo.includes('Travel_Approval__c.Trip_End_Date__c')) {
+            if(vargroupingColumnInfo.includes('Travel_Approval__c.Trip_End_Date__c') 
+                && vargroupingColumnInfo.includes('Travel_Approval__c.Out_of_State__c') ) {
                 console.log('Passed #3 - Grouping');
                 //console.log(vargroupingColumnInfo);
                 response_good.successmsg = '리포트를 정확하게 생성하셨습니다.';
                 console.log("success :" + JSON.stringify(response_good));
                 _tmp1 = response_good;
             } else {
-                response_bad.errormsg = '그룹 지정이 되지 않았습니다.';
+                response_bad.errormsg = 'Travel Request by Month에서 그룹 지정이 되지 않았습니다.';
                 console.log("fail :" + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
                 //return response_bad;
             }
         } else {
-            response_bad.errormsg = '지정된 컬럼들을 모두 선택하지 않으셨습니다.';
+            response_bad.errormsg = 'Travel Request by Month에서 지정된 컬럼들을 모두 선택하지 않으셨습니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             //return response_bad;
