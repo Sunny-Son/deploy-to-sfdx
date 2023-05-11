@@ -120,13 +120,18 @@ function checkTravelApprovalRecord() {
 }
 */
 
-// May 10th 2023 Insun
+// May 10th 2023 Insun - #1
 async function trailhead_checkTravelApprovalRecord() {
     var _tmp1;
     var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
     query_string += ' FROM Travel_Approval__c';
     query_string += ' WHERE Destination_State__c = \'KR\'';
     query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
+    query_string += ' AND Trip_Start_Date__c = 2023-05-23';
+    query_string += ' AND Trip_End_Date__c = 2023-05-23';
+
+    //SELECT Destination_State__c,Name,Purpose_of_Trip__c,Trip_End_Date__c,Trip_Start_Date__c FROM Travel_Approval__c WHERE Destination_State__c = 'KR' AND Purpose_of_Trip__c = 'Salesforce Live' AND Trip_Start_Date__c = 2023-05-23 AND Trip_End_Date__c = 2023-05-23
+    //a008G000002OtzwQAC
     console.log('checkTravelApprovalRecord : ready to query');
     await conn.query(query_string, function(err, result) {
         if (err) { 
@@ -160,6 +165,7 @@ async function trailhead_checkTravelApprovalRecord() {
       return _tmp1;
 }
 
+// May 10th 2023 Insun - #2
 async function trailhead_checkField() {
     var _tmp1;
   
@@ -215,9 +221,10 @@ function displayReports() {
       });
 }
 
-// May 10th 2023 Insun
+// May 10th 2023 Insun - #3
 async function trailhead_checkReports() {
     var _tmp1 = null;
+    var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Travel Requests by Department\'", function(err, result) {
         if (err) { return console.error(err); }
         //console.log("total : " + result.totalSize);
@@ -227,13 +234,13 @@ async function trailhead_checkReports() {
           console.log("fail :" + JSON.stringify(response_bad));
           _tmp1 = response_bad;
           //return response_bad;
-        }
+        } else record = result.records[0];
     });
     
     if(_tmp1 != null) return _tmp1;
 
     console.log('Passed #1 - Report Name');
-    var record = result.records[0];
+    //var record = result.records[0];
     await conn.analytics.report(record.Id).describe(function(err, meta) {
         //report.execute(function(err, result) {
         if (err) { return console.error(err); }
@@ -340,6 +347,7 @@ async function trailhead_checkReports() {
     */
 }
 
+// May 10th 2023 Insun - #4
 async function trailhead_checkDashboards() {
     var _tmp1 = null;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Travel Requests Dashboard\' and FolderName = \'Private Dashboards\'", function(err, result) {
