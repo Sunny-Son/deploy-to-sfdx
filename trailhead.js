@@ -181,7 +181,7 @@ async function trailhead_checkField() {
 
         for (var i=0; i<meta.fields.length; i++) {
             var record = meta.fields[i].name;
-            console.log("[" + i + "] field name : [" + record + "]");
+            //console.log("[" + i + "] field name : [" + record + "]");
             if(record == 'Transport_Type__c' &&  meta.fields[i].length == 255 && meta.fields[i].type == 'string') {
                 response_good.successmsg = '필드를 정확하게 생성하였습니다. 축하합니다!!';
                 _tmp1 = response_good;
@@ -239,7 +239,7 @@ async function trailhead_checkReports() {
     
     if(_tmp1 != null) return _tmp1;
 
-    console.log('Passed #1 - Report Name');
+    //console.log('Passed #1 - Report Name');
     //var record = result.records[0];
     await conn.analytics.report(record.Id).describe(function(err, meta) {
         //report.execute(function(err, result) {
@@ -254,12 +254,12 @@ async function trailhead_checkReports() {
             && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
         {
-            console.log('Passed #2 - Columns');
+            //console.log('Passed #2 - Columns');
             if(vargroupingColumnInfo.includes('Travel_Approval__c.Department__c')) {
-                console.log('Passed #3 - Grouping');
+                //console.log('Passed #3 - Grouping');
                 //console.log(vargroupingColumnInfo);
                 response_good.successmsg = '리포트를 정확하게 생성하셨습니다.';
-                console.log("success :" + JSON.stringify(response_good));
+                //console.log("success :" + JSON.stringify(response_good));
                 _tmp1 = response_good;
             } else {
                 response_bad.errormsg = 'Travel Request by Department에서 그룹 지정이 되지 않았습니다.';
@@ -282,7 +282,7 @@ async function trailhead_checkReports() {
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Travel Requests by Month\'", function(err, result) {
         if (err) { return console.error(err); }
         //console.log("total : " + result.totalSize);
-        console.log('++ checkReports : Travel Requests by Month');
+        //console.log('++ checkReports : Travel Requests by Month');
         if(result.records.length == 0) {
           response_bad.errormsg = '[Travel Requests by Month] 라는 리포트가 존재하지 않습니다';
           console.log("fail :" + JSON.stringify(response_bad));
@@ -307,13 +307,13 @@ async function trailhead_checkReports() {
             && vardetailcolumns.includes('Travel_Approval__c.Status__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c'))
         {
-            console.log('Passed #2 - Columns');
+            //console.log('Passed #2 - Columns');
             if(vargroupingColumnInfo.includes('Travel_Approval__c.Trip_End_Date__c') 
                 && vargroupingColumnInfo.includes('Travel_Approval__c.Out_of_State__c') ) {
-                console.log('Passed #3 - Grouping');
+                //console.log('Passed #3 - Grouping');
                 //console.log(vargroupingColumnInfo);
                 response_good.successmsg = '2개의 리포트를 모두 정확하게 생성하셨습니다. 축하합니다!!';
-                console.log("success :" + JSON.stringify(response_good));
+                //console.log("success :" + JSON.stringify(response_good));
                 _tmp1 = response_good;
             } else {
                 response_bad.errormsg = 'Travel Request by Month에서 그룹 지정이 되지 않았습니다.';
@@ -406,7 +406,7 @@ async function trailhead_checkDashboards() {
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Travel Requests Dashboard\' and FolderName = \'Private Dashboards\'", function(err, result) {
         if (err) { return console.error(err); }
-        console.log('++ checkReports : Travel Requests Dashboard');
+        //console.log('++ checkReports : Travel Requests Dashboard');
         if(result.records.length == 0) {
           response_bad.errormsg = '[Travel Requests Dashboard] 대시보드가 [private folder] 에 존재하지 않습니다.';
           console.log("fail :" + JSON.stringify(response_bad));
@@ -417,7 +417,7 @@ async function trailhead_checkDashboards() {
     
     if(_tmp1 != null) return _tmp1;
 
-    console.log('Passed #1 - Dashboard Name');
+    //console.log('Passed #1 - Dashboard Name');
     //var record = result.records[0];
     //console.log("total : " + result.totalSize);
 
@@ -447,7 +447,7 @@ async function trailhead_checkDashboards() {
             && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
         ) {
             response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. 축하합니다!!';
-            console.log("success :" + JSON.stringify(response_good));
+            //console.log("success :" + JSON.stringify(response_good));
             _tmp1 = response_good;
             //return response_good;
         } else {
