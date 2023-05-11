@@ -1,5 +1,5 @@
 <%- include ('../partials/head_quest') %>
-
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.9.3/tsparticles.confetti.bundle.min.js"></script>
     <main class="slds-card">
         
         <div class="slds-card">
@@ -130,6 +130,17 @@
                     defaultContent(data.errormsg, statusnumber);
                 }
             } else defaultContent(response.statusText, statusnumber);
+
+            if(document.getElementById(question10).disabled == true
+                && document.getElementById(question20).disabled == true
+                && document.getElementById(question30).disabled == true
+                && document.getElementById(question40).disabled == true) {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                      });
+            }
         }
 /*
 {
