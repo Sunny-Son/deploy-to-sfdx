@@ -404,7 +404,7 @@ async function trailhead_checkReports() {
 // May 10th 2023 Insun - #4
 async function trailhead_checkDashboards() {
     var _tmp1 = null;
-    var record = null;
+    var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Travel Requests Dashboard\' and FolderName = \'Private Dashboards\'", function(err, result) {
         if (err) { return console.error(err); }
         console.log('++ checkReports : Travel Requests Dashboard');
