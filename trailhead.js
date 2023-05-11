@@ -149,7 +149,7 @@ async function trailhead_checkTravelApprovalRecord() {
                     console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
                     console.log("Total Expenses: " + record.Total_Expenses__c);
                 }
-                response_good.successmsg = '데이터를 정확하게 입력하셨습니다!!! Passed!!';
+                response_good.successmsg = '설명서에 표시된 데이터를 정확하게 입력하셨습니다! 축하합니다!!';
                 console.log("success :" + JSON.stringify(response_good));
                 _tmp1 = response_good;
                 //return JSON.stringify(response_good);
@@ -176,14 +176,14 @@ async function trailhead_checkField() {
         //console.log('Num of Fields : ' + meta.fields.length);
         //console.log('Num of Fields : ' + JSON.stringify(meta));
 
-        response_bad.errormsg = '제시된 필드를 추가해 주세요.';
+        response_bad.errormsg = '설명서에 제시된 필드를 추가해 주세요.';
         _tmp1 = response_bad;
 
         for (var i=0; i<meta.fields.length; i++) {
             var record = meta.fields[i].name;
             console.log("[" + i + "] field name : [" + record + "]");
             if(record == 'Transport_Type__c' &&  meta.fields[i].length == 255 && meta.fields[i].type == 'string') {
-                response_good.successmsg = '필드를 정확하게 생성하였습니다.';
+                response_good.successmsg = '필드를 정확하게 생성하였습니다. 축하합니다!!';
                 _tmp1 = response_good;
             }
         }
@@ -312,7 +312,7 @@ async function trailhead_checkReports() {
                 && vargroupingColumnInfo.includes('Travel_Approval__c.Out_of_State__c') ) {
                 console.log('Passed #3 - Grouping');
                 //console.log(vargroupingColumnInfo);
-                response_good.successmsg = '리포트를 정확하게 생성하셨습니다.';
+                response_good.successmsg = '2개의 리포트를 모두 정확하게 생성하셨습니다. 축하합니다!!';
                 console.log("success :" + JSON.stringify(response_good));
                 _tmp1 = response_good;
             } else {
@@ -446,7 +446,7 @@ async function trailhead_checkDashboards() {
             && vardashboardcheck.includes('\"groupByType\":\"stacked\"')
             && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
         ) {
-            response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. Passed!';
+            response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. 축하합니다!!';
             console.log("success :" + JSON.stringify(response_good));
             _tmp1 = response_good;
             //return response_good;
