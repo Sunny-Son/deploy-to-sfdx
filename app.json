@@ -21,12 +21,12 @@
     {
       "type" : "web",
       "quantity": 1,
-      "size": "basic"
+      "size": "standard-1x"
     },
     {
       "type" :"worker",
       "quantity" : 1,
-      "size" : "basic"
+      "size" : "standard-1x"
     }
   ],
   "buildpacks": [{
