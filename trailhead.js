@@ -249,7 +249,7 @@ async function trailhead_checkReports() {
         var vargroupingColumnInfo = JSON.stringify(meta.reportExtendedMetadata.groupingColumnInfo);
 
         if(vardetailcolumns.includes('Travel_Approval__c.Out_of_State__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Purpose_of_Trip__c')
+            && vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
             && vardetailcolumns.includes('Travel_Approval__c.Status__c')
             && vardetailcolumns.includes('Travel_Approval__c.Department__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
@@ -263,13 +263,13 @@ async function trailhead_checkReports() {
                 console.log("success :" + JSON.stringify(response_good));
                 _tmp1 = response_good;
             } else {
-                response_bad.errormsg = '그룹 지정이 되지 않았습니다.';
+                response_bad.errormsg = 'Travel Request by Department에서 그룹 지정이 되지 않았습니다.';
                 console.log("fail :" + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
                 //return response_bad;
             }
         } else {
-            response_bad.errormsg = '지정된 컬럼들을 모두 선택하지 않으셨습니다.';
+            response_bad.errormsg = 'Travel Request by Department에서 지정된 컬럼들을 모두 선택하지 않으셨습니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             //return response_bad;
@@ -292,9 +292,9 @@ async function trailhead_checkReports() {
         } else record = result.records[0];
     });
     
-    if(_tmp1 != null) return _tmp1;
+    if(_tmp1.ok == false) return _tmp1;
 
-    console.log('Passed #1 - Report Name');
+    console.log('Passed #1 - Report Name - Month');
     //var record = result.records[0];
     await conn.analytics.report(record.Id).describe(function(err, meta) {
         //report.execute(function(err, result) {
@@ -304,13 +304,14 @@ async function trailhead_checkReports() {
         var vargroupingColumnInfo = JSON.stringify(meta.reportExtendedMetadata.groupingColumnInfo);
 
         if(vardetailcolumns.includes('Travel_Approval__c.Out_of_State__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Purpose_of_Trip__c')
+            && vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
+            && vardetailcolumns.includes('Travel_Approval__c.Department__c')
             && vardetailcolumns.includes('Travel_Approval__c.Status__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
         {
             console.log('Passed #2 - Columns');
-            if(vargroupingColumnInfo.includes('Travel_Approval__c.Department__c')) {
+            if(vargroupingColumnInfo.includes('Travel_Approval__c.Trip_End_Date__c')) {
                 console.log('Passed #3 - Grouping');
                 //console.log(vargroupingColumnInfo);
                 response_good.successmsg = '리포트를 정확하게 생성하셨습니다.';
@@ -420,7 +421,7 @@ async function trailhead_checkDashboards() {
 
     console.log('Passed #1 - Dashboard Name');
     //var record = result.records[0];
-    console.log("total : " + result.totalSize);
+    //console.log("total : " + result.totalSize);
 
     var _request = {
     url: '',
