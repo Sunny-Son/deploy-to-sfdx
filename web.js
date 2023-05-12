@@ -171,8 +171,8 @@ app.get('/checkdashboard', (req, res) => {
   let action = req.query.action;
   let _chk_username = qs.unescape(req.query.username);
   let _chk_password = qs.unescape(req.query.password);
-  logger.debug('+++SUNNY /sunny = 2, query = [' + req.query + ']+++');
-  logger.debug('+++SUNNY /sunny = 3, action = [' + action + ']+++');
+  //logger.debug('+++SUNNY /sunny = 2, query = [' + req.query + ']+++');
+  //logger.debug('+++SUNNY /sunny = 3, action = [' + action + ']+++');
   logger.debug('+++SUNNY username = [' + _chk_username + ']+++');
   logger.debug('+++SUNNY password = [' + _chk_password + ']+++');
   // Add to separate login
