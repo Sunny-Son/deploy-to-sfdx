@@ -56,7 +56,7 @@ app.get('/', async (req, res) => {
     const visitor = ua(process.env.UA_ID);
     logger.debug('+++SUNNY action==undefined 3 +++');
     visitor.pageview('/').send();
-    console.log('web.js message = ', message);
+    //console.log('web.js message = ', message);
     res.render('pages/index', { deployId:'',step:0,steps:message.steps });
   }
   else if(action=='nextstep'){
