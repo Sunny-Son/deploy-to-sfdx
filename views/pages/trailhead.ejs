@@ -72,15 +72,15 @@
         var _1_username = '<%- JSON.stringify(username) %>';
         var _2_username = decodeURIComponent(_1_username);
         var varusername = _2_username.replaceAll('"', '');
-        //varusername.replace('\"','');
-        //console.log('++ Sunny : varusername : [', varusername + ']');
+        varusername.replace('\"','');
+        console.log('++ Sunny : varusername : [', varusername + ']');
 
         var _1_password = '<%- JSON.stringify(password) %>';
         var _2_password = decodeURIComponent(_1_password);
         var varpassword = _2_password.replaceAll('"', '');
 
-        //varpassword.replace('\"','');
-        //console.log('++ Sunny : varpassword : [', varpassword + ']');
+        varpassword.replace('\"','');
+        console.log('++ Sunny : varpassword : [', varpassword + ']');
 
 
         var statusnumber = "status10";
