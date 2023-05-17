@@ -64,9 +64,10 @@ exec(cmd)
 	
 			const msgJSON = JSON.parse(msg.content.toString());
 			logger.debug('worker.js : msgJSON = ' + msgJSON);
-			//console.log('worker.js : msgJSON = ' + msgJSON.content);
-			//console.log('worker.js : deployId = ' + msgJSON.deployId);
-			//console.log('worker.js : template = ' + msgJSON.template);
+			console.log('worker.js : msgJSON = ' + JSON.stringify(msgJSON));
+			console.log('worker.js : msgJSON = ' + msgJSON.content);
+			console.log('worker.js : deployId = ' + msgJSON.deployId);
+			console.log('worker.js : template = ' + msgJSON.template);
 			visitor.event('Deploy Request', msgJSON.template).send();
 
 			// clone repo into local fs

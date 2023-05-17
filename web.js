@@ -9,6 +9,10 @@ const msgBuilder = require('./lib/deployMsgBuilder');
 var sunnytrailhead = require('./trailhead');
 var qs = require('querystring');
 
+const { v4: uuidv4 } = require('uuid');
+
+var _global_uuid;
+
 var response_good  = {
   status : 200,
   ok : true,
@@ -96,16 +100,18 @@ app.get('/', async (req, res) => {
     visitor.pageview('/').send();
     visitor.event('load Data Model', {}).send();
     const message = await msgBuilder(process.env.GIT_REPOURL+'/tree/step'+req.query.step);
-    console.log('web.js : deploy : query.step : ' + req.query);
+    console.log('web.js : /deploy : query.step : ' + req.query);
     if(req.query.step>0)message.SOusername=req.query.SOusername;
     //console.log('web.js : deploy : consol.log 86line : ' + message);
     mq.then( (mqConn) => {
       let ok = mqConn.createChannel();
       ok = ok.then((ch) => {
         ch.assertQueue('deploys', { durable: true });
+        logger.debug("web.js - /deploy , assertQueue");
         //console.log('web.js : msg to mq : ' + JSON.stringify(message));
         //ch.sendToQueue('deploys', new Buffer(JSON.stringify(message))); deprecated
         ch.sendToQueue('deploys', Buffer.from(JSON.stringify(message)));
+        logger.debug("web.js - /deploy , Queue deploys created and sent message");
       });
       return ok;
     }).then( () => {
@@ -131,8 +137,11 @@ app.get('/launch', (req, res) => {
   const visitor = ua(process.env.UA_ID);
   logger.debug('+++SUNNY launch = 3 = +++');
   visitor.pageview('/launch').send();
-  logger.debug('+++SUNNY launch = 4 = +++');
+  logger.debug('+++SUNNY launch = 4 : message = +++');
+  console.log(message);
   visitor.event('Repo', req.query.template).send();
+
+  logger.debug('+++ SUNNY Launch : uuid : [' + _global_uuid + ']');
 
   mq.then( (mqConn) => {
     let ok = mqConn.createChannel();
@@ -267,6 +276,8 @@ app.listen(port, () => {
 mq.then( (mqConn) => {
   logger.debug('web.js : mq connection good');
 
+  _global_uuid = uuidv4();
+  logger.debug('web.js : mq connection uuid = [' + _global_uuid + ']');
 	let ok = mqConn.createChannel();
 	ok = ok.then((ch) => {
     logger.debug('web.js : channel created');
@@ -276,7 +287,8 @@ mq.then( (mqConn) => {
       return ch.assertQueue('', { exclusive: true });
     }).then( (q) => {
       logger.debug('web.js : queue asserted');
-      ch.bindQueue(q.queue, ex, '');
+      //ch.bindQueue(q.queue, ex, '');
+      ch.bindQueue(q.queue, ex, _global_uuid);
 
       ch.consume(q.queue, (msg) => {
         logger.debug('web.js : heard a message from the worker');
