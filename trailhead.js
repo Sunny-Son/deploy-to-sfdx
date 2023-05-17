@@ -139,7 +139,7 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
             if (err) { return console.error(err); }
             else {
                 loggedIn = true;
-                console.log("Succcessfully logged into Salesforce.");
+                //console.log("Succcessfully logged into Salesforce.");
                 console.log(res);
                 //console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
@@ -288,7 +288,7 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
             if (err) { return console.error(err); }
             else {
                 loggedIn = true;
-                console.log("Succcessfully logged into Salesforce.");
+                //console.log("Succcessfully logged into Salesforce.");
                 console.log(res);
                 //console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
@@ -324,6 +324,37 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
         var varreportname = meta.reportMetadata.name;
         var vardetailcolumns = meta.reportMetadata.detailColumns;
         var vargroupingColumnInfo = JSON.stringify(meta.reportExtendedMetadata.groupingColumnInfo);
+        if(!vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')) {
+            response_bad.errormsg = 'Travel Request by Department에서 Destination State 컬럼이 선택되지 않았습니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+        } else if(!vardetailcolumns.includes('Travel_Approval__c.Status__c')) {
+            response_bad.errormsg = 'Travel Request by Department에서 Status 컬럼이 선택되지 않았습니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+        } else if(!vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')) {
+            response_bad.errormsg = 'Travel Request by Department에서 Trip Start Date 컬럼이 선택되지 않았습니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+        } else if(!vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c')) {
+            response_bad.errormsg = 'Travel Request by Department에서 Trip End Date 컬럼이 선택되지 않았습니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+        } else {
+            //console.log('Passed #2 - Columns');
+            if(vargroupingColumnInfo.includes('Travel_Approval__c.Department__c')) {
+                //console.log('Passed #3 - Grouping');
+                //console.log(vargroupingColumnInfo);
+                response_good.successmsg = 'Travel Request by Department 리포트를 정확하게 생성하셨습니다.';
+                //console.log("success :" + JSON.stringify(response_good));
+                _tmp1 = response_good;
+            } else {
+                response_bad.errormsg = 'Travel Request by Department 리포트에 Department 그룹 지정이 되지 않았습니다.';
+                console.log("fail :" + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                //return response_bad;
+            }
+        } 
 /*
         if(vardetailcolumns.includes('Travel_Approval__c.Out_of_State__c')
             && vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
@@ -331,6 +362,7 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
             && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
             */
+           /*
         if(vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
             && vardetailcolumns.includes('Travel_Approval__c.Status__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
@@ -355,12 +387,12 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
             _tmp1 = response_bad;
             //return response_bad;
         }
-
-        
+        */
+       
     });
+    if(_tmp1.ok == false) return _tmp1;
 
     // second report
-    if(_tmp1.ok == false) return _tmp1;
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Travel Requests by Month\'", function(err, result) {
         if (err) { return console.error(err); }
         //console.log("total : " + result.totalSize);
@@ -384,11 +416,23 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
         var vardetailcolumns = meta.reportMetadata.detailColumns;
         var vargroupingColumnInfo = JSON.stringify(meta.reportExtendedMetadata.groupingColumnInfo);
 
-        if(vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Department__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Status__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c'))
-        {
+        if(!vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')) {
+            response_bad.errormsg = 'Travel Request by Month 에서 Destination State 컬럼이 선택되지 않았습니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+        } else if(!vardetailcolumns.includes('Travel_Approval__c.Department__c')) {
+            response_bad.errormsg = 'Travel Request by Month 에서 Department 컬럼이 선택되지 않았습니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+        } else if(!vardetailcolumns.includes('Travel_Approval__c.Status__c')) {
+            response_bad.errormsg = 'Travel Request by Month 에서 Status 컬럼이 선택되지 않았습니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+        } else if(!vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')) {
+            response_bad.errormsg = 'Travel Request by Month 에서 Start Date 컬럼이 선택되지 않았습니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+        } else {
             //console.log('Passed #2 - Columns');
             if(vargroupingColumnInfo.includes('Travel_Approval__c.Trip_End_Date__c') 
                 && vargroupingColumnInfo.includes('Travel_Approval__c.Out_of_State__c') ) {
@@ -403,13 +447,7 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
                 _tmp1 = response_bad;
                 //return response_bad;
             }
-        } else {
-            response_bad.errormsg = 'Travel Request by Month에서 지정된 컬럼들을 모두 선택하지 않으셨습니다.';
-            console.log("fail :" + JSON.stringify(response_bad));
-            _tmp1 = response_bad;
-            //return response_bad;
-        }
-
+        } 
         
     });
     return _tmp1;
