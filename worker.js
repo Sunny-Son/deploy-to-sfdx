@@ -68,6 +68,7 @@ exec(cmd)
 			console.log('worker.js : msgJSON = ' + msgJSON.content);
 			console.log('worker.js : deployId = ' + msgJSON.deployId);
 			console.log('worker.js : template = ' + msgJSON.template);
+			console.log('worker.js : uuid = ' + msgJSON.uuid);
 			visitor.event('Deploy Request', msgJSON.template).send();
 
 			// clone repo into local fs
@@ -89,7 +90,7 @@ exec(cmd)
 				// git outputs to stderr for unfathomable reasons
 				logger.debug('worker.js : result.stderr : [' + result.stderr + ']');
 				logger.debug('worker.js : result.stdout : [' + result.stdout + ']');
-				ch.publish(ex, '', bufferKey(result.stderr, msgJSON.deployId));
+				ch.publish(ex, msgJSON.uuid, bufferKey(result.stderr, msgJSON.deployId));
 				//ch.ack(msg);
 				return exec(`cd tmp;cd ${msgJSON.deployId};ls`);
 			})
@@ -132,7 +133,7 @@ exec(cmd)
 			.then( () => {
 				// this is true whether we errored or not
 				logger.debug('worker.js : send back to q');
-				ch.publish(ex, '', bufferKey('ALLDONE', msgJSON.deployId));
+				ch.publish(ex, msgJSON.uuid, bufferKey('ALLDONE', msgJSON.deployId));
 				visitor.event('deploy complete', msgJSON.template).send();
 				logger.debug('worker.js : deploy complete');
 				ch.ack(msg);

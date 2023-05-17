@@ -103,6 +103,8 @@ app.get('/', async (req, res) => {
     console.log('web.js : /deploy : query.step : ' + req.query);
     if(req.query.step>0)message.SOusername=req.query.SOusername;
     //console.log('web.js : deploy : consol.log 86line : ' + message);
+    logger.debug('+++ SUNNY deploy : uuid : [' + _global_uuid + ']');
+    message.uuid = _global_uuid;
     mq.then( (mqConn) => {
       let ok = mqConn.createChannel();
       ok = ok.then((ch) => {
