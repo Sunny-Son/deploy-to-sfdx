@@ -89,24 +89,27 @@
         var elementnumber = "question10";
         var _urlstr;
 
+
+        // url_check = '/checkdashboard?action=check&username=' + encodeURIComponent(localStorage.getItem("username")) + '&password=' + encodeURIComponent(localStorage.getItem("password"));
         question_launch= async function(seq) {
             //defaultContent('Questions !!');
             switch(seq) {
                 case 10:    statusnumber = "status10";
                             elementnumber = "question10";
-                            _urlstr = "/trailhead?action=checkTravelApprovalRecord";
+                            //_urlstr = "/trailhead?action=checkTravelApprovalRecord";
+                            _urlstr = "/trailhead?action=checkTravelApprovalRecord&username=" + encodeURIComponent(varusername) + "&password=" + encodeURIComponent(varpassword);
                             break;
                 case 20:    statusnumber = "status20";
                             elementnumber = "question20";
-                            _urlstr = "/trailhead?action=checkField";
+                            _urlstr = "/trailhead?action=checkField&username=" + encodeURIComponent(varusername) + "&password=" + encodeURIComponent(varpassword);;
                             break;
                 case 30:    statusnumber = "status30";
                             elementnumber = "question30";
-                            _urlstr = "/trailhead?action=checkReports";
+                            _urlstr = "/trailhead?action=checkReports&username=" + encodeURIComponent(varusername) + "&password=" + encodeURIComponent(varpassword);
                             break;
                 case 40:    statusnumber = "status40";
                             elementnumber = "question40";
-                            _urlstr = "/trailhead?action=checkDashboards";
+                            _urlstr = "/trailhead?action=checkDashboards&username=" + encodeURIComponent(varusername) + "&password=" + encodeURIComponent(varpassword);
                             break;
             }
 

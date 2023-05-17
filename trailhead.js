@@ -123,6 +123,7 @@ function checkTravelApprovalRecord() {
 // May 10th 2023 Insun - #1
 async function trailhead_checkTravelApprovalRecord() {
     var _tmp1;
+
     var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
     query_string += ' FROM Travel_Approval__c';
     query_string += ' WHERE Destination_State__c = \'KR\'';

@@ -186,6 +186,9 @@ app.get('/trailhead', async (req, res) => {
   let action = req.query.action;
   //logger.debug('+++SUNNY /trailhead = 2, query = [' + req.query + ']+++');
   logger.debug('+++ /trailhead, action = [' + action + ']+++');
+  let _chk_username = qs.unescape(req.query.username);
+  let _chk_password = qs.unescape(req.query.password);
+  sunnytrailhead.login(_chk_username,_chk_password);
 
   if(action == 'checkTravelApprovalRecord') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
