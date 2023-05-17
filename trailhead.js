@@ -143,7 +143,7 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
                 console.log(res);
                 console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
-                return conn;
+                //return conn;
             }
           });
     }
