@@ -3,7 +3,8 @@ var path = require("path");
 var configpath = path.normalize("./");
 //var config = require(configpath+"config.js");
 const logger = require('heroku-logger');
-var conn = new jsforce.Connection();
+//var conn = new jsforce.Connection();
+
 
 var loggedIn = false;
 
@@ -25,6 +26,8 @@ var response_good  = {
 //Log in using username and password, set loggedIn to true and handle a callback
 //
 function login(varusername, varpassword) {
+
+    var conn = new jsforce.Connection();
     conn.loginUrl = 'https://test.salesforce.com';
     //conn.loginUrl = varinstanceurl;
     var callback = null;
@@ -36,7 +39,9 @@ function login(varusername, varpassword) {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
                 console.log(res);
-                return;
+                console.log("user id => CreatedById : [" + res.id + "]");
+                //return res.id;
+                return conn;
             }
           });
     }
@@ -121,15 +126,17 @@ function checkTravelApprovalRecord() {
 */
 
 // May 10th 2023 Insun - #1
-async function trailhead_checkTravelApprovalRecord() {
+async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password) {
     var _tmp1;
 
+    var conn = await login(_chk_username, _chk_password);
     var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
     query_string += ' FROM Travel_Approval__c';
     query_string += ' WHERE Destination_State__c = \'KR\'';
     query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
     query_string += ' AND Trip_Start_Date__c = 2023-05-23';
     query_string += ' AND Trip_End_Date__c = 2023-05-23';
+    //query_string += ' AND CreatedById = \'' + _res_id + '\'';
 
     //SELECT Destination_State__c,Name,Purpose_of_Trip__c,Trip_End_Date__c,Trip_Start_Date__c FROM Travel_Approval__c WHERE Destination_State__c = 'KR' AND Purpose_of_Trip__c = 'Salesforce Live' AND Trip_Start_Date__c = 2023-05-23 AND Trip_End_Date__c = 2023-05-23
     //a008G000002OtzwQAC
@@ -167,9 +174,10 @@ async function trailhead_checkTravelApprovalRecord() {
 }
 
 // May 10th 2023 Insun - #2
-async function trailhead_checkField() {
+async function trailhead_checkField(_chk_username, _chk_password) {
     var _tmp1;
   
+    var conn = await login(_chk_username, _chk_password);
     await conn.describe("Travel_Approval__c", function(err, meta) {
         if (err) { return console.error(err); }
         //console.log("total : " + meta.totalSize);
@@ -223,8 +231,10 @@ function displayReports() {
 }
 
 // May 10th 2023 Insun - #3
-async function trailhead_checkReports() {
+async function trailhead_checkReports(_chk_username, _chk_password) {
     var _tmp1 = null;
+
+    var conn = await login(_chk_username, _chk_password);
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Travel Requests by Department\'", function(err, result) {
         if (err) { return console.error(err); }
@@ -248,9 +258,14 @@ async function trailhead_checkReports() {
         var varreportname = meta.reportMetadata.name;
         var vardetailcolumns = meta.reportMetadata.detailColumns;
         var vargroupingColumnInfo = JSON.stringify(meta.reportExtendedMetadata.groupingColumnInfo);
-
+/*
         if(vardetailcolumns.includes('Travel_Approval__c.Out_of_State__c')
             && vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
+            && vardetailcolumns.includes('Travel_Approval__c.Status__c')
+            && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
+            && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
+            */
+        if(vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
             && vardetailcolumns.includes('Travel_Approval__c.Status__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
             && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
@@ -402,8 +417,11 @@ async function trailhead_checkReports() {
 }
 
 // May 10th 2023 Insun - #4
-async function trailhead_checkDashboards() {
+async function trailhead_checkDashboards(_chk_username, _chk_password) {
     var _tmp1 = null;
+
+    var conn = await login(_chk_username, _chk_password);
+
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Travel Requests Dashboard\' and FolderName = \'Private Dashboards\'", function(err, result) {
         if (err) { return console.error(err); }

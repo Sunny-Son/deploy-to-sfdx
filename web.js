@@ -173,10 +173,10 @@ app.get('/checkdashboard', (req, res) => {
   let _chk_password = qs.unescape(req.query.password);
   //logger.debug('+++SUNNY /sunny = 2, query = [' + req.query + ']+++');
   //logger.debug('+++SUNNY /sunny = 3, action = [' + action + ']+++');
-  logger.debug('+++SUNNY username = [' + _chk_username + ']+++');
-  logger.debug('+++SUNNY password = [' + _chk_password + ']+++');
+  //logger.debug('+++SUNNY username = [' + _chk_username + ']+++');
+  //logger.debug('+++SUNNY password = [' + _chk_password + ']+++');
   // Add to separate login
-  sunnytrailhead.login(_chk_username,_chk_password);
+  //sunnytrailhead.login(_chk_username,_chk_password);
   //login(req.query.username,req.query.password);
   return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
@@ -188,13 +188,14 @@ app.get('/trailhead', async (req, res) => {
   logger.debug('+++ /trailhead, action = [' + action + ']+++');
   let _chk_username = qs.unescape(req.query.username);
   let _chk_password = qs.unescape(req.query.password);
-  sunnytrailhead.login(_chk_username,_chk_password);
+  //var _res_id = await sunnytrailhead.login(_chk_username,_chk_password);
+
 
   if(action == 'checkTravelApprovalRecord') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkTravelApprovalRecord');
     
     try {
-      const result = await sunnytrailhead.trailhead_checkTravelApprovalRecord();
+      const result = await sunnytrailhead.trailhead_checkTravelApprovalRecord(_chk_username, _chk_password);
       //logger.debug('result : [' + result +']');
       console.log(result);
       await res.status(200).send(result);
@@ -206,7 +207,7 @@ app.get('/trailhead', async (req, res) => {
   else if(action == 'checkDashboards') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkDashboards');
     try {
-      const result = await sunnytrailhead.trailhead_checkDashboards();
+      const result = await sunnytrailhead.trailhead_checkDashboards(_chk_username, _chk_password);
       //logger.debug('result : [' + result +']');
       console.log(result);
       await res.status(200).send(result);
@@ -218,7 +219,7 @@ app.get('/trailhead', async (req, res) => {
   } else if(action == 'checkReports') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkReports');
     try {
-      const result = await sunnytrailhead.trailhead_checkReports();
+      const result = await sunnytrailhead.trailhead_checkReports(_chk_username, _chk_password);
       //logger.debug('result : [' + result +']');
       console.log(result);
       await res.status(200).send(result);
@@ -230,7 +231,7 @@ app.get('/trailhead', async (req, res) => {
   } else if(action == 'checkField') {
     logger.debug('+++ SUNNY : web.js : trailhead_checkField');
     try {
-      const result = await sunnytrailhead.trailhead_checkField();
+      const result = await sunnytrailhead.trailhead_checkField(_chk_username, _chk_password);
       //logger.debug('result : [' + result +']');
       console.log(result);
       await res.status(200).send(result);
