@@ -133,9 +133,9 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
     conn.loginUrl = 'https://test.salesforce.com';
     
     var callback = null;
-    if(varusername && varpassword) {
+    if(_chk_username && _chk_password) {
         console.log('loginurl = ' + conn.loginUrl);
-        await conn.login(varusername, varpassword, function(err, res) {
+        await conn.login(_chk_username, _chk_password, function(err, res) {
             if (err) { return console.error(err); }
             else {
                 loggedIn = true;
