@@ -129,7 +129,29 @@ function checkTravelApprovalRecord() {
 async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password) {
     var _tmp1;
 
-    var conn = await login(_chk_username, _chk_password);
+    var conn = new jsforce.Connection();
+    conn.loginUrl = 'https://test.salesforce.com';
+    
+    var callback = null;
+    if(varusername && varpassword) {
+        console.log('loginurl = ' + conn.loginUrl);
+        await conn.login(varusername, varpassword, function(err, res) {
+            if (err) { return console.error(err); }
+            else {
+                loggedIn = true;
+                console.log("Succcessfully logged into Salesforce.");
+                console.log(res);
+                console.log("user id => CreatedById : [" + res.id + "]");
+                //return res.id;
+                return conn;
+            }
+          });
+    }
+    else {
+        console.log("Username and password not setup.")
+    }
+
+    //conn = await login(_chk_username, _chk_password);
     var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
     query_string += ' FROM Travel_Approval__c';
     query_string += ' WHERE Destination_State__c = \'KR\'';
