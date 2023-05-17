@@ -167,7 +167,7 @@ app.get('/delete', (req, res) => {
 app.get('/checkdashboard', (req, res) => {
 
   //https://sunny-deployer1.herokuapp.com/checkdashboard?action=check&username=sdlkfaj@example.com&password=aldkfjas
-  logger.debug('+++SUNNY /sunny = 1 = +++');
+  logger.debug('+++ SUNNY /checkdashboard +++');
   let action = req.query.action;
   let _chk_username = qs.unescape(req.query.username);
   let _chk_password = qs.unescape(req.query.password);

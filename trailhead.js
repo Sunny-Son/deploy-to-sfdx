@@ -199,7 +199,29 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
 async function trailhead_checkField(_chk_username, _chk_password) {
     var _tmp1;
   
-    var conn = await login(_chk_username, _chk_password);
+    var conn = new jsforce.Connection();
+    conn.loginUrl = 'https://test.salesforce.com';
+    
+    var callback = null;
+    if(_chk_username && _chk_password) {
+        console.log('loginurl = ' + conn.loginUrl);
+        await conn.login(_chk_username, _chk_password, function(err, res) {
+            if (err) { return console.error(err); }
+            else {
+                loggedIn = true;
+                console.log("Succcessfully logged into Salesforce.");
+                console.log(res);
+                //console.log("user id => CreatedById : [" + res.id + "]");
+                //return res.id;
+                //return conn;
+            }
+          });
+    }
+    else {
+        console.log("Username and password not setup.")
+    }
+    
+    //var conn = await login(_chk_username, _chk_password);
     await conn.describe("Travel_Approval__c", function(err, meta) {
         if (err) { return console.error(err); }
         //console.log("total : " + meta.totalSize);
@@ -256,7 +278,29 @@ function displayReports() {
 async function trailhead_checkReports(_chk_username, _chk_password) {
     var _tmp1 = null;
 
-    var conn = await login(_chk_username, _chk_password);
+    var conn = new jsforce.Connection();
+    conn.loginUrl = 'https://test.salesforce.com';
+    
+    var callback = null;
+    if(_chk_username && _chk_password) {
+        console.log('loginurl = ' + conn.loginUrl);
+        await conn.login(_chk_username, _chk_password, function(err, res) {
+            if (err) { return console.error(err); }
+            else {
+                loggedIn = true;
+                console.log("Succcessfully logged into Salesforce.");
+                console.log(res);
+                //console.log("user id => CreatedById : [" + res.id + "]");
+                //return res.id;
+                //return conn;
+            }
+          });
+    }
+    else {
+        console.log("Username and password not setup.")
+    }
+    
+    //var conn = await login(_chk_username, _chk_password);
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Travel Requests by Department\'", function(err, result) {
         if (err) { return console.error(err); }
@@ -442,7 +486,29 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
 async function trailhead_checkDashboards(_chk_username, _chk_password) {
     var _tmp1 = null;
 
-    var conn = await login(_chk_username, _chk_password);
+    var conn = new jsforce.Connection();
+    conn.loginUrl = 'https://test.salesforce.com';
+    
+    var callback = null;
+    if(_chk_username && _chk_password) {
+        console.log('loginurl = ' + conn.loginUrl);
+        await conn.login(_chk_username, _chk_password, function(err, res) {
+            if (err) { return console.error(err); }
+            else {
+                loggedIn = true;
+                console.log("Succcessfully logged into Salesforce.");
+                console.log(res);
+                //console.log("user id => CreatedById : [" + res.id + "]");
+                //return res.id;
+                //return conn;
+            }
+          });
+    }
+    else {
+        console.log("Username and password not setup.")
+    }
+
+    //var conn = await login(_chk_username, _chk_password);
 
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Travel Requests Dashboard\' and FolderName = \'Private Dashboards\'", function(err, result) {
