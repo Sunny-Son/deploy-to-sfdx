@@ -25,7 +25,7 @@ var response_good  = {
   
 //Log in using username and password, set loggedIn to true and handle a callback
 //
-function login(varusername, varpassword) {
+async function login(varusername, varpassword) {
 
     var conn = new jsforce.Connection();
     conn.loginUrl = 'https://test.salesforce.com';
@@ -33,7 +33,7 @@ function login(varusername, varpassword) {
     var callback = null;
     if(varusername && varpassword) {
         console.log('loginurl = ' + conn.loginUrl);
-        conn.login(varusername, varpassword, function(err, res) {
+        await conn.login(varusername, varpassword, function(err, res) {
             if (err) { return console.error(err); }
             else {
                 loggedIn = true;
