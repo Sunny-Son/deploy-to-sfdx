@@ -30,7 +30,7 @@
     }
   ],
   "buildpacks": [{
-      "url": "https://github.com/heroku/salesforce-cli-buildpack.git"
+      "url": "https://github.com/heroku/salesforce-cli-buildpack"
     },
     {
       "url": "heroku/nodejs"
