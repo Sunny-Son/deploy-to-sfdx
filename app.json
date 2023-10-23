@@ -21,23 +21,23 @@
     {
       "type" : "web",
       "quantity": 1,
-      "size": "private-s"
+      "size": "Standard-1X"
     },
     {
       "type" :"worker",
       "quantity" : 1,
-      "size" : "private-s"
+      "size" : "Standard-1X"
     }
   ],
   "buildpacks": [{
-      "url": "https://github.com/heroku/salesforce-cli-buildpack"
+      "url": "https://github.com/heroku/salesforce-cli-buildpack.git"
     },
     {
       "url": "heroku/nodejs"
     }
   ],
   "addons": [{
-      "plan": "cloudamqp:lemur"
+      "plan": "cloudamqp:Little Lemur"
   },
   "heroku-redis"]
 }
