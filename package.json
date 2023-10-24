@@ -23,7 +23,7 @@
   "homepage": "https://github.com/mshanemc/deploy-to-sfdx#readme",
   "dependencies": {
     "@salesforce-ux/design-system": "^2.20.1",
-    "amqplib": "^0.5.1",
+    "amqplib": "^0.9.1",
     "async": "^3.2.4",
     "body-parser": "^1.20.2",
     "bufferutil": "4.0.7",
