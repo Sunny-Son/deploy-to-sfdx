@@ -21,12 +21,12 @@
     {
       "type" : "web",
       "quantity": 1,
-      "size": "standard-1x"
+      "size": "standard-2x"
     },
     {
       "type" :"worker",
       "quantity" : 1,
-      "size" : "standard-1x"
+      "size" : "standard-2x"
     }
   ],
   "buildpacks": [{
@@ -37,7 +37,7 @@
     }
   ],
   "addons": [{
-      "plan": "cloudamqp:Little Lemur"
+      "plan": "cloudamqp:little lemur"
   },
   "heroku-redis"]
 }
