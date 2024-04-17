@@ -10,6 +10,14 @@
                 <div class="slds-text-body_regular">
                     참고 user name : <%- username %>, password :  <%- password %>
                 </div>
+                <article class="slds-tile" id="loginBlock" style="display: none;">
+                    <div class="slds-tile__detail">
+                        <center>   
+                          <a href="" id="loginUrl" target="_blank" class="slds-button slds-button_brand" style="display: none;"></a>
+                          <button onclick="openscratchorg();" class="slds-button slds-button_brand">Open</button> 
+                        </center>
+                    </div>
+                </article>
                 <br/>               
                 
         </div> 
@@ -337,6 +345,19 @@
             element.appendChild(para);
         }
 
+        var openscratchorg=function() {
+            //window.location.href=localStorage.getItem("loginUrl");
+            url_scratch_org = localStorage.getItem("loginUrl");
+            url_check = '/checkdashboard?action=check&username=' + encodeURIComponent(localStorage.getItem("username")) + '&password=' + encodeURIComponent(localStorage.getItem("password"));
+            console.log('Open window #1 : [' + url_scratch_org + ']');
+            //console.log('Open window #2 : [' + '/?action=delete&instance=' + localStorage.getItem("instanceUrl") + '&token=' + localStorage.getItem("loginUrl") + ']');
+            //console.log('Open window #2 : [' + url_check + ']');
+            //  checkdashboard?action=check&username=test-b3n55jvymgkj@example.com&password=aaqdqpeK7^wdw
+
+            window.open(url_scratch_org,"_blank");
+            //window.open(url_check,"_blank");
+
+        }
         </script>
         
 

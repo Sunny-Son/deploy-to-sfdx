@@ -549,11 +549,11 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
     //var conn = await login(_chk_username, _chk_password);
 
     var record;
-    await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Travel Requests Dashboard\' and FolderName = \'Private Dashboards\'", function(err, result) {
+    await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Vehicle Dashboard\' and FolderName = \'Public1\'", function(err, result) {
         if (err) { return console.error(err); }
         //console.log('++ checkReports : Travel Requests Dashboard');
         if(result.records.length == 0) {
-          response_bad.errormsg = '[Travel Requests Dashboard] 대시보드가 [private folder] 에 존재하지 않습니다.';
+          response_bad.errormsg = '[Vehicle Dashboard] 대시보드가 [Public folder] 에 존재하지 않습니다. 부스에 문의 부탁드립니다';
           console.log("fail :" + JSON.stringify(response_bad));
           _tmp1 = response_bad;
           //return response_bad;
@@ -575,7 +575,7 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
         }
     };
 
-    _request.url = '/services/data/v57.0/analytics/dashboards/' + record.Id + '/describe';
+    _request.url = '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
 
     await conn.request(_request, function(err, resp) {
         //console.log(JSON.stringify(resp));

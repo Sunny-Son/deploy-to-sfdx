@@ -75,6 +75,7 @@ app.get('/', async (req, res) => {
 app.get('/checkdashboard', (req, res) => {
 
   //https://sunny-deployer1.herokuapp.com/checkdashboard?action=check&username=sdlkfaj@example.com&password=aldkfjas
+  // /checkdashboard?action=checkDashboards&username=test-qjbyzmgdymyh@example.com&password=salesforce1
   logger.debug('+++ SUNNY /checkdashboard +++');
   let action = req.query.action;
   let _chk_username = qs.unescape(req.query.username);
@@ -97,6 +98,7 @@ app.get('/trailhead', async (req, res) => {
   let _chk_username = qs.unescape(req.query.username);
   let _chk_password = qs.unescape(req.query.password);
   //var _res_id = await sunnytrailhead.login(_chk_username,_chk_password);
+  // /trailhead?action=checkDashboards&username=test-qjbyzmgdymyh@example.com&password=salesforce1
 
 
   if(action == 'checkTravelApprovalRecord') {
