@@ -29,7 +29,7 @@ var response_bad  = {
 
 const ex = 'deployMsg';
 
-const mq = require('amqplib').connect(process.env.CLOUDAMQP_URL || 'amqp://localhost');
+//const mq = require('amqplib').connect(process.env.CLOUDAMQP_URL || 'amqp://localhost');
 
 const app = express();
 const wsInstance = expressWs(app);
@@ -70,109 +70,6 @@ app.get('/', async (req, res) => {
     logger.debug(req.query.step);
     res.render('pages/index', { deployId:'',step:parseInt(req.query.step),steps:message.steps });
   }
-  /*else if(action=='createSO'){
-    const visitor = ua(process.env.UA_ID);
-    visitor.pageview('/').send();
-    visitor.event('create org', {}).send();
-    const message = msgBuilder(process.env.GIT_REPOURL+'/tree/step0');
-    logger.debug(message);
-    mq.then( (mqConn) => {
-      let ok = mqConn.createChannel();
-      ok = ok.then((ch) => {
-        ch.assertQueue('deploys', { durable: true });
-        ch.sendToQueue('deploys', new Buffer(JSON.stringify(message)));
-      });
-      return ok;
-    }).then( () => {
-      // return the deployId page
-      return res.render('pages/index', { deployId: message.deployId,step:0  });
-    }, (mqerr) => {
-      logger.error(mqerr);
-      return res.redirect('/error', {
-        customError : mqerr
-      });
-    });
-    
-
-  }*/
-  else if (action==='deploy'){
-    const visitor = ua(process.env.UA_ID);
-    visitor.pageview('/').send();
-    visitor.event('load Data Model', {}).send();
-    const message = await msgBuilder(process.env.GIT_REPOURL+'/tree/step'+req.query.step);
-    console.log('web.js : /deploy : query.step : ' + req.query);
-    if(req.query.step>0)message.SOusername=req.query.SOusername;
-    //console.log('web.js : deploy : consol.log 86line : ' + message);
-    logger.debug('+++ SUNNY deploy : uuid : [' + _global_uuid + ']');
-    message.uuid = _global_uuid;
-    mq.then( (mqConn) => {
-      let ok = mqConn.createChannel();
-      ok = ok.then((ch) => {
-        ch.assertQueue('deploys', { durable: true });
-        logger.debug("web.js - /deploy , assertQueue");
-        //console.log('web.js : msg to mq : ' + JSON.stringify(message));
-        //ch.sendToQueue('deploys', new Buffer(JSON.stringify(message))); deprecated
-        ch.sendToQueue('deploys', Buffer.from(JSON.stringify(message)));
-        logger.debug("web.js - /deploy , Queue deploys created and sent message");
-      });
-      return ok;
-    }).then( () => {
-      // return the deployId page
-      logger.debug('Ready to call index.ejs : deployId[' +  message.deployId + '],[step:' + parseInt(req.query.step) + '],[steps:' + message.steps + ']');
-      return res.render('pages/index', { deployId: message.deployId ,step:parseInt(req.query.step),steps:message.steps});
-    }, (mqerr) => {
-      logger.error(mqerr);
-      return res.redirect('/error', {
-        customError : mqerr
-      });
-    });
-    
-  }
-});
-
-app.get('/launch', (req, res) => {
-
-  logger.debug('+++SUNNY launch = 1 = +++');
-  const message = msgBuilder(req.query.template);
-  // analytics
-  logger.debug('+++SUNNY launch = 2 = +++');
-  const visitor = ua(process.env.UA_ID);
-  logger.debug('+++SUNNY launch = 3 = +++');
-  visitor.pageview('/launch').send();
-  logger.debug('+++SUNNY launch = 4 : message = +++');
-  console.log(message);
-  visitor.event('Repo', req.query.template).send();
-
-  logger.debug('+++ SUNNY Launch : uuid : [' + _global_uuid + ']');
-
-  mq.then( (mqConn) => {
-    let ok = mqConn.createChannel();
-    ok = ok.then((ch) => {
-      ch.assertQueue('deploys', { durable: true });
-      //ch.sendToQueue('deploys', new Buffer(JSON.stringify(message))); deprecated
-      ch.sendToQueue('deploys', Buffer.from(JSON.stringify(message)));
-    });
-    return ok;
-  }).then( () => {
-    logger.debug('web.js : /deploying/message.deployId}');
-    // return the deployId page
-    return res.redirect(`/deploying/${message.deployId}`);
-  }, (mqerr) => {
-    logger.error(mqerr);
-    return res.redirect('/error', {
-      customError : mqerr
-    });
-  });
-});
-
-app.get('/delete', (req, res) => {
-
-  logger.debug('+++SUNNY /sunny = 1 = +++');
-  let action = req.query.action;
-  logger.debug('+++SUNNY /sunny = 2, query = ' + req.query.toString + '+++');
-  logger.debug('+++SUNNY /sunny = 3, action = ' + action + '+++');
-  logger.debug('+++SUNNY username = [' + req.query.username + ']');
-  
 });
 
 app.get('/checkdashboard', (req, res) => {
@@ -255,85 +152,9 @@ app.get('/trailhead', async (req, res) => {
   //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
-app.get('/deploying/:deployId', (req, res) => {
-  // show the page with .io to subscribe to a topic
-  logger.debug('+++ SUNNY : DeployId/:deployId');
-  res.render('pages/messages', { deployId: req.params.deployId });
-});
-
-app.ws('/deploying/:deployId', (ws, req) => {
-    logger.debug('client connected!');
-    //ws.send('welcome to the socket!');
-    ws.on('close', () => logger.info('Client disconnected'));
-  }
-);
-
 const port = process.env.PORT || 8443;
 
 
 app.listen(port, () => {
   logger.info(`web.js : Example app listening on port ${port}!`);
-});
-
-mq.then( (mqConn) => {
-  logger.debug('web.js : mq connection good');
-
-  _global_uuid = uuidv4();
-  logger.debug('web.js : mq connection uuid = [' + _global_uuid + ']');
-	let ok = mqConn.createChannel();
-	ok = ok.then((ch) => {
-    logger.debug('web.js : channel created');
-    return ch.assertExchange(ex, 'fanout', { durable: false })
-    .then( (exch) => {
-      logger.debug('web.js : exchange asserted');
-      return ch.assertQueue('', { exclusive: true });
-    }).then( (q) => {
-      logger.debug('web.js : queue asserted');
-      //ch.bindQueue(q.queue, ex, '');
-      ch.bindQueue(q.queue, ex, _global_uuid);
-
-      ch.consume(q.queue, (msg) => {
-        logger.debug('web.js : heard a message from the worker');
-        const parsedMsg = JSON.parse(msg.content.toString());
-        //logger.debug(parsedMsg);
-        //console.log('parsed msg.content : ' + parsedMsg.content);
-        wsInstance.getWss().clients.forEach((client) => {
-            client.send(msg.content.toString());
-            // close connection when ALLDONE
-            if (parsedMsg.content === 'ALLDONE') {
-              logger.debug('web.js : receive ALLDONE');
-              client.close();
-            }
-        });
-
-        ch.ack(msg);
-      }, { noAck: false });
-/*
-      ch.consume(q.queue, (msg) => {
-        logger.debug('web.js : heard a message from the worker');
-        const parsedMsg = JSON.parse(msg.content.toString());
-        //logger.debug(parsedMsg);
-        console.log('parsed msg.content : ' + parsedMsg.content);
-        wsInstance.getWss().clients.forEach((client) => {
-          if (client.upgradeReq.url.includes(parsedMsg.deployId)) {
-            client.send(msg.content.toString());
-            // close connection when ALLDONE
-            if (parsedMsg.content === 'ALLDONE') {
-              logger.debug('web.js : receive ALLDONE');
-              client.close();
-            }
-          }
-        });
-
-        ch.ack(msg);
-      }, { noAck: false }); */
-    });
-  });
-  return ok;
-})
-.catch( (mqerr) => {
-  logger.error(`MQ error ${mqerr}`);
-})
-.catch( (error) => {
-  logger.error(`general error ${error}`);
 });

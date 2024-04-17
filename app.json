@@ -35,9 +35,5 @@
     {
       "url": "heroku/nodejs"
     }
-  ],
-  "addons": [{
-      "plan": "cloudamqp:little lemur"
-  },
-  "heroku-redis"]
+  ]
 }
