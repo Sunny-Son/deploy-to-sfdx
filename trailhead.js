@@ -93,37 +93,7 @@ function displayTravelApprovalRecord() {
         }
       });
 }
-/*
-function checkTravelApprovalRecord() {
-    var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
-    query_string += ' FROM Travel_Approval__c';
-    query_string += ' WHERE Destination_State__c = \'KR\'';
-    query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
-    console.log('checkTravelApprovalRecord : ready to query');
-    conn.query(query_string)
-        .then (function(err, result) {
-            console.log("total : " + result.totalSize);
-            if(result.totalSize > 0) {
-                for (var i=0; i<result.records.length; i++) {
-                    var record = result.records[i];
-                    console.log("Department: " + record.Department__c);
-                    console.log("Destination State: " + record.Destination_State__c);
-                    console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
-                    console.log("Total Expenses: " + record.Total_Expenses__c);
-                }
-                console.log("success :" + JSON.stringify(response_good));
-                    return JSON.stringify(response_good);
-            } else {
-                console.log("Task #1 isn't achived yet");
-                response_bad.errormsg = 'There is no data yet!! please input!!';
-                console.log("fail :" + JSON.stringify(response_bad));
-                return JSON.stringify(response_bad);
-            }
-        }, function(err) {
-            return JSON.stringify(response_bad);
-        });
-}
-*/
+
 
 // May 10th 2023 Insun - #1
 async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password) {
@@ -355,39 +325,7 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
                 //return response_bad;
             }
         } 
-/*
-        if(vardetailcolumns.includes('Travel_Approval__c.Out_of_State__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Status__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
-            */
-           /*
-        if(vardetailcolumns.includes('Travel_Approval__c.Destination_State__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Status__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
-            && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c'))
-        {
-            //console.log('Passed #2 - Columns');
-            if(vargroupingColumnInfo.includes('Travel_Approval__c.Department__c')) {
-                //console.log('Passed #3 - Grouping');
-                //console.log(vargroupingColumnInfo);
-                response_good.successmsg = '리포트를 정확하게 생성하셨습니다.';
-                //console.log("success :" + JSON.stringify(response_good));
-                _tmp1 = response_good;
-            } else {
-                response_bad.errormsg = 'Travel Request by Department에서 그룹 지정이 되지 않았습니다.';
-                console.log("fail :" + JSON.stringify(response_bad));
-                _tmp1 = response_bad;
-                //return response_bad;
-            }
-        } else {
-            response_bad.errormsg = 'Travel Request by Department에서 지정된 컬럼들을 모두 선택하지 않으셨습니다.';
-            console.log("fail :" + JSON.stringify(response_bad));
-            _tmp1 = response_bad;
-            //return response_bad;
-        }
-        */
+
        
     });
     if(_tmp1.ok == false) return _tmp1;
@@ -451,73 +389,7 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
         
     });
     return _tmp1;
-    /*
-  await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report", function(err, result) {
-      if (err) { return console.error(err); }
-      //console.log("total : " + result.totalSize);
-      var _report_exist = false;
-      console.log('++ checkReports : Travel Requests by Department');
-      for (var i=0; i<result.records.length; i++) {
-          var record = result.records[i];
-          //console.log("Id: " + record.Id);
-          //console.log("DeveloperName State: " + record.DeveloperName);
-          //console.log("Report Name: " + record.Name);
-          //console.log("Report Name: " + record.FolderName);
-
-          //var report = conn.analytics.report(record.Id);
-          conn.analytics.report(record.Id).describe(function(err, meta) {
-          //report.execute(function(err, result) {
-              if (err) { return console.error(err); }
-              var varreportname = meta.reportMetadata.name;
-              var vardetailcolumns = meta.reportMetadata.detailColumns;
-              var vargroupingColumnInfo = JSON.stringify(meta.reportExtendedMetadata.groupingColumnInfo);
-              if (varreportname == 'Travel Requests by Department') {
-                var string_meta = meta.reportMetadata.toString();
-                console.log('Passed #1 - Report Name');
-                _report_exist = true;
-                //var varreportname = meta.reportMetadata.name;
-                //console.log(varreportname);
-
-                if(vardetailcolumns.includes('Travel_Approval__c.Out_of_State__c')
-                && vardetailcolumns.includes('Travel_Approval__c.Purpose_of_Trip__c')
-                && vardetailcolumns.includes('Travel_Approval__c.Status__c')
-                && vardetailcolumns.includes('Travel_Approval__c.Trip_Start_Date__c')
-                && vardetailcolumns.includes('Travel_Approval__c.Trip_End_Date__c')
-                )
-                {
-                  console.log('Passed #2 - Columns');
-                  //console.log(vardetailcolumns);
-                } else {
-                  console.error('need detailcolumns exactly');
-                  response_bad.errormsg = 'need detailcolumns exactly';
-                  console.log("fail :" + JSON.stringify(response_bad));
-                  return response_bad;
-                }
-
-                if(vargroupingColumnInfo.includes('Travel_Approval__c.Department__c')) {
-                  console.log('Passed #3 - Grouping');
-                  //console.log(vargroupingColumnInfo);
-                } else {
-                  console.error('need Grouping exactly');
-                  response_bad.errormsg = 'need Grouping exactly';
-                  console.log("fail :" + JSON.stringify(response_bad));
-                  return response_bad;
-                }
-                console.log("success :" + JSON.stringify(response_good));
-                return JSON.stringify(response_good);
-              } else {
-                //console.log('FAIL : You should create report!!!');
-              }
-          });
-      }
-    });
-    if(_report_exist == false) {
-        esponse_bad.errormsg = 'Create Report Please';
-    } else response_bad.errormsg = 'Unknown Error';
-
-    console.log("fail :" + JSON.stringify(response_bad));
-    return JSON.stringify(response_bad);
-    */
+   
 }
 
 // May 10th 2023 Insun - #4
@@ -606,62 +478,6 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
     
 }
 
-/*
-async function trailhead_checkDashboards() {
-    console.log('trailhead.js : checkDashboard : begin');
-    await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard", function(err, result) {
-        if (err) { return console.error(err); }
-        console.log("total : " + result.totalSize);
-        for (var i=0; i<result.records.length; i++) {
-            var record = result.records[i];
-            console.log(record);
-            console.log("Id: " + record.Id);
-            console.log("DeveloperName : " + record.DeveloperName);
-            console.log("Report Folder Name: " + record.FolderName);
-            console.log("Report Title: " + record.Title);
-
-            if(record.Title != 'Travel Requests Dashboard') continue;
-            else console.log('title passed');
-            if(record.FolderName != 'Private Dashboards') continue;
-            else console.log('FolderName passed');
-
-            var _request = {
-            url: '',
-            method: 'get',
-            body: '',
-            headers : {
-                    "Content-Type" : "application/json"
-                }
-            };
-
-            _request.url = '/services/data/v57.0/analytics/dashboards/' + record.Id + '/describe';
-
-            conn.request(_request, function(err, resp) {
-            //console.log(JSON.stringify(resp));
-            var vardashboardcheck = JSON.stringify(resp);
-            if(vardashboardcheck.includes('\"header\":\"Travel Requests by Department\"')
-                && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Department__c\"')
-                && vardashboardcheck.includes('\"visualizationType\":\"Bar\"')
-                && vardashboardcheck.includes('\"name\":\"RowCount\"')
-                && vardashboardcheck.includes('\"header\":\"Travel Requests by Month\"')
-                && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Trip_End_Date__c\"')
-                && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Out_of_State__c\"')
-                && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-                && vardashboardcheck.includes('\"groupByType\":\"stacked\"')
-                && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-            ) {
-                console.log("success :" + JSON.stringify(response_good));
-                return response_good;
-            }
-            });
-        }
-    });
-
-    console.log("fail :" + JSON.stringify(response_bad));
-    return response_bad;
-
-}
-*/
 
 function displayDashboards2() {
     conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard", function(err, result) {
