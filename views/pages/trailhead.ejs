@@ -205,7 +205,7 @@
         var ResetOrg=function() {
             
             //url_scratch_org = localStorage.getItem("loginUrl");
-            alert("ADMIN : 실습 환경을 리셋 하시겠습니까?");
+            if (confirm("ADMIN : 실습 환경을 리셋 하시겠습니까?")) {
             url_scratch_org = "https://test.salesforce.com";
             //url_check = '/checkdashboard?action=check&username=' + encodeURIComponent(localStorage.getItem("username")) + '&password=' + encodeURIComponent(localStorage.getItem("password"));
             console.log('Open window #1 : [' + url_scratch_org + ']');
@@ -215,6 +215,7 @@
 
             window.open(url_scratch_org,"_blank");
             //window.open(url_check,"_blank");
+            }
 
         }
         </script>
