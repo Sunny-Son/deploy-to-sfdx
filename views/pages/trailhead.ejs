@@ -187,152 +187,7 @@
                     });
             }
         }
-/*
-{
-        question1_launch= async function() {
-            //defaultContent('Questions !!');
-            const statusnumber = "status1";
-            var _urlstr = "/trailhead?action=checkTravelApprovalRecord";
-            let response = await fetch(_urlstr);
-        
-            console.log(response);
-            console.log("response:", response.status);
-            console.log("response:", response.statusText);
-            
-            if(response.status == 200) {
-                let raw_data = await response.text();
 
-                console.log("response data :", raw_data);
-                data = JSON.parse(raw_data);
-                
-                if(data.ok == true) {
-                    console.log("data.ok = true");
-                    document.getElementById("question1").disabled = true;
-                    document.getElementById("question1").innerHTML = "Done";
-                    defaultContent(data.successmsg, statusnumber);
-                } else {
-                    console.log("data.ok = false");
-                    defaultContent(data.errormsg, statusnumber);
-                }
-            } else defaultContent(response.statusText, statusnumber);
-        }
-
-        question2_launch= async function() {
-            //defaultContent('Questions !!');
-            const statusnumber = "status2";
-            var _urlstr = "/trailhead?action=checkReports";
-            let response = await fetch(_urlstr);
-        
-            console.log(response);
-            console.log("response:", response.status);
-            console.log("response:", response.statusText);
-            
-            if(response.status == 200) {
-                let raw_data = await response.text();
-
-                console.log("response data :", raw_data);
-                data = JSON.parse(raw_data);
-                
-                if(data.ok == true) {
-                    console.log("data.ok = true");
-                    document.getElementById("question2").disabled = true;
-                    document.getElementById("question2").innerHTML = "Done";
-                    defaultContent(data.successmsg, statusnumber);
-                } else {
-                    console.log("data.ok = false");
-                    defaultContent(data.errormsg, statusnumber);
-                }
-            } else defaultContent(response.statusText, statusnumber);
-        }
-
-        question3_launch= async function() {
-            //defaultContent('Questions !!');
-            const statusnumber = "status3";
-            const elementnumber = "question3";
-            var _urlstr = "/trailhead?action=checkDashboards";
-            let response = await fetch(_urlstr);
-        
-            console.log(response);
-            console.log("response:", response.status);
-            console.log("response:", response.statusText);
-            
-            if(response.status == 200) {
-                let raw_data = await response.text();
-
-                console.log("response data :", raw_data);
-                data = JSON.parse(raw_data);
-                
-                if(data.ok == true) {
-                    console.log("data.ok = true");
-                    document.getElementById(elementnumber).disabled = true;
-                    document.getElementById(elementnumber).innerHTML = "Done";
-                    defaultContent(data.successmsg, statusnumber);
-                } else {
-                    console.log("data.ok = false");
-                    defaultContent(data.errormsg, statusnumber);
-                }
-            } else defaultContent(response.statusText, statusnumber);
-        }
-
-        question4_launch= async function() {
-            //defaultContent('Questions !!');
-            const statusnumber = "status4";
-            const elementnumber = "question4";
-            var _urlstr = "/trailhead?action=checkDashboards";
-            let response = await fetch(_urlstr);
-        
-            console.log(response);
-            console.log("response:", response.status);
-            console.log("response:", response.statusText);
-            
-            if(response.status == 200) {
-                let raw_data = await response.text();
-
-                console.log("response data :", raw_data);
-                data = JSON.parse(raw_data);
-                
-                if(data.ok == true) {
-                    console.log("data.ok = true");
-                    document.getElementById(elementnumber).disabled = true;
-                    document.getElementById(elementnumber).innerHTML = "Done";
-                    defaultContent(data.successmsg, statusnumber);
-                } else {
-                    console.log("data.ok = false");
-                    defaultContent(data.errormsg, statusnumber);
-                }
-            } else defaultContent(response.statusText, statusnumber);
-        }
-/*
-        question3_launch= async function() {
-            //defaultContent('Questions !!');
-            const statusnumber = "status3";
-            const elementnumber = "question3";
-            var _urlstr = "/trailhead?action=checkDashboards";
-            let response = await fetch(_urlstr);
-        
-            console.log(response);
-            console.log("response:", response.status);
-            console.log("response:", response.statusText);
-            
-            if(response.status == 200) {
-                let raw_data = await response.text();
-
-                console.log("response data :", raw_data);
-                data = JSON.parse(raw_data);
-                
-                if(data.ok == true) {
-                    console.log("data.ok = true");
-                    document.getElementById("question3").disabled = true;
-                    document.getElementById("question3").innerHTML = "Done";
-                    defaultContent(data.successmsg, statusnumber);
-                } else {
-                    console.log("data.ok = false");
-                    defaultContent(data.errormsg, statusnumber);
-                }
-            } else defaultContent(response.statusText, statusnumber);
-        }
-    }
-*/
         defaultContent = function (content, varwhere) {
             var para = document.createElement("p");
             para.classList.add('slds-m-vertical_medium');
@@ -345,8 +200,9 @@
 
         var openscratchorg=function() {
             //window.location.href=localStorage.getItem("loginUrl");
-            url_scratch_org = localStorage.getItem("loginUrl");
-            url_check = '/checkdashboard?action=check&username=' + encodeURIComponent(localStorage.getItem("username")) + '&password=' + encodeURIComponent(localStorage.getItem("password"));
+            //url_scratch_org = localStorage.getItem("loginUrl");
+            url_scratch_org = "https://test.salesforce.com";
+            //url_check = '/checkdashboard?action=check&username=' + encodeURIComponent(localStorage.getItem("username")) + '&password=' + encodeURIComponent(localStorage.getItem("password"));
             console.log('Open window #1 : [' + url_scratch_org + ']');
             //console.log('Open window #2 : [' + '/?action=delete&instance=' + localStorage.getItem("instanceUrl") + '&token=' + localStorage.getItem("loginUrl") + ']');
             //console.log('Open window #2 : [' + url_check + ']');
