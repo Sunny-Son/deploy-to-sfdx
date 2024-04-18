@@ -4,6 +4,7 @@ var configpath = path.normalize("./");
 //var config = require(configpath+"config.js");
 const logger = require('heroku-logger');
 //var conn = new jsforce.Connection();
+const dashboard_meta = require('./meta/dashboard.json');
 
 
 var loggedIn = false;
@@ -550,21 +551,19 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     
     if(_tmp1 != null) return _tmp1;
 
+    // Data Deletion Success Apr 18th --->
 
-/*
-    await conn.query("DELETE FROM Vehicle__c WHERE CreatedDate > 2024-04-17T01:34:59.000Z", function(err, result) {
-        if (err) { return console.error(err); }
-        console.log('++ checkReports : Delete Vehicle__c');
-        if(result.records.length == 0) {
-          response_bad.errormsg = '[Vehicle Dashboard] 대시보드가 [Public folder] 에 존재하지 않습니다. 부스에 문의 부탁드립니다';
-          console.log("fail :" + JSON.stringify(response_bad));
-          _tmp1 = response_bad;
-          //return response_bad;
-        } else record = result.records[0];
-    });
+    /* Dashboard 복구
+
     */
-    if(_tmp1 != null) return _tmp1;
 
+    console.log('++ [trailhead_resetOrg] dashboard_meta : ' + dashboard_meta);
+
+    response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. 축하합니다!!';
+    //console.log("success :" + JSON.stringify(response_good));
+    _tmp1 = response_good;
+
+    /*
     //console.log('Passed #1 - Dashboard Name');
     //var record = result.records[0];
     //console.log("total : " + result.totalSize);
@@ -605,6 +604,8 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
             //return response_bad;
         }
     });
+
+    */
     return _tmp1;
     
 }

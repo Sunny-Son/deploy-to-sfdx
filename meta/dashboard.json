@@ -1,0 +1,185 @@
+{
+    "Dashboard": {
+      "$": {
+        "xmlns": "http://soap.sforce.com/2006/04/metadata"
+      },
+      "backgroundEndColor": "#FFFFFF",
+      "backgroundFadeDirection": "Diagonal",
+      "backgroundStartColor": "#FFFFFF",
+      "chartTheme": "light",
+      "colorPalette": "unity",
+      "dashboardChartTheme": "light",
+      "dashboardColorPalette": "unity",
+      "dashboardGridLayout": {
+        "dashboardGridComponents": [
+          {
+            "colSpan": "12",
+            "columnIndex": "0",
+            "dashboardComponent": {
+              "autoselectColumnsFromReport": "true",
+              "componentType": "RichText",
+              "dashboardComponentContents": {
+                "richTextContent": "[{\\&quot;attributes\\&quot;:{\\&quot;color\\&quot;:\\&quot;#006668\\&quot;,\\&quot;size\\&quot;:\\&quot;42px\\&quot;,\\&quot;bold\\&quot;:true},\\&quot;insert\\&quot;:\\&quot;\\uC790\\uB3D9\\uCC28 \\uD604\\uD669 \\uB300\\uC2DC\\uBCF4\\uB4DC\\&quot;},{\\&quot;attributes\\&quot;:{\\&quot;align\\&quot;:\\&quot;center\\&quot;},\\&quot;insert\\&quot;:\\&quot;\\\\n\\&quot;}]"
+              },
+              "groupingSortProperties": ""
+            },
+            "rowIndex": "0",
+            "rowSpan": "2"
+          },
+          {
+            "colSpan": "4",
+            "columnIndex": "0",
+            "dashboardComponent": {
+              "autoselectColumnsFromReport": "false",
+              "chartAxisRange": "Auto",
+              "chartSummary": {
+                "axisBinding": "y",
+                "column": "RowCount"
+              },
+              "componentType": "BarGrouped",
+              "decimalPrecision": "-1",
+              "displayUnits": "Auto",
+              "drillEnabled": "false",
+              "drillToDetailEnabled": "false",
+              "enableHover": "false",
+              "expandOthers": "false",
+              "groupingColumn": [
+                "Vehicle__c.Model__c",
+                "Vehicle__c.Status__c"
+              ],
+              "groupingSortProperties": {
+                "groupingSorts": [
+                  {
+                    "groupingLevel": "g1",
+                    "sortOrder": "a"
+                  },
+                  {
+                    "groupingLevel": "g2",
+                    "sortOrder": "a"
+                  }
+                ]
+              },
+              "header": "Vehicles with Model and Status",
+              "legendPosition": "Right",
+              "report": "unfiled$public/Vehicles_with_Model_and_Status_bwy",
+              "showPercentage": "false",
+              "showValues": "true",
+              "sortBy": "RowLabelAscending",
+              "useReportChart": "false"
+            },
+            "rowIndex": "2",
+            "rowSpan": "8"
+          },
+          {
+            "colSpan": "4",
+            "columnIndex": "4",
+            "dashboardComponent": {
+              "autoselectColumnsFromReport": "false",
+              "chartAxisRange": "Auto",
+              "chartSummary": {
+                "axisBinding": "y",
+                "column": "RowCount"
+              },
+              "componentType": "Donut",
+              "decimalPrecision": "-1",
+              "displayUnits": "Auto",
+              "drillEnabled": "false",
+              "drillToDetailEnabled": "false",
+              "enableHover": "false",
+              "expandOthers": "false",
+              "groupingColumn": "Vehicle__c.Model__c",
+              "groupingSortProperties": {
+                "groupingSorts": {
+                  "groupingLevel": "g1",
+                  "sortOrder": "a"
+                }
+              },
+              "header": "Vehicles with Model and Status",
+              "legendPosition": "Right",
+              "maxValuesDisplayed": "6",
+              "report": "unfiled$public/Vehicles_with_Model_and_Status_bwy",
+              "showPercentage": "false",
+              "showTotal": "true",
+              "showValues": "true",
+              "sortBy": "RowLabelAscending",
+              "useReportChart": "false"
+            },
+            "rowIndex": "2",
+            "rowSpan": "8"
+          },
+          {
+            "colSpan": "4",
+            "columnIndex": "8",
+            "dashboardComponent": {
+              "autoselectColumnsFromReport": "false",
+              "chartAxisRange": "Auto",
+              "chartSummary": {
+                "axisBinding": "y",
+                "column": "RowCount"
+              },
+              "componentType": "LineGrouped",
+              "decimalPrecision": "-1",
+              "displayUnits": "Auto",
+              "drillEnabled": "false",
+              "drillToDetailEnabled": "false",
+              "enableHover": "false",
+              "expandOthers": "false",
+              "groupingColumn": [
+                "Vehicle__c.Model__c",
+                "Vehicle__c.Status__c"
+              ],
+              "groupingSortProperties": {
+                "groupingSorts": [
+                  {
+                    "groupingLevel": "g1",
+                    "sortOrder": "a"
+                  },
+                  {
+                    "groupingLevel": "g2",
+                    "sortOrder": "a"
+                  }
+                ]
+              },
+              "header": "Vehicles with Model and Status",
+              "legendPosition": "Right",
+              "report": "unfiled$public/Vehicles_with_Model_and_Status_bwy",
+              "showPercentage": "false",
+              "showValues": "false",
+              "sortBy": "RowLabelAscending",
+              "useReportChart": "false"
+            },
+            "rowIndex": "2",
+            "rowSpan": "8"
+          },
+          {
+            "colSpan": "12",
+            "columnIndex": "0",
+            "dashboardComponent": {
+              "autoselectColumnsFromReport": "true",
+              "componentType": "Image",
+              "dashboardComponentContents": {
+                "additionalInfo": "{\"contentDocumentId\":\"0698H000002IBZ5QAO\",\"fileAssetName\":\"Screenshot_20240412_at_12312PMpng\",\"inlineWidgetStyle\":{},\"namespacePrefix\":\"\"}",
+                "fileName": "Screenshot 2024-04-12 at 1.23.12 PM.png",
+                "fit": "fitwidth",
+                "horizontalAlignment": "left",
+                "verticalAlignment": "center"
+              },
+              "groupingSortProperties": ""
+            },
+            "rowIndex": "10",
+            "rowSpan": "8"
+          }
+        ],
+        "numberOfColumns": "12",
+        "rowHeight": "36"
+      },
+      "dashboardType": "SpecifiedUser",
+      "isGridLayout": "true",
+      "owner": "test-86vkbfugvz8t@example.com",
+      "runningUser": "test-86vkbfugvz8t@example.com",
+      "textColor": "#000000",
+      "title": "Vehicle Dashboard",
+      "titleColor": "#000000",
+      "titleSize": "12"
+    }
+  }
