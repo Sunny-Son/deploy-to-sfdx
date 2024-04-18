@@ -626,7 +626,7 @@ function displayDashboards2() {
 }
 
 //module.exports = { login, checkTravelApprovalRecord, checkReports, checkDashboards};
-module.exports = { login, trailhead_checkTravelApprovalRecord, trailhead_checkField, trailhead_checkDashboards, trailhead_checkReports};
+module.exports = { login, trailhead_checkTravelApprovalRecord, trailhead_checkField, trailhead_checkDashboards, trailhead_checkReports, trailhead_resetOrg};
 
 var callback = null;
 if (process.argv[2]) {
@@ -668,6 +668,9 @@ if (process.argv[2]) {
             break;
         case 'checkDashboards':
             callback = checkDashboards;
+            break;
+        case 'resetOrg':
+            callback = resetOrg;
             break;
     }
 }

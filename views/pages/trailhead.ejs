@@ -16,7 +16,7 @@
                           <a href="https://test.salesforce.com" id="loginUrl" target="_blank" class="slds-button slds-button_brand" style="display: none;"></a>
                           <button onclick="openscratchorg();" class="slds-button slds-button_brand">실습 환경 실행 (Login 필요 가능)</button> 
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <button onclick="ResetOrg();" class="slds-button slds-button_brand">실습 환경 리셋(Admin)</button> 
+                          <button onclick="question_launch(99);" class="slds-button slds-button_brand">실습 환경 리셋(Admin)</button> 
                         </center>
                     </div>
                 <br/>               
@@ -124,6 +124,11 @@
                             elementnumber = "question40";
                             _urlstr = "/trailhead?action=checkDashboards&username=" + encodeURIComponent(varusername) + "&password=" + encodeURIComponent(varpassword);
                             break;
+                case 99:    statusnumber = "status99";
+                            elementnumber = "question99";
+                            _urlstr = "/trailhead?action=resetOrg&username=" + encodeURIComponent(varusername) + "&password=" + encodeURIComponent(varpassword);
+                            break;
+
             }
 
             let response = await fetch(_urlstr);
@@ -207,6 +212,8 @@
             //url_scratch_org = localStorage.getItem("loginUrl");
             if (confirm("ADMIN : 실습 환경을 리셋 하시겠습니까?")) {
             url_scratch_org = "https://test.salesforce.com";
+
+            _urlstr = "/trailhead?action=checkDashboards&username=" + encodeURIComponent(varusername) + "&password=" + encodeURIComponent(varpassword);
             //url_check = '/checkdashboard?action=check&username=' + encodeURIComponent(localStorage.getItem("username")) + '&password=' + encodeURIComponent(localStorage.getItem("password"));
             console.log('Open window #1 : [' + url_scratch_org + ']');
             //console.log('Open window #2 : [' + '/?action=delete&instance=' + localStorage.getItem("instanceUrl") + '&token=' + localStorage.getItem("loginUrl") + ']');
