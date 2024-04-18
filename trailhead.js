@@ -562,7 +562,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
 
      
-    await conn.metadata.read('CustomObject', 'Vehicle__c', function(err, metadata) {
+    await conn.metadata.read('CustomObject', ['Vehicle__c'], function(err, metadata) {
         if (err) { console.error(err); }
         for (var i=0; i < metadata.length; i++) {
             var meta = metadata[i];
