@@ -560,6 +560,17 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     console.log('++ [trailhead_resetOrg] dashboard_meta : ' + dashboard_meta);
     console.log('++ [trailhead_resetOrg] dashboard_meta : ' + JSON.stringify(dashboard_meta));
 
+
+     
+    await conn.metadata.read('CustomObject', 'Vehicle__c', function(err, metadata) {
+        if (err) { console.error(err); }
+        for (var i=0; i < metadata.length; i++) {
+            var meta = metadata[i];
+            console.log("Full Name: " + meta.fullName);
+            console.log("Fields count: " + meta.fields.length);
+            console.log("Sharing Model: " + meta.sharingModel);
+        }
+    });
     
     await conn.metadata.update('Dashboard', dashboard_meta, function(err, results) {
         if (err) {
@@ -574,6 +585,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
           console.log('fullName : ' + result.fullName);
         }}
       });
+
 
     response_good.successmsg = '실습 환경을 복구 하였습니다!!';
     //console.log("success :" + JSON.stringify(response_good));
