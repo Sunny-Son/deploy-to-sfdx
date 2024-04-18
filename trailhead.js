@@ -557,9 +557,24 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     */
 
-    console.log('++ [trailhead_resetOrg] dashboard_meta : ' + dashboard_meta);
+    console.log('++ [trailhead_resetOrg] dashboard_meta : ' + dashboard_meta.JSON);
 
-    response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. 축하합니다!!';
+    
+    await conn.metadata.update('Dashboard', dashboard_meta, function(err, results) {
+        if (err) {
+            response_bad.errormsg = '[trailhead_resetOrg][Dashboard Reset] 문제 발생';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+          //  console.error(err); 
+        }
+        for (var i=0; i < results.length; i++) {
+          var result = results[i];
+          console.log('success ? : ' + result.success);
+          console.log('fullName : ' + result.fullName);
+        }
+      });
+
+    response_good.successmsg = '실습 환경을 복구 하였습니다!!';
     //console.log("success :" + JSON.stringify(response_good));
     _tmp1 = response_good;
 
