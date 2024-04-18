@@ -572,6 +572,18 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         }
         console.log('++ [trailhead_resetOrg] CustomObject : ');
     });
+
+
+    await conn.metadata.read('Dashboard', 'Vehicle Dashboard', function(err, metadata) {
+        if (err) { console.error(err); }
+        for (var i=0; i < metadata.length; i++) {
+            var meta = metadata[i];
+            console.log("Full Name: " + meta.fullName);
+            console.log("Fields count: " + meta.fields.length);
+            console.log("Sharing Model: " + meta.sharingModel);
+        }
+        console.log('++ [trailhead_resetOrg] Dashboard : ');
+    });
     
     await conn.metadata.update('Dashboard', dashboard_meta, function(err, results) {
         if (err) {
