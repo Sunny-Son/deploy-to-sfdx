@@ -574,7 +574,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     });
 
 
-    await conn.metadata.read('Dashboard', 'Vehicle Dashboard', function(err, metadata) {
+    await conn.metadata.read('Dashboard', 'Public1/RPDhQIGyzjIYEMBiYquaGNKWnKUNjd', function(err, metadata) {
         if (err) { console.error(err); }
         for (var i=0; i < metadata.length; i++) {
             var meta = metadata[i];
