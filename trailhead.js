@@ -528,7 +528,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         if (err) { return console.error(err); }
         //console.log('++ checkReports : Query Vehicle__c');
         if(result.records.length == 0) {
-          response_bad.errormsg = '[Vehicle Dashboard] Data 가 존재하지 않습니다';
+          response_bad.errormsg = '++ [trailhead_resetOrg] Data 가 존재하지 않습니다';
           console.log("fail :" + JSON.stringify(response_bad));
           _tmp1 = response_bad;
           //return response_bad;
@@ -542,11 +542,11 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     .find({ CreatedById : record.Id})
     .destroy(function(err, result) {
         if (err) { 
-          response_bad.errormsg = '[trailhead_resetOrg][Vehicle Data Delete] 삭제에 문제 발생';
+          response_bad.errormsg = '++ [trailhead_resetOrg][Vehicle Data Delete] 삭제에 문제 발생';
           console.log("fail :" + JSON.stringify(response_bad));
           _tmp1 = response_bad;
         }
-        console.log('[trailhead_resetOrg] Vehicle Data Deleted');
+        console.log('++ [trailhead_resetOrg] Vehicle Data Deleted');
     });
     
     if(_tmp1 != null) return _tmp1;
