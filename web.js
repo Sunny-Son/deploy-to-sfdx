@@ -149,9 +149,19 @@ app.get('/trailhead', async (req, res) => {
       console.log(e);
       res.sendStatus(503);
     }
-    //res.send(sunnytrailhead.trailhead_checkReports());
+    
+  } else if(action == 'resetOrg') {
+    logger.debug('+++ SUNNY : web.js : trailhead_resetOrg');
+    try {
+      const result = await sunnytrailhead.trailhead_resetOrg(_chk_username, _chk_password);
+      //logger.debug('result : [' + result +']');
+      console.log(result);
+      await res.status(200).send(result);
+    } catch (e) {
+      console.log(e);
+      res.sendStatus(503);
+    } 
   }
-  //return res.render('pages/trailhead', { username: req.query.username ,password:req.query.password});
 });
 
 const port = process.env.PORT || 8443;
