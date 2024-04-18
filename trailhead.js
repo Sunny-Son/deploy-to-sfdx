@@ -478,6 +478,137 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
     
 }
 
+// May 10th 2023 Insun - #5
+async function trailhead_resetOrg(_chk_username, _chk_password) {
+    // 입력데이터 삭제
+    // 수정 PATH등의 데이터 원위치
+    // Dyanmic Form 원위치
+    var _tmp1 = null;
+
+    var conn = new jsforce.Connection();
+    conn.loginUrl = 'https://test.salesforce.com';
+    
+    var callback = null;
+    if(_chk_username && _chk_password) {
+        console.log('loginurl = ' + conn.loginUrl);
+        await conn.login(_chk_username, _chk_password, function(err, res) {
+            if (err) { return console.error(err); }
+            else {
+                loggedIn = true;
+                console.log("Succcessfully logged into Salesforce.");
+                console.log(res);
+                //console.log("user id => CreatedById : [" + res.id + "]");
+                //return res.id;
+                //return conn;
+            }
+          });
+    }
+    else {
+        console.log("Username and password not setup.")
+    }
+
+    //var conn = await login(_chk_username, _chk_password);
+
+    // Dynamic Forms reset
+
+    /* 입력 데이터 삭제
+    select username, alias, id from User where alias='UUser'
+    
+    conn.sobject('Vehicle__c')
+    .find({ CreatedById : UUser ID })
+    .destroy(function(err, rets) {
+      if (err) { return console.error(err); }
+      console.log(rets);
+      // ...
+    });
+    */
+    var record;
+    await conn.query("SELECT username, alias, id FROM User WHERE alias='UUser'", function(err, result) {
+        if (err) { return console.error(err); }
+        //console.log('++ checkReports : Query Vehicle__c');
+        if(result.records.length == 0) {
+          response_bad.errormsg = '[Vehicle Dashboard] 대시보드가 [Public folder] 에 존재하지 않습니다. 부스에 문의 부탁드립니다';
+          console.log("fail :" + JSON.stringify(response_bad));
+          _tmp1 = response_bad;
+          //return response_bad;
+        } else record = result.records[0];
+        console.log('++ [trailhead_resetOrg] record ID : ' + record.Id);
+    });
+
+    if(_tmp1 != null) return _tmp1;
+
+    await conn.sobject('Vehicle__c')
+    .find({ CreatedById : record.Id})
+    .destroy(function(err, result) {
+        if (err) { 
+          response_bad.errormsg = '[trailhead_resetOrg][Vehicle Data Delete] 삭제에 문제 발생';
+          console.log("fail :" + JSON.stringify(response_bad));
+          _tmp1 = response_bad;
+        }
+        console.log('[trailhead_resetOrg] Vehicle Data Deleted');
+    });
+    
+    if(_tmp1 != null) return _tmp1;
+
+
+/*
+    await conn.query("DELETE FROM Vehicle__c WHERE CreatedDate > 2024-04-17T01:34:59.000Z", function(err, result) {
+        if (err) { return console.error(err); }
+        console.log('++ checkReports : Delete Vehicle__c');
+        if(result.records.length == 0) {
+          response_bad.errormsg = '[Vehicle Dashboard] 대시보드가 [Public folder] 에 존재하지 않습니다. 부스에 문의 부탁드립니다';
+          console.log("fail :" + JSON.stringify(response_bad));
+          _tmp1 = response_bad;
+          //return response_bad;
+        } else record = result.records[0];
+    });
+    */
+    if(_tmp1 != null) return _tmp1;
+
+    //console.log('Passed #1 - Dashboard Name');
+    //var record = result.records[0];
+    //console.log("total : " + result.totalSize);
+
+    var _request = {
+    url: '',
+    method: 'get',
+    body: '',
+    headers : {
+            "Content-Type" : "application/json"
+        }
+    };
+
+    _request.url = '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
+
+    await conn.request(_request, function(err, resp) {
+        //console.log(JSON.stringify(resp));
+        var vardashboardcheck = JSON.stringify(resp);
+        if(vardashboardcheck.includes('\"header\":\"Travel Requests by Department\"')
+            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Department__c\"')
+            && vardashboardcheck.includes('\"visualizationType\":\"Bar\"')
+            && vardashboardcheck.includes('\"name\":\"RowCount\"')
+            && vardashboardcheck.includes('\"header\":\"Travel Requests by Month\"')
+            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Trip_End_Date__c\"')
+            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Out_of_State__c\"')
+            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
+            && vardashboardcheck.includes('\"groupByType\":\"stacked\"')
+            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
+        ) {
+            response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. 축하합니다!!';
+            //console.log("success :" + JSON.stringify(response_good));
+            _tmp1 = response_good;
+            //return response_good;
+        } else {
+            response_bad.errormsg = '대시보드를 다시 확인하시기 바랍니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+            //return response_bad;
+        }
+    });
+    return _tmp1;
+    
+}
+
 
 function displayDashboards2() {
     conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard", function(err, result) {
