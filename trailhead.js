@@ -4,7 +4,7 @@ var configpath = path.normalize("./");
 //var config = require(configpath+"config.js");
 const logger = require('heroku-logger');
 //var conn = new jsforce.Connection();
-const dashboard_meta = require('./meta/dashboard.json');
+var dashboard_meta = require('./meta/dashboard.json');
 
 
 var loggedIn = false;
@@ -557,7 +557,8 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     */
 
-    console.log('++ [trailhead_resetOrg] dashboard_meta : ' + dashboard_meta.JSON);
+    console.log('++ [trailhead_resetOrg] dashboard_meta : ' + dashboard_meta);
+    console.log('++ [trailhead_resetOrg] dashboard_meta : ' + JSON.stringify(dashboard_meta));
 
     
     await conn.metadata.update('Dashboard', dashboard_meta, function(err, results) {
@@ -566,12 +567,12 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
           //  console.error(err); 
-        }
+        } else {
         for (var i=0; i < results.length; i++) {
           var result = results[i];
           console.log('success ? : ' + result.success);
           console.log('fullName : ' + result.fullName);
-        }
+        }}
       });
 
     response_good.successmsg = '실습 환경을 복구 하였습니다!!';
