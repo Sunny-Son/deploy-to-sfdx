@@ -528,7 +528,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         if (err) { return console.error(err); }
         //console.log('++ checkReports : Query Vehicle__c');
         if(result.records.length == 0) {
-          response_bad.errormsg = '[Vehicle Dashboard] 대시보드가 [Public folder] 에 존재하지 않습니다. 부스에 문의 부탁드립니다';
+          response_bad.errormsg = '[Vehicle Dashboard] Data 가 존재하지 않습니다';
           console.log("fail :" + JSON.stringify(response_bad));
           _tmp1 = response_bad;
           //return response_bad;
