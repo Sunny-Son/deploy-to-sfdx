@@ -570,6 +570,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
             console.log("Fields count: " + meta.fields.length);
             console.log("Sharing Model: " + meta.sharingModel);
         }
+        console.log('++ [trailhead_resetOrg] CustomObject : ');
     });
     
     await conn.metadata.update('Dashboard', dashboard_meta, function(err, results) {
