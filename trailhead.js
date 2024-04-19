@@ -561,7 +561,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     console.log('++ [trailhead_resetOrg] dashboard_meta : ' + JSON.stringify(dashboard_meta));
 
 
-     
+    console.log('++ [trailhead_resetOrg] CustomObject begin ++');
     await conn.metadata.read('CustomObject', ['Vehicle__c', 'Account'], function(err, metadata) {
         if (err) { console.error(err); }
         for (var i=0; i < metadata.length; i++) {
@@ -572,8 +572,23 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         }
         console.log('++ [trailhead_resetOrg] CustomObject : ');
     });
+    console.log('++ [trailhead_resetOrg] CustomObject End ++');
+
+    console.log('++ [trailhead_resetOrg] metadata describe begin ++');
+    await conn.metadata.describe('60.0', function(err, metadata) {
+        if (err) { return console.error('err', err); }
+        for (var i=0; i < metadata.length; i++) {
+          var meta = metadata[i];
+          console.log("organizationNamespace: " + meta.organizationNamespace);
+          console.log("partialSaveAllowed: " + meta.partialSaveAllowed);
+          console.log("testRequired: " + meta.testRequired);
+          console.log("metadataObjects count: " + metadataObjects.length);
+        }
+      });
+    console.log('++ [trailhead_resetOrg] metadata describe End ++');
 
 
+    console.log('++ [trailhead_resetOrg] read dashboard begin ++');
     await conn.metadata.read('Dashboard', 'Public1/RPDhQIGyzjIYEMBiYquaGNKWnKUNjd', function(err, metadata) {
         if (err) { console.error(err); }
         for (var i=0; i < metadata.length; i++) {
@@ -584,7 +599,9 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         }
         console.log('++ [trailhead_resetOrg] Dashboard : ');
     });
-    
+    console.log('++ [trailhead_resetOrg] read dashboard End ++');
+
+    console.log('++ [trailhead_resetOrg] Update dashboard begin ++');
     await conn.metadata.update('Dashboard', dashboard_meta, function(err, results) {
         if (err) {
             response_bad.errormsg = '[trailhead_resetOrg][Dashboard Reset] 문제 발생';
@@ -598,7 +615,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
           console.log('fullName : ' + result.fullName);
         }}
       });
-
+    console.log('++ [trailhead_resetOrg] Update dashboard end ++');
 
     response_good.successmsg = '실습 환경을 복구 하였습니다!!';
     //console.log("success :" + JSON.stringify(response_good));
