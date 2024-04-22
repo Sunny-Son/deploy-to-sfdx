@@ -5,7 +5,7 @@ var configpath = path.normalize("./");
 const logger = require('heroku-logger');
 //var conn = new jsforce.Connection();
 var dashboard_meta = require('./meta/dashboard.json');
-
+var report_meta = require('./meta/report.json');
 
 var loggedIn = false;
 
@@ -556,51 +556,6 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     /* Dashboard 복구
 
     */
-
-    console.log('++ [trailhead_resetOrg] dashboard_meta : ' + dashboard_meta);
-    console.log('++ [trailhead_resetOrg] dashboard_meta : ' + JSON.stringify(dashboard_meta));
-
-
-    console.log('++ [trailhead_resetOrg] CustomObject begin ++');
-    await conn.metadata.read('CustomObject', ['Vehicle__c', 'Account'], function(err, metadata) {
-        if (err) { console.error(err); }
-        for (var i=0; i < metadata.length; i++) {
-            var meta = metadata[i];
-            console.log("Full Name: " + meta.fullName);
-            console.log("Fields count: " + meta.fields.length);
-            console.log("Sharing Model: " + meta.sharingModel);
-        }
-        console.log('++ [trailhead_resetOrg] CustomObject : ');
-    });
-    console.log('++ [trailhead_resetOrg] CustomObject End ++');
-
-    console.log('++ [trailhead_resetOrg] metadata describe begin ++');
-    await conn.metadata.describe('60.0', function(err, metadata) {
-        if (err) { return console.error('err', err); }
-        for (var i=0; i < metadata.length; i++) {
-          var meta = metadata[i];
-          console.log("organizationNamespace: " + meta.organizationNamespace);
-          console.log("partialSaveAllowed: " + meta.partialSaveAllowed);
-          console.log("testRequired: " + meta.testRequired);
-          console.log("metadataObjects count: " + metadataObjects.length);
-        }
-      });
-    console.log('++ [trailhead_resetOrg] metadata describe End ++');
-
-
-    console.log('++ [trailhead_resetOrg] read dashboard begin ++');
-    await conn.metadata.read('Dashboard', 'Public1/RPDhQIGyzjIYEMBiYquaGNKWnKUNjd', function(err, metadata) {
-        if (err) { console.error(err); }
-        for (var i=0; i < metadata.length; i++) {
-            var meta = metadata[i];
-            console.log("Full Name: " + meta.fullName);
-            console.log("Fields count: " + meta.fields.length);
-            console.log("Sharing Model: " + meta.sharingModel);
-        }
-        console.log('++ [trailhead_resetOrg] Dashboard : ');
-    });
-    console.log('++ [trailhead_resetOrg] read dashboard End ++');
-
     // Update Dashboard using Analytics API / describe -> patch
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Vehicle Dashboard\' and FolderName = \'Public1\'", function(err, result) {
@@ -616,110 +571,61 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     
     if(_tmp1 != null) return _tmp1;
 
-    //console.log('Passed #1 - Dashboard Name');
-    //var record = result.records[0];
-    //console.log("total : " + result.totalSize);
-
-
-    console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
+    //console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id;
-    //_request.body = JSON.stringify(dashboard_meta);
 
     await conn.requestPatch(_request_url, dashboard_meta, function(err, resp) {
         //console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
-        console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
-        /*
-        if(vardashboardcheck.includes('\"header\":\"Travel Requests by Department\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Department__c\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Bar\"')
-            && vardashboardcheck.includes('\"name\":\"RowCount\"')
-            && vardashboardcheck.includes('\"header\":\"Travel Requests by Month\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Trip_End_Date__c\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Out_of_State__c\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-            && vardashboardcheck.includes('\"groupByType\":\"stacked\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-        ) {
-            response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. 축하합니다!!';
-            //console.log("success :" + JSON.stringify(response_good));
-            _tmp1 = response_good;
-            //return response_good;
-        } else {
-            response_bad.errormsg = '대시보드를 다시 확인하시기 바랍니다.';
+        //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
+        if (err) { return console.error(err); }
+        //console.log('++ checkReports : Travel Requests Dashboard');
+        if(result.records.length == 0) {
+            response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
-            //return response_bad;
-        } */
+        } else record = result.records[0];
+        
     });
     if(_tmp1 != null) return _tmp1;
+    // Update Dashboard using Analytics API / describe -> patch
 
-    /*
-    console.log('++ [trailhead_resetOrg] Update dashboard begin ++');
-    await conn.metadata.update('Dashboard', dashboard_meta, function(err, results) {
-        if (err) {
-            response_bad.errormsg = '[trailhead_resetOrg][Dashboard Reset] 문제 발생';
+    // Update Report using Analytics API / describe -> patch
+    await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Vehicles with Model and Status\'", function(err, result) {
+        if (err) { return console.error(err); }
+        
+        console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
+        if(result.records.length == 0) {
+          response_bad.errormsg = '[Vehicle Dashboard] Report가 존재하지 않습니다. 부스에 문의 부탁드립니다';
+          console.log("fail :" + JSON.stringify(response_bad));
+          _tmp1 = response_bad;
+          //return response_bad;
+        } else record = result.records[0];
+    });
+
+    if(_tmp1 != null) return _tmp1;
+
+    var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/reports/' + record.Id;
+
+    await conn.requestPatch(_request_url, report_meta, function(err, resp) {
+        //console.log(JSON.stringify(resp));
+        var vardashboardcheck = JSON.stringify(resp);
+        //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
+        if (err) { return console.error(err); }
+        //console.log('++ checkReports : Travel Requests Dashboard');
+        if(result.records.length == 0) {
+            response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
-          //  console.error(err); 
-        } else {
-        for (var i=0; i < results.length; i++) {
-          var result = results[i];
-          console.log('success ? : ' + result.success);
-          console.log('fullName : ' + result.fullName);
-        }}
-      });
-    console.log('++ [trailhead_resetOrg] Update dashboard end ++');
-      */
+        } else record = result.records[0];
+        
+    });
+    if(_tmp1 != null) return _tmp1;
     response_good.successmsg = '실습 환경을 복구 하였습니다!!';
     //console.log("success :" + JSON.stringify(response_good));
     _tmp1 = response_good;
 
-    /*
-    //console.log('Passed #1 - Dashboard Name');
-    //var record = result.records[0];
-    //console.log("total : " + result.totalSize);
-
-    var _request = {
-    url: '',
-    method: 'get',
-    body: '',
-    headers : {
-            "Content-Type" : "application/json"
-        }
-    };
-
-    _request.url = '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
-
-    await conn.request(_request, function(err, resp) {
-        //console.log(JSON.stringify(resp));
-        var vardashboardcheck = JSON.stringify(resp);
-        if(vardashboardcheck.includes('\"header\":\"Travel Requests by Department\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Department__c\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Bar\"')
-            && vardashboardcheck.includes('\"name\":\"RowCount\"')
-            && vardashboardcheck.includes('\"header\":\"Travel Requests by Month\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Trip_End_Date__c\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Out_of_State__c\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-            && vardashboardcheck.includes('\"groupByType\":\"stacked\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-        ) {
-            response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. 축하합니다!!';
-            //console.log("success :" + JSON.stringify(response_good));
-            _tmp1 = response_good;
-            //return response_good;
-        } else {
-            response_bad.errormsg = '대시보드를 다시 확인하시기 바랍니다.';
-            console.log("fail :" + JSON.stringify(response_bad));
-            _tmp1 = response_bad;
-            //return response_bad;
-        }
-    });
-
-    */
-    return _tmp1;
-    
+    return _tmp1;    
 }
 
 
