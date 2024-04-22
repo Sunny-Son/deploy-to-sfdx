@@ -1,4 +1,14 @@
 {
+    "DeveloperName" : "Vehicle_Record_Page",
+    "MasterLabel" : "Vehicle Record Page",
+    "NamespacePrefix" : null,
+    "ManageableState" : "unmanaged",
+    "CreatedDate" : "2024-04-17T01:34:15.000+0000",
+    "LastModifiedDate" : "2024-04-17T01:34:28.000+0000",
+    "SystemModstamp" : "2024-04-17T01:34:28.000+0000",
+    "Description" : null,
+    "Id" : "0M004000000PkywCAC",
+    "Metadata" : {
       "description" : null,
       "events" : [ ],
       "flexiPageRegions" : [ {
@@ -1003,4 +1013,9 @@
       },
       "type" : "RecordPage",
       "urls" : null
-    }
+    },
+    "FullName" : "Vehicle_Record_Page",
+    "Type" : "RecordPage",
+    "ParentFlexiPage" : "flexipage__default_rec_L",
+    "EntityDefinitionId" : "01I04000001tyVK"
+  }
