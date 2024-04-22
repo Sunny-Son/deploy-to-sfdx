@@ -535,7 +535,23 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     });
 
     if(_tmp1 != null) return _tmp1;
+
+    var _request_url = conn.instanceUrl + '/services/data/v60.0/tooling/sobjects/FlexiPage/' + flexipage_id;
+
+    await conn.requestPatch(_request_url, flexipage_meta, function(err, resp) {
+        //console.log(JSON.stringify(resp));
+        var vardashboardcheck = JSON.stringify(resp);
+        //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
+        if (err) { 
+            response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+            //return console.error(err); 
+        } 
+    });
+    if(_tmp1 != null) return _tmp1;
     
+    /*
     await conn.tooling.sobject('FlexiPage').update({
         body: flexipage_meta
         }, function(err, res) {
@@ -549,7 +565,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         });
 
     if(_tmp1 != null) return _tmp1;
-
+    */
 
     /* 입력 데이터 삭제
     select username, alias, id from User where alias='UUser'

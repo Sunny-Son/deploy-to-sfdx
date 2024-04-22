@@ -1,8 +1,4 @@
 {
-    "DeveloperName" : "Vehicle_Record_Page",
-    "MasterLabel" : "Vehicle Record Page",
-    "Description" : null,
-    "Id" : "0M004000000PkywCAC",
     "Metadata" : {
       "description" : null,
       "events" : [ ],
@@ -1008,9 +1004,5 @@
       },
       "type" : "RecordPage",
       "urls" : null
-    },
-    "FullName" : "Vehicle_Record_Page",
-    "Type" : "RecordPage",
-    "ParentFlexiPage" : "flexipage__default_rec_L",
-    "EntityDefinitionId" : "01I04000001tyVK"
+    }
   }
