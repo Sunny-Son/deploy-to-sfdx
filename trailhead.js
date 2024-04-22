@@ -629,8 +629,9 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         }
     };
 
-    _request.url = '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
-    _request.body = JSON.stringify(dashboard_meta);
+    console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
+    _request.url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
+    //_request.body = JSON.stringify(dashboard_meta);
 
     await conn.requestPatch(_request, dashboard_meta, function(err, resp) {
         //console.log(JSON.stringify(resp));
