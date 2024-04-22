@@ -514,7 +514,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     // Dynamic Forms reset
 
     var flexipage_id;
-    conn.tooling.sobject('FlexiPage')
+    await conn.tooling.sobject('FlexiPage')
         .find({ DeveloperName: "Vehicle_Record_Page" })
         .execute(function(err, records) {
             if (err) { 
@@ -523,18 +523,20 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
                 _tmp1 = response_bad;
                 //return console.error(err); 
             }
-            console.log("fetched : " + records.length);
-            for (var i=0; i < records.length; i++) {
-                var record = records[i];
-                console.log('Id: ' + record.Id);
-                console.log('Name: ' + record.MasterLabel);
-                flexipage_id = record.Id;
+            else {
+                console.log("fetched : " + records.length);
+                for (var i=0; i < records.length; i++) {
+                    var record = records[i];
+                    console.log('Id: ' + record.Id);
+                    console.log('Name: ' + record.MasterLabel);
+                    flexipage_id = record.Id;
+                }
             }
     });
 
     if(_tmp1 != null) return _tmp1;
     
-    conn.tooling.sobject('FlexiPage').create({
+    await conn.tooling.sobject('FlexiPage').create({
         body: flexipage_meta
         }, function(err, res) {
             if (err) { 
