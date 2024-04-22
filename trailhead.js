@@ -620,20 +620,12 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     //var record = result.records[0];
     //console.log("total : " + result.totalSize);
 
-    var _request = {
-    url: '',
-    method: 'patch',
-    body: '',
-    headers : {
-            "Content-Type" : "application/json"
-        }
-    };
 
     console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
-    _request.url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
+    var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
     //_request.body = JSON.stringify(dashboard_meta);
 
-    await conn.requestPatch(_request, dashboard_meta, function(err, resp) {
+    await conn.requestPatch(_request_url, dashboard_meta, function(err, resp) {
         //console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
         console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
