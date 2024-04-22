@@ -630,7 +630,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     };
 
     _request.url = '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
-    _request.body = dashboard_meta;
+    _request.body = JSON.stringify(dashboard_meta);
 
     await conn.request(_request, function(err, resp) {
         //console.log(JSON.stringify(resp));
