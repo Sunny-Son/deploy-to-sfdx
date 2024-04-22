@@ -536,7 +536,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     if(_tmp1 != null) return _tmp1;
     
-    await conn.tooling.sobject('FlexiPage').create({
+    await conn.tooling.sobject('FlexiPage').update({
         body: flexipage_meta
         }, function(err, res) {
             if (err) { 
