@@ -1,11 +1,6 @@
 {
     "DeveloperName" : "Vehicle_Record_Page",
     "MasterLabel" : "Vehicle Record Page",
-    "NamespacePrefix" : null,
-    "ManageableState" : "unmanaged",
-    "CreatedDate" : "2024-04-17T01:34:15.000+0000",
-    "LastModifiedDate" : "2024-04-17T01:34:28.000+0000",
-    "SystemModstamp" : "2024-04-17T01:34:28.000+0000",
     "Description" : null,
     "Id" : "0M004000000PkywCAC",
     "Metadata" : {
