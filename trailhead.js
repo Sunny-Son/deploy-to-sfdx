@@ -560,7 +560,6 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Vehicle Dashboard\' and FolderName = \'Public1\'", function(err, result) {
         if (err) { return console.error(err); }
-        //console.log('++ checkReports : Travel Requests Dashboard');
         if(result.records.length == 0) {
           response_bad.errormsg = '[Vehicle Dashboard] 대시보드가 [Public folder] 에 존재하지 않습니다. 부스에 문의 부탁드립니다';
           console.log("fail :" + JSON.stringify(response_bad));
@@ -590,8 +589,6 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     // Update Report using Analytics API / describe -> patch
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Vehicles with Model and Status\'", function(err, result) {
         if (err) { return console.error(err); }
-        
-        console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
         if(result.records.length == 0) {
           response_bad.errormsg = '[Vehicle Dashboard] Report가 존재하지 않습니다. 부스에 문의 부탁드립니다';
           console.log("fail :" + JSON.stringify(response_bad));
