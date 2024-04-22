@@ -6,6 +6,7 @@ const logger = require('heroku-logger');
 //var conn = new jsforce.Connection();
 var dashboard_meta = require('./meta/dashboard.json');
 var report_meta = require('./meta/report.json');
+var flexipage_meta = require('./meta/flexipage.json');
 
 var loggedIn = false;
 
@@ -512,6 +513,42 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     // Dynamic Forms reset
 
+    var flexipage_id;
+    conn.tooling.sobject('FlexiPage')
+        .find({ DeveloperName: "Vehicle_Record_Page" })
+        .execute(function(err, records) {
+            if (err) { 
+                response_bad.errormsg = '++ [trailhead_resetOrg]Flexipage query 에 문제 발생';
+                console.log("fail :" + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                //return console.error(err); 
+            }
+            console.log("fetched : " + records.length);
+            for (var i=0; i < records.length; i++) {
+                var record = records[i];
+                console.log('Id: ' + record.Id);
+                console.log('Name: ' + record.MasterLabel);
+                flexipage_id = record.Id;
+            }
+    });
+
+    if(_tmp1 != null) return _tmp1;
+    
+    conn.tooling.sobject('FlexiPage').create({
+        body: flexipage_meta
+        }, function(err, res) {
+            if (err) { 
+                response_bad.errormsg = '++ [trailhead_resetOrg]Flexipage reset 에 문제 발생';
+                console.log("fail :" + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                //return console.error(err); 
+            }
+            else console.log(res);
+        });
+
+    if(_tmp1 != null) return _tmp1;
+
+
     /* 입력 데이터 삭제
     select username, alias, id from User where alias='UUser'
     
@@ -614,7 +651,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     });
     if(_tmp1 != null) return _tmp1;
     
-    response_good.successmsg = '실습 환경을 복구 하였습니다!!';
+    response_good.successmsg = '실습 환경을 복구 하였습니다, 브라우져를 새로 고침 해 주세요';
     //console.log("success :" + JSON.stringify(response_good));
     _tmp1 = response_good;
 
