@@ -578,14 +578,11 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         //console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
         //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
-        if (err) { return console.error(err); }
-        //console.log('++ checkReports : Travel Requests Dashboard');
-        if(result.records.length == 0) {
+        if (err) {
             response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
-        } else record = result.records[0];
-        
+        }
     });
     if(_tmp1 != null) return _tmp1;
     // Update Dashboard using Analytics API / describe -> patch
@@ -611,16 +608,15 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         //console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
         //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
-        if (err) { return console.error(err); }
-        //console.log('++ checkReports : Travel Requests Dashboard');
-        if(result.records.length == 0) {
+        if (err) { 
             response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
-        } else record = result.records[0];
-        
+            //return console.error(err); 
+        } 
     });
     if(_tmp1 != null) return _tmp1;
+    
     response_good.successmsg = '실습 환경을 복구 하였습니다!!';
     //console.log("success :" + JSON.stringify(response_good));
     _tmp1 = response_good;
