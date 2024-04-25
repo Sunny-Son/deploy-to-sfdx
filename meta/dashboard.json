@@ -1,226 +1,226 @@
 {
-    "canChangeRunningUser" : false,
-    "canUseStickyFilter" : true,
-    "chartTheme" : "light",
-    "colorPalette" : "unity",
-    "components" : [ {
-      "chartTheme" : null,
-      "componentData" : null,
-      "footer" : null,
-      "header" : null,
-      "id" : "01a04000000RKCaAAO",
-      "lastModifiedDate" : "2024-04-17T01:34:14Z",
-      "properties" : {
-        "content" : {
-          "additionalInfo" : null,
-          "richTextContent" : "[{\"attributes\":{\"color\":\"#006668\",\"size\":\"42px\",\"bold\":true},\"insert\":\"자동차 현황 대시보드\"},{\"attributes\":{\"align\":\"center\"},\"insert\":\"\\n\"}]"
-        },
-        "visualizationType" : "RichText"
+  "canChangeRunningUser" : false,
+  "canUseStickyFilter" : true,
+  "chartTheme" : "light",
+  "colorPalette" : "unity",
+  "components" : [ {
+    "chartTheme" : null,
+    "componentData" : null,
+    "footer" : null,
+    "header" : null,
+    "id" : "01a040000006nrTAAQ",
+    "lastModifiedDate" : "2024-04-25T02:25:17Z",
+    "properties" : {
+      "content" : {
+        "additionalInfo" : null,
+        "richTextContent" : "[{\"attributes\":{\"color\":\"#006668\",\"size\":\"42px\",\"bold\":true},\"insert\":\"자동차 현황 대시보드\"},{\"attributes\":{\"align\":\"center\"},\"insert\":\"\\n\"}]"
       },
-      "reportId" : null,
-      "title" : null,
-      "type" : "Dashboard"
-    }, {
-      "chartTheme" : null,
-      "componentData" : 0,
-      "footer" : null,
-      "header" : "Vehicles with Model and Status",
-      "id" : "01a04000000RKCdAAO",
-      "lastModifiedDate" : "2024-04-17T01:34:15Z",
-      "properties" : {
-        "aggregates" : [ {
-          "name" : "RowCount"
-        } ],
-        "autoSelectColumns" : false,
-        "drillUrl" : null,
-        "filterColumns" : [ ],
-        "groupings" : [ {
-          "inheritedReportSort" : null,
-          "name" : "Vehicle__c.Model__c",
-          "sortAggregate" : null,
-          "sortOrder" : "Asc"
-        }, {
-          "inheritedReportSort" : null,
-          "name" : "Vehicle__c.Status__c",
-          "sortAggregate" : null,
-          "sortOrder" : "Asc"
-        } ],
-        "maxRows" : null,
-        "reportFormat" : "SUMMARY",
-        "sort" : null,
-        "useReportChart" : false,
-        "visualizationProperties" : {
-          "axisRange" : {
-            "max" : null,
-            "min" : null,
-            "rangeType" : "auto"
-          },
-          "decimalPrecision" : -1,
-          "displayUnits" : "auto",
-          "groupByType" : "grouped",
-          "legendPosition" : "Right",
-          "showValues" : false
-        },
-        "visualizationType" : "Line"
-      },
-      "reportId" : "00O04000000sO8IEAU",
-      "title" : null,
-      "type" : "Report"
-    }, {
-      "chartTheme" : null,
-      "componentData" : 1,
-      "footer" : null,
-      "header" : "Vehicles with Model and Status",
-      "id" : "01a04000000RKCbAAO",
-      "lastModifiedDate" : "2024-04-17T01:34:14Z",
-      "properties" : {
-        "aggregates" : [ {
-          "name" : "RowCount"
-        } ],
-        "autoSelectColumns" : false,
-        "drillUrl" : null,
-        "filterColumns" : [ ],
-        "groupings" : [ {
-          "inheritedReportSort" : null,
-          "name" : "Vehicle__c.Model__c",
-          "sortAggregate" : null,
-          "sortOrder" : "Asc"
-        }, {
-          "inheritedReportSort" : null,
-          "name" : "Vehicle__c.Status__c",
-          "sortAggregate" : null,
-          "sortOrder" : "Asc"
-        } ],
-        "maxRows" : null,
-        "reportFormat" : "SUMMARY",
-        "sort" : null,
-        "useReportChart" : false,
-        "visualizationProperties" : {
-          "axisRange" : {
-            "max" : null,
-            "min" : null,
-            "rangeType" : "auto"
-          },
-          "decimalPrecision" : -1,
-          "displayUnits" : "auto",
-          "groupByType" : "grouped",
-          "legendPosition" : "Right",
-          "showChatterPhotos" : false,
-          "showValues" : true
-        },
-        "visualizationType" : "Bar"
-      },
-      "reportId" : "00O04000000sO8IEAU",
-      "title" : null,
-      "type" : "Report"
-    }, {
-      "chartTheme" : null,
-      "componentData" : null,
-      "footer" : null,
-      "header" : null,
-      "id" : "01a04000000RKCeAAO",
-      "lastModifiedDate" : "2024-04-17T01:34:15Z",
-      "properties" : {
-        "content" : {
-          "additionalInfo" : "{\"contentDocumentId\":\"06904000002XZfaAAG\",\"fileAssetName\":\"Screenshot_20240412_at_12312PMpng\",\"inlineWidgetStyle\":{},\"namespacePrefix\":\"\"}",
-          "altText" : null,
-          "fileName" : "Screenshot 2024-04-12 at 1.23.12 PM.png",
-          "fit" : "fitwidth",
-          "horizontalAlign" : "left",
-          "tooltip" : null,
-          "verticalAlign" : "center"
-        },
-        "visualizationType" : "Image"
-      },
-      "reportId" : null,
-      "title" : null,
-      "type" : "Dashboard"
-    }, {
-      "chartTheme" : null,
-      "componentData" : 2,
-      "footer" : null,
-      "header" : "Vehicles with Model and Status",
-      "id" : "01a04000000RKCcAAO",
-      "lastModifiedDate" : "2024-04-17T01:34:14Z",
-      "properties" : {
-        "aggregates" : [ {
-          "name" : "RowCount"
-        } ],
-        "autoSelectColumns" : false,
-        "drillUrl" : null,
-        "filterColumns" : [ ],
-        "groupings" : [ {
-          "inheritedReportSort" : null,
-          "name" : "Vehicle__c.Model__c",
-          "sortAggregate" : null,
-          "sortOrder" : "Asc"
-        } ],
-        "maxRows" : 6,
-        "reportFormat" : "SUMMARY",
-        "sort" : null,
-        "useReportChart" : false,
-        "visualizationProperties" : {
-          "combineSmallGroups" : true,
-          "decimalPrecision" : -1,
-          "displayUnits" : "auto",
-          "legendPosition" : "Right",
-          "showPercentages" : false,
-          "showTotal" : true,
-          "showValues" : true
-        },
-        "visualizationType" : "Donut"
-      },
-      "reportId" : "00O04000000sO8IEAU",
-      "title" : null,
-      "type" : "Report"
-    } ],
-    "dashboardType" : "SpecifiedUser",
-    "description" : null,
-    "developerName" : "RPDhQIGyzjIYEMBiYquaGNKWnKUNjd",
-    "filters" : [ ],
-    "flexTableImplementation" : "REPORT_INSTANCE",
-    "folderId" : "00l04000000wX2aAAE",
-    "folderName" : "Public1",
-    "id" : "01Z04000000TK0WEAW",
-    "layout" : {
-      "components" : [ {
-        "colspan" : 12,
-        "column" : 0,
-        "row" : 0,
-        "rowspan" : 2
-      }, {
-        "colspan" : 4,
-        "column" : 8,
-        "row" : 2,
-        "rowspan" : 8
-      }, {
-        "colspan" : 4,
-        "column" : 0,
-        "row" : 2,
-        "rowspan" : 8
-      }, {
-        "colspan" : 12,
-        "column" : 0,
-        "row" : 10,
-        "rowspan" : 8
-      }, {
-        "colspan" : 4,
-        "column" : 4,
-        "row" : 2,
-        "rowspan" : 8
+      "visualizationType" : "RichText"
+    },
+    "reportId" : null,
+    "title" : null,
+    "type" : "Dashboard"
+  }, {
+    "chartTheme" : null,
+    "componentData" : 0,
+    "footer" : null,
+    "header" : "Vehicles with Model and Status",
+    "id" : "01a040000006nrWAAQ",
+    "lastModifiedDate" : "2024-04-25T02:25:17Z",
+    "properties" : {
+      "aggregates" : [ {
+        "name" : "RowCount"
       } ],
-      "gridLayout" : true,
-      "numColumns" : 12,
-      "rowHeight" : 36
+      "autoSelectColumns" : false,
+      "drillUrl" : null,
+      "filterColumns" : [ ],
+      "groupings" : [ {
+        "inheritedReportSort" : null,
+        "name" : "Vehicle__c.Model__c",
+        "sortAggregate" : null,
+        "sortOrder" : "Asc"
+      }, {
+        "inheritedReportSort" : null,
+        "name" : "Vehicle__c.Status__c",
+        "sortAggregate" : null,
+        "sortOrder" : "Asc"
+      } ],
+      "maxRows" : null,
+      "reportFormat" : "SUMMARY",
+      "sort" : null,
+      "useReportChart" : false,
+      "visualizationProperties" : {
+        "axisRange" : {
+          "max" : null,
+          "min" : null,
+          "rangeType" : "auto"
+        },
+        "decimalPrecision" : -1,
+        "displayUnits" : "auto",
+        "groupByType" : "grouped",
+        "legendPosition" : "Right",
+        "showValues" : false
+      },
+      "visualizationType" : "Line"
     },
-    "maxFilterOptions" : 50,
-    "name" : "Vehicle Dashboard",
-    "owner" : {
-      "displayName" : "User User",
-      "id" : "00504000005vfvIAAQ"
+    "reportId" : "00O04000000yxG4EAI",
+    "title" : null,
+    "type" : "Report"
+  }, {
+    "chartTheme" : null,
+    "componentData" : 1,
+    "footer" : null,
+    "header" : "Vehicles with Model and Status",
+    "id" : "01a040000006nrUAAQ",
+    "lastModifiedDate" : "2024-04-25T02:25:17Z",
+    "properties" : {
+      "aggregates" : [ {
+        "name" : "RowCount"
+      } ],
+      "autoSelectColumns" : false,
+      "drillUrl" : null,
+      "filterColumns" : [ ],
+      "groupings" : [ {
+        "inheritedReportSort" : null,
+        "name" : "Vehicle__c.Model__c",
+        "sortAggregate" : null,
+        "sortOrder" : "Asc"
+      }, {
+        "inheritedReportSort" : null,
+        "name" : "Vehicle__c.Status__c",
+        "sortAggregate" : null,
+        "sortOrder" : "Asc"
+      } ],
+      "maxRows" : null,
+      "reportFormat" : "SUMMARY",
+      "sort" : null,
+      "useReportChart" : false,
+      "visualizationProperties" : {
+        "axisRange" : {
+          "max" : null,
+          "min" : null,
+          "rangeType" : "auto"
+        },
+        "decimalPrecision" : -1,
+        "displayUnits" : "auto",
+        "groupByType" : "grouped",
+        "legendPosition" : "Right",
+        "showChatterPhotos" : false,
+        "showValues" : true
+      },
+      "visualizationType" : "Bar"
     },
-    "runningUser" : {
-      "displayName" : "User User",
-      "id" : "00504000005vfvIAAQ"
-    }
+    "reportId" : "00O04000000yxG4EAI",
+    "title" : null,
+    "type" : "Report"
+  }, {
+    "chartTheme" : null,
+    "componentData" : null,
+    "footer" : null,
+    "header" : null,
+    "id" : "01a040000006nrXAAQ",
+    "lastModifiedDate" : "2024-04-25T02:25:17Z",
+    "properties" : {
+      "content" : {
+        "additionalInfo" : "{\"contentDocumentId\":\"06904000002HIZgAAO\",\"fileAssetName\":\"Screenshot_20240412_at_12312PMpng\",\"inlineWidgetStyle\":{},\"namespacePrefix\":\"\"}",
+        "altText" : null,
+        "fileName" : "Screenshot 2024-04-12 at 1.23.12 PM.png",
+        "fit" : "fitwidth",
+        "horizontalAlign" : "left",
+        "tooltip" : null,
+        "verticalAlign" : "center"
+      },
+      "visualizationType" : "Image"
+    },
+    "reportId" : null,
+    "title" : null,
+    "type" : "Dashboard"
+  }, {
+    "chartTheme" : null,
+    "componentData" : 2,
+    "footer" : null,
+    "header" : "Vehicles with Model and Status",
+    "id" : "01a040000006nrVAAQ",
+    "lastModifiedDate" : "2024-04-25T02:25:17Z",
+    "properties" : {
+      "aggregates" : [ {
+        "name" : "RowCount"
+      } ],
+      "autoSelectColumns" : false,
+      "drillUrl" : null,
+      "filterColumns" : [ ],
+      "groupings" : [ {
+        "inheritedReportSort" : null,
+        "name" : "Vehicle__c.Model__c",
+        "sortAggregate" : null,
+        "sortOrder" : "Asc"
+      } ],
+      "maxRows" : 6,
+      "reportFormat" : "SUMMARY",
+      "sort" : null,
+      "useReportChart" : false,
+      "visualizationProperties" : {
+        "combineSmallGroups" : true,
+        "decimalPrecision" : -1,
+        "displayUnits" : "auto",
+        "legendPosition" : "Right",
+        "showPercentages" : false,
+        "showTotal" : true,
+        "showValues" : true
+      },
+      "visualizationType" : "Donut"
+    },
+    "reportId" : "00O04000000yxG4EAI",
+    "title" : null,
+    "type" : "Report"
+  } ],
+  "dashboardType" : "SpecifiedUser",
+  "description" : null,
+  "developerName" : "RPDhQIGyzjIYEMBiYquaGNKWnKUNjd",
+  "filters" : [ ],
+  "flexTableImplementation" : "REPORT_INSTANCE",
+  "folderId" : "00l04000000jrW1AAI",
+  "folderName" : "Public1",
+  "id" : "01Z04000000aFjMEAU",
+  "layout" : {
+    "components" : [ {
+      "colspan" : 12,
+      "column" : 0,
+      "row" : 0,
+      "rowspan" : 2
+    }, {
+      "colspan" : 4,
+      "column" : 8,
+      "row" : 2,
+      "rowspan" : 8
+    }, {
+      "colspan" : 4,
+      "column" : 0,
+      "row" : 2,
+      "rowspan" : 8
+    }, {
+      "colspan" : 12,
+      "column" : 0,
+      "row" : 10,
+      "rowspan" : 8
+    }, {
+      "colspan" : 4,
+      "column" : 4,
+      "row" : 2,
+      "rowspan" : 8
+    } ],
+    "gridLayout" : true,
+    "numColumns" : 12,
+    "rowHeight" : 36
+  },
+  "maxFilterOptions" : 50,
+  "name" : "Vehicle Dashboard",
+  "owner" : {
+    "displayName" : "User User",
+    "id" : "00504000005kFCMAA2"
+  },
+  "runningUser" : {
+    "displayName" : "User User",
+    "id" : "00504000005kFCMAA2"
   }
+}
