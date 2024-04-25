@@ -498,7 +498,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
-             //   console.log(res);
+                console.log(res);
                 //console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
                 //return conn;
@@ -520,7 +520,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
                 response_bad.errormsg = '++ [trailhead_resetOrg]Flexipage query 에 문제 발생';
                 console.log("fail :" + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
-                //return console.error(err); 
+                return console.error(err); 
             }
             else {
                 console.log("fetched : " + records.length);
@@ -549,7 +549,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         } 
     });
     if(_tmp1 != null) return _tmp1;
-    
+
     console.log('++ [trailhead_resetOrg] Dynamic Form Recovered');
     /*
     ** Data 삭제
@@ -606,13 +606,15 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id;
 
     await conn.requestPatch(_request_url, dashboard_meta, function(err, resp) {
-        //console.log(JSON.stringify(resp));
+        console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
         //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
         if (err) {
             response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
+            return console.error(err);
+            
         }
     });
     if(_tmp1 != null) return _tmp1;
@@ -627,6 +629,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
           response_bad.errormsg = '[Vehicle Dashboard] Report가 존재하지 않습니다. 부스에 문의 부탁드립니다';
           console.log("fail :" + JSON.stringify(response_bad));
           _tmp1 = response_bad;
+          return console.error(err);
           //return response_bad;
         } else record = result.records[0];
     });
@@ -644,6 +647,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
             response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
+            return console.error(err);
             //return console.error(err); 
         } 
     });
