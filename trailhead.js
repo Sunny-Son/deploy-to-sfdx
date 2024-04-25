@@ -603,9 +603,9 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     console.log('++ [trailhead_resetOrg] Dashboard found, record id = ' + record.Id);
 
-    //console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
-    //var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id;
-    var _request_url = '/services/data/v60.0/analytics/dashboards/' + record.Id;
+    console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
+    var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id;
+    //var _request_url = '/services/data/v60.0/analytics/dashboards/' + record.Id;
 
     await conn.requestPatch(_request_url, dashboard_meta, function(err, resp) {
         console.log(JSON.stringify(resp));
