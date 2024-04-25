@@ -523,11 +523,11 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
                 return console.error(err); 
             }
             else {
-                console.log("fetched : " + records.length);
+                console.log("++ [trailhead_resetOrg]Flexipage fetched : " + records.length);
                 for (var i=0; i < records.length; i++) {
                     var record = records[i];
-                    console.log('Id: ' + record.Id);
-                    console.log('Name: ' + record.MasterLabel);
+                    console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
+                    console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
                     flexipage_id = record.Id;
                 }
             }
@@ -542,8 +542,8 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         var vardashboardcheck = JSON.stringify(resp);
         //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
         if (err) { 
-            response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
-            console.log("fail :" + JSON.stringify(response_bad));
+            response_bad.errormsg = '1. 부스 담당자에게 문의 바랍니다.';
+            console.log("++ [trailhead_resetOrg]Flexipage fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             //return console.error(err); 
         } 
@@ -561,11 +561,11 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         //console.log('++ checkReports : Query Vehicle__c');
         if(result.records.length == 0) {
           response_bad.errormsg = '++ [trailhead_resetOrg] Data 가 존재하지 않습니다';
-          console.log("fail :" + JSON.stringify(response_bad));
+          console.log("++ [trailhead_resetOrg]Delete data fail :" + JSON.stringify(response_bad));
           _tmp1 = response_bad;
           //return response_bad;
         } else record = result.records[0];
-        console.log('++ [trailhead_resetOrg] record ID : ' + record.Id);
+        console.log('++ [trailhead_resetOrg] Data record ID : ' + record.Id);
     });
 
     if(_tmp1 != null) return _tmp1;
@@ -600,17 +600,19 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     });
     
     if(_tmp1 != null) return _tmp1;
-    console.log('++ [trailhead_resetOrg] Dashboard found');
+
+    console.log('++ [trailhead_resetOrg] Dashboard found, record id = ' + record.Id);
 
     //console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
-    var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id;
+    //var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id;
+    var _request_url = '/services/data/v60.0/analytics/dashboards/' + record.Id;
 
     await conn.requestPatch(_request_url, dashboard_meta, function(err, resp) {
         console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
         //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
         if (err) {
-            response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
+            response_bad.errormsg = '2. 부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             return console.error(err);
@@ -644,7 +646,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         var vardashboardcheck = JSON.stringify(resp);
         console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
         if (err) { 
-            response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
+            response_bad.errormsg = '3. 부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             return console.error(err);
