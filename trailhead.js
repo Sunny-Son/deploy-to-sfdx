@@ -40,8 +40,8 @@ async function login(varusername, varpassword) {
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
-                console.log(res);
-                console.log("user id => CreatedById : [" + res.id + "]");
+            //    console.log(res);
+            //    console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
                 return conn;
             }
@@ -111,8 +111,8 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
             if (err) { return console.error(err); }
             else {
                 loggedIn = true;
-                //console.log("Succcessfully logged into Salesforce.");
-                console.log(res);
+                console.log("Succcessfully logged into Salesforce.");
+                //console.log(res);
                 //console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
                 //return conn;
@@ -182,7 +182,7 @@ async function trailhead_checkField(_chk_username, _chk_password) {
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
-                console.log(res);
+                //console.log(res);
                 //console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
                 //return conn;
@@ -260,8 +260,8 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
             if (err) { return console.error(err); }
             else {
                 loggedIn = true;
-                //console.log("Succcessfully logged into Salesforce.");
-                console.log(res);
+                console.log("Succcessfully logged into Salesforce.");
+                //console.log(res);
                 //console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
                 //return conn;
@@ -409,7 +409,7 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
-                console.log(res);
+                //console.log(res);
                 //console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
                 //return conn;
@@ -498,7 +498,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
-                console.log(res);
+             //   console.log(res);
                 //console.log("user id => CreatedById : [" + res.id + "]");
                 //return res.id;
                 //return conn;
@@ -509,10 +509,9 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         console.log("Username and password not setup.")
     }
 
-    //var conn = await login(_chk_username, _chk_password);
-
-    // Dynamic Forms reset
-
+    /*
+    ** Dynamic Forms reset
+    */
     var flexipage_id;
     await conn.tooling.sobject('FlexiPage')
         .find({ DeveloperName: "Vehicle_Record_Page" })
@@ -551,33 +550,11 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     });
     if(_tmp1 != null) return _tmp1;
     
+    console.log('++ [trailhead_resetOrg] Dynamic Form Recovered');
     /*
-    await conn.tooling.sobject('FlexiPage').update({
-        body: flexipage_meta
-        }, function(err, res) {
-            if (err) { 
-                response_bad.errormsg = '++ [trailhead_resetOrg]Flexipage reset 에 문제 발생';
-                console.log("fail :" + JSON.stringify(response_bad));
-                _tmp1 = response_bad;
-                //return console.error(err); 
-            }
-            else console.log(res);
-        });
-
-    if(_tmp1 != null) return _tmp1;
+    ** Data 삭제
     */
 
-    /* 입력 데이터 삭제
-    select username, alias, id from User where alias='UUser'
-    
-    conn.sobject('Vehicle__c')
-    .find({ CreatedById : UUser ID })
-    .destroy(function(err, rets) {
-      if (err) { return console.error(err); }
-      console.log(rets);
-      // ...
-    });
-    */
     var record;
     await conn.query("SELECT username, alias, id FROM User WHERE alias='UUser'", function(err, result) {
         if (err) { return console.error(err); }
@@ -606,12 +583,11 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     
     if(_tmp1 != null) return _tmp1;
 
-    // Data Deletion Success Apr 18th --->
 
-    /* Dashboard 복구
-
+    /*
+    ** Dashboard 복구
     */
-    // Update Dashboard using Analytics API / describe -> patch
+    
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Vehicle Dashboard\' and FolderName = \'Public1\'", function(err, result) {
         if (err) { return console.error(err); }
@@ -624,6 +600,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     });
     
     if(_tmp1 != null) return _tmp1;
+    console.log('++ [trailhead_resetOrg] Dashboard found');
 
     //console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id;
@@ -639,9 +616,11 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         }
     });
     if(_tmp1 != null) return _tmp1;
-    // Update Dashboard using Analytics API / describe -> patch
-
-    // Update Report using Analytics API / describe -> patch
+    console.log('++ [trailhead_resetOrg] Dashboard Recovered');
+    /*
+    ** Report 복구
+    */
+    
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Vehicles with Model and Status\'", function(err, result) {
         if (err) { return console.error(err); }
         if(result.records.length == 0) {
@@ -653,13 +632,14 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     });
 
     if(_tmp1 != null) return _tmp1;
+    console.log('++ [trailhead_resetOrg] Report found');
 
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/reports/' + record.Id;
 
     await conn.requestPatch(_request_url, report_meta, function(err, resp) {
-        //console.log(JSON.stringify(resp));
+        console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
-        //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
+        console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
         if (err) { 
             response_bad.errormsg = '부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
