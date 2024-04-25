@@ -585,7 +585,15 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
 
     /*
-    ** Dashboard 복구
+    ** Dashboard 복구 => 삭제 후 추가 방식이 나을 듯
+    ** Dashboard describe 하여, Metadata를 확보하고 
+    **  report ID 를 읽어온 데이터에서 확보하여 3곳 수정
+    **  owner, runningUser, developerName, folderId, id, 각 Component의 id => dashboard.json에서 삭제
+    **  
+    **  
+    **  
+    **  
+    **  
     */
     
     var record;
@@ -605,6 +613,31 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id;
+    
+    await conn.request(_request_url, dashboard_meta, function(err, resp) {
+        console.log(JSON.stringify(resp));
+        var vardashboardcheck = JSON.stringify(resp);
+        //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
+        if (err) {
+            response_bad.errormsg = '2. 부스 담당자에게 문의 바랍니다.';
+            console.log("fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+            return console.error(err);
+        } else {
+            for(var i = 0; i < resp.length;i++) {
+                if(resp.components[i].reportId != null) {
+                    var _request_report_id = resp.components[i].reportId;
+                    for(var j = 0; j < dashboard_meta.length;j++) {
+                        if(dashboard_meta.components[j].reportId != null) {
+                            dashboard_meta.components[j].reportId = _request_report_id;
+                        }    
+                    }
+                    break;
+                }
+            }
+        }
+    });
+    if(_tmp1 != null) return _tmp1;
     //var _request_url = '/services/data/v60.0/analytics/dashboards/' + record.Id;
 
     await conn.requestPatch(_request_url, dashboard_meta, function(err, resp) {
@@ -622,7 +655,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     if(_tmp1 != null) return _tmp1;
     console.log('++ [trailhead_resetOrg] Dashboard Recovered');
     /*
-    ** Report 복구
+    ** Report 복구 => 삭제 후 추가 방식이 나을 듯
     */
     
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Vehicles with Model and Status\'", function(err, result) {

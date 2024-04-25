@@ -8,6 +8,7 @@
     "componentData" : null,
     "footer" : null,
     "header" : null,
+    "id" : "01a040000006nrTAAQ",
     "lastModifiedDate" : "2024-04-25T02:25:17Z",
     "properties" : {
       "content" : {
@@ -24,6 +25,7 @@
     "componentData" : 0,
     "footer" : null,
     "header" : "Vehicles with Model and Status",
+    "id" : "01a040000006nrWAAQ",
     "lastModifiedDate" : "2024-04-25T02:25:17Z",
     "properties" : {
       "aggregates" : [ {
@@ -69,6 +71,7 @@
     "componentData" : 1,
     "footer" : null,
     "header" : "Vehicles with Model and Status",
+    "id" : "01a040000006nrUAAQ",
     "lastModifiedDate" : "2024-04-25T02:25:17Z",
     "properties" : {
       "aggregates" : [ {
@@ -115,6 +118,7 @@
     "componentData" : null,
     "footer" : null,
     "header" : null,
+    "id" : "01a040000006nrXAAQ",
     "lastModifiedDate" : "2024-04-25T02:25:17Z",
     "properties" : {
       "content" : {
@@ -136,6 +140,7 @@
     "componentData" : 2,
     "footer" : null,
     "header" : "Vehicles with Model and Status",
+    "id" : "01a040000006nrVAAQ",
     "lastModifiedDate" : "2024-04-25T02:25:17Z",
     "properties" : {
       "aggregates" : [ {
@@ -171,9 +176,12 @@
   } ],
   "dashboardType" : "SpecifiedUser",
   "description" : null,
+  "developerName" : "RPDhQIGyzjIYEMBiYquaGNKWnKUNjd",
   "filters" : [ ],
   "flexTableImplementation" : "REPORT_INSTANCE",
+  "folderId" : "00l04000000jrW1AAI",
   "folderName" : "Public1",
+  "id" : "01Z04000000aFjMEAU",
   "layout" : {
     "components" : [ {
       "colspan" : 12,
@@ -206,5 +214,13 @@
     "rowHeight" : 36
   },
   "maxFilterOptions" : 50,
-  "name" : "Vehicle Dashboard"
+  "name" : "Vehicle Dashboard",
+  "owner" : {
+    "displayName" : "User User",
+    "id" : "00504000005kFCMAA2"
+  },
+  "runningUser" : {
+    "displayName" : "User User",
+    "id" : "00504000005kFCMAA2"
+  }
 }
