@@ -521,10 +521,13 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
             return console.error(err);
         } else {
             for(var i = 0; i < resp.length;i++) {
+                console.log('++ [trailhead_resetOrg] Dashboard - report ID set : ['  + i + '], id = [' + resp.components[i].reportId + ']');
                 if(resp.components[i].reportId != null) {
+                    console.log('++ [trailhead_resetOrg] Dashboard - report ID not null');
                     _request_report_id = resp.components[i].reportId;
                     console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID : '  + _request_report_id);
                     for(var j = 0; j < dashboard_meta.length;j++) {
+                        console.log('++ [trailhead_resetOrg] Dashboard - Meta file report ID value : ['  + j + '], id = [' + dashboard_meta.components[j].reportId + ']');
                         if(dashboard_meta.components[j].reportId != null) {
                             dashboard_meta.components[j].reportId = _request_report_id;
                             console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID update ['  + j + ']');
@@ -538,8 +541,8 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     if(_tmp1 != null) return _tmp1;
 
     await conn.requestPatch(_request_url, dashboard_meta, function(err, resp) {
-        console.log(JSON.stringify(resp));
-        var vardashboardcheck = JSON.stringify(resp);
+        //console.log(JSON.stringify(resp));
+        //var vardashboardcheck = JSON.stringify(resp);
         //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
         if (err) {
             response_bad.errormsg = '++ [trailhead_resetOrg] Dashboard Reset 장애. 부스 담당자에게 문의 바랍니다.';
