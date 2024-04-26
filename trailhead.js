@@ -669,8 +669,8 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     console.log('++ [trailhead_resetOrg] Report found : [' + record.Id + ']');
 
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/reports/' + record.Id;
-    report_meta.attributes.reportId = _request_report_id;
-    report_meta.reportMetadata.reportId = _request_report_id;
+    report_meta.attributes.reportId = record.Id;
+    report_meta.reportMetadata.reportId = record.Id;
 
     await conn.requestPatch(_request_url, report_meta, function(err, resp) {
         //console.log(JSON.stringify(resp));
