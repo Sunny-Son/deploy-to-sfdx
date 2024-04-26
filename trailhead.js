@@ -307,7 +307,11 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
    
 }
 
-// May 10th 2023 Insun - #4
+/* Dashboard 검증
+**       "visualizationType" : "Donut" -> x.components[4].properties.visualizationType
+**        "groupByType" : "stacked", -> x.components[4].properties.visualizationProperties.groupByType
+*/
+
 async function trailhead_checkDashboards(_chk_username, _chk_password) {
     var _tmp1 = null;
 
@@ -322,18 +326,12 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
-                //console.log(res);
-                //console.log("user id => CreatedById : [" + res.id + "]");
-                //return res.id;
-                //return conn;
             }
           });
     }
     else {
         console.log("Username and password not setup.")
     }
-
-    //var conn = await login(_chk_username, _chk_password);
 
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Vehicle Dashboard\' and FolderName = \'Public1\'", function(err, result) {
@@ -349,10 +347,6 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
     
     if(_tmp1 != null) return _tmp1;
 
-    //console.log('Passed #1 - Dashboard Name');
-    //var record = result.records[0];
-    //console.log("total : " + result.totalSize);
-
     var _request = {
     url: '',
     method: 'get',
@@ -365,28 +359,21 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
     _request.url = '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
 
     await conn.request(_request, function(err, resp) {
-        //console.log(JSON.stringify(resp));
-        var vardashboardcheck = JSON.stringify(resp);
-        if(vardashboardcheck.includes('\"header\":\"Travel Requests by Department\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Department__c\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Bar\"')
-            && vardashboardcheck.includes('\"name\":\"RowCount\"')
-            && vardashboardcheck.includes('\"header\":\"Travel Requests by Month\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Trip_End_Date__c\"')
-            && vardashboardcheck.includes('\"name\":\"Travel_Approval__c.Out_of_State__c\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-            && vardashboardcheck.includes('\"groupByType\":\"stacked\"')
-            && vardashboardcheck.includes('\"visualizationType\":\"Column\"')
-        ) {
-            response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. 축하합니다!!';
-            //console.log("success :" + JSON.stringify(response_good));
-            _tmp1 = response_good;
-            //return response_good;
-        } else {
-            response_bad.errormsg = '대시보드를 다시 확인하시기 바랍니다.';
-            console.log("fail :" + JSON.stringify(response_bad));
-            _tmp1 = response_bad;
-            //return response_bad;
+        console.log(JSON.stringify(resp));
+        //var vardashboardcheck = JSON.stringify(resp);
+        response_bad.errormsg = '대시보드를 다시 확인하시기 바랍니다.';
+        //console.log("fail :" + JSON.stringify(response_bad));
+        _tmp1 = response_bad;
+        for(var i = 0; i < resp.components.length;i++) {
+            //"visualizationType" : "Donut" -> x.components[4].properties.visualizationType
+            if(resp.components[i].properties.visualizationType == 'Bar' && resp.components[i].properties.visualizationProperties.groupByType == 'stacked') {
+                console.log("Success : Bingo!!!");
+                response_good.successmsg = '대시보드를 정확하게 생성하셨습니다. 축하합니다!!';
+                //console.log("success :" + JSON.stringify(response_good));
+                _tmp1 = response_good;
+                break;
+            }
+
         }
     });
     return _tmp1;
