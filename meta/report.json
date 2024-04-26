@@ -213,7 +213,6 @@
       "detailColumns" : [ "CUST_NAME", "FK_NAME", "Vehicle__c.Battery__c", "Vehicle__c.Manufacturing_Status__c", "Vehicle__c.Wheels__c", "FK_CNTC_ADDR2_COUNTRY" ],
       "developerName" : "Vehicles_with_Model_and_Status_bwy",
       "division" : null,
-      "folderId" : "00D04000000sabHEAQ",
       "groupingsAcross" : [ ],
       "groupingsDown" : [ {
         "dateGranularity" : "None",

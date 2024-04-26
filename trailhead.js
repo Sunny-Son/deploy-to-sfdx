@@ -666,13 +666,14 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     });
 
     if(_tmp1 != null) return _tmp1;
-    console.log('++ [trailhead_resetOrg] Report found');
+    console.log('++ [trailhead_resetOrg] Report found : [' + record.Id + ']');
 
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/reports/' + record.Id;
     report_meta.attributes.reportId = _request_report_id;
+    report_meta.reportMetadata.reportId = _request_report_id;
 
     await conn.requestPatch(_request_url, report_meta, function(err, resp) {
-        console.log(JSON.stringify(resp));
+        //console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
         console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
         if (err) { 
