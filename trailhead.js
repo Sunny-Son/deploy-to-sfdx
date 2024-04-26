@@ -608,7 +608,8 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     console.log('++ [trailhead_resetOrg] Dashboard base url : '  + conn.instanceUrl);
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/dashboards/' + record.Id;
-    
+    var _request_report_id = null;
+
     await conn.request(_request_url, dashboard_meta, function(err, resp) {
         //console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
@@ -621,7 +622,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
         } else {
             for(var i = 0; i < resp.length;i++) {
                 if(resp.components[i].reportId != null) {
-                    var _request_report_id = resp.components[i].reportId;
+                    _request_report_id = resp.components[i].reportId;
                     console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID : '  + _request_report_id);
                     for(var j = 0; j < dashboard_meta.length;j++) {
                         if(dashboard_meta.components[j].reportId != null) {
@@ -653,7 +654,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     /*
     ** Report 복구 => 삭제 후 추가 방식이 나을 듯
     */
-    
+    /*
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Vehicles with Model and Status\'", function(err, result) {
         if (err) { return console.error(err); }
         if(result.records.length == 0) {
@@ -667,11 +668,14 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     if(_tmp1 != null) return _tmp1;
     console.log('++ [trailhead_resetOrg] Report found : [' + record.Id + ']');
-
+    
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/reports/' + record.Id;
     report_meta.attributes.reportId = record.Id;
     report_meta.reportMetadata.reportId = record.Id;
+    */
 
+    var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/reports/' + _request_report_id;
+    
     await conn.requestPatch(_request_url, report_meta, function(err, resp) {
         //console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
