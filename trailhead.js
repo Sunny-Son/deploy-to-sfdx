@@ -612,8 +612,8 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     await conn.request(_request_url, dashboard_meta, function(err, resp) {
         //console.log(JSON.stringify(resp));
-        var vardashboardcheck = JSON.stringify(resp);
-        console.log('++ [trailhead_resetOrg] Dashboard describe result : '  + vardashboardcheck);
+        //var vardashboardcheck = JSON.stringify(resp);
+        //console.log('++ [trailhead_resetOrg] Dashboard describe result : '  + vardashboardcheck);
         if (err) {
             response_bad.errormsg = '++ [trailhead_resetOrg] Dashboard Query 장애. 부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
@@ -654,7 +654,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     /*
     ** Report 복구 => 삭제 후 추가 방식이 나을 듯
     */
-    /*
+    
     await conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report WHERE NAME = \'Vehicles with Model and Status\'", function(err, result) {
         if (err) { return console.error(err); }
         if(result.records.length == 0) {
@@ -670,16 +670,12 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     console.log('++ [trailhead_resetOrg] Report found : [' + record.Id + ']');
     
     var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/reports/' + record.Id;
-    report_meta.attributes.reportId = record.Id;
-    report_meta.reportMetadata.reportId = record.Id;
-    */
+    console.log('++ [trailhead_resetOrg] report requestPach url = ['  + _request_url + ']');
 
-    var _request_url = conn.instanceUrl + '/services/data/v60.0/analytics/reports/' + _request_report_id;
-    
     await conn.requestPatch(_request_url, report_meta, function(err, resp) {
         //console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
-        console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
+        console.log('++ [trailhead_resetOrg] Report reset result : '  + vardashboardcheck);
         if (err) { 
             response_bad.errormsg = '++ [trailhead_resetOrg] Report Reset 장애. 부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
