@@ -1,7 +1,5 @@
 {
     "attributes" : {
-      "describeUrl" : "/services/data/v60.0/analytics/reports/00O04000000sO8IEAU/describe",
-      "instancesUrl" : "/services/data/v60.0/analytics/reports/00O04000000sO8IEAU/instances",
       "reportId" : "00O04000000sO8IEAU",
       "reportName" : "Vehicles with Model and Status",
       "type" : "Report"
