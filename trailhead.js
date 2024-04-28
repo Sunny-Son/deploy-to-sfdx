@@ -511,15 +511,16 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     var _request_report_id = null;
 
     await conn.request(_request_url, dashboard_meta, function(err, resp) {
-        //console.log(JSON.stringify(resp));
+        console.log(JSON.stringify(resp));
         //var vardashboardcheck = JSON.stringify(resp);
-        //console.log('++ [trailhead_resetOrg] Dashboard describe result : '  + vardashboardcheck);
+        console.log('++ [trailhead_resetOrg] Dashboard describe result : '  + vardashboardcheck);
         if (err) {
             response_bad.errormsg = '++ [trailhead_resetOrg] Dashboard Query 장애. 부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             return console.error(err);
         } else {
+            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.length + ']');
             for(var i = 0; i < resp.length;i++) {
                 console.log('++ [trailhead_resetOrg] Dashboard - report ID set : ['  + i + '], id = [' + resp.components[i].reportId + ']');
                 if(resp.components[i].reportId != null) {
