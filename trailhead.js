@@ -520,12 +520,12 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
             _tmp1 = response_bad;
             return console.error(err);
         } else {
-            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.length + ']');
-            for(var i = 0; i < resp.length;i++) {
-                console.log('++ [trailhead_resetOrg] Dashboard - report ID set : ['  + i + '], id = [' + resp.components[i].reportId + ']');
-                if(resp.components[i].reportId != null) {
+            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.dashboardMetadata.dashboard_meta.components.length + ']');
+            for(var i = 0; i < resp.dashboardMetadata.components.length;i++) {
+                console.log('++ [trailhead_resetOrg] Dashboard - report ID set : ['  + i + '], id = [' + resp.dashboardMetadata.components[i].reportId + ']');
+                if(resp.dashboardMetadata.components[i].reportId != null) {
                     console.log('++ [trailhead_resetOrg] Dashboard - report ID not null');
-                    _request_report_id = resp.components[i].reportId;
+                    _request_report_id = resp.dashboardMetadata.components[i].reportId;
                     console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID : '  + _request_report_id);
                     for(var j = 0; j < dashboard_meta.length;j++) {
                         console.log('++ [trailhead_resetOrg] Dashboard - Meta file report ID value : ['  + j + '], id = [' + dashboard_meta.components[j].reportId + ']');
