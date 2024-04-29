@@ -520,7 +520,9 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
             _tmp1 = response_bad;
             return console.error(err);
         } else {
-            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.dashboardMetadata.dashboard_meta.components.length + ']');
+            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.length + ']');
+            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.dashboardMetadata.length + ']');
+            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.dashboardMetadata.components.length + ']');
             for(var i = 0; i < resp.dashboardMetadata.components.length;i++) {
                 console.log('++ [trailhead_resetOrg] Dashboard - report ID set : ['  + i + '], id = [' + resp.dashboardMetadata.components[i].reportId + ']');
                 if(resp.dashboardMetadata.components[i].reportId != null) {
