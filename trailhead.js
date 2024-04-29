@@ -512,27 +512,27 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
 
     await conn.request(_request_url, dashboard_meta, function(err, resp) {
         //console.log(JSON.stringify(resp));
-        var vardashboardcheck = JSON.stringify(resp);
-        console.log('++ [trailhead_resetOrg] Dashboard describe result : '  + vardashboardcheck);
+        //var vardashboardcheck = JSON.stringify(resp);
+        //console.log('++ [trailhead_resetOrg] Dashboard describe result : '  + vardashboardcheck);
         if (err) {
             response_bad.errormsg = '++ [trailhead_resetOrg] Dashboard Query 장애. 부스 담당자에게 문의 바랍니다.';
             console.log("fail :" + JSON.stringify(response_bad));
             _tmp1 = response_bad;
             return console.error(err);
         } else {
-            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.length + ']');
-            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.dashboardMetadata.length + ']');
-            console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.dashboardMetadata.components.length + ']');
+            //console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.length + ']');
+            //console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.dashboardMetadata.length + ']');
+            //console.log('++ [trailhead_resetOrg] Dashboard - report ID resp.length = [ ' + resp.dashboardMetadata.components.length + ']');
             for(var i = 0; i < resp.dashboardMetadata.components.length;i++) {
-                console.log('++ [trailhead_resetOrg] Dashboard - report ID set : ['  + i + '], id = [' + resp.dashboardMetadata.components[i].reportId + ']');
+                //console.log('++ [trailhead_resetOrg] Dashboard - report ID set : ['  + i + '], id = [' + resp.dashboardMetadata.components[i].reportId + ']');
                 if(resp.dashboardMetadata.components[i].reportId != null) {
-                    console.log('++ [trailhead_resetOrg] Dashboard - report ID not null');
+                    console.log('++ [trailhead_resetOrg] Dashboard - report ID to be replaced [' + resp.dashboardMetadata.components[i].reportId + ']');
                     _request_report_id = resp.dashboardMetadata.components[i].reportId;
                     console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID : '  + _request_report_id);
-                    for(var j = 0; j < dashboard_meta.length;j++) {
-                        console.log('++ [trailhead_resetOrg] Dashboard - Meta file report ID value : ['  + j + '], id = [' + dashboard_meta.components[j].reportId + ']');
-                        if(dashboard_meta.components[j].reportId != null) {
-                            dashboard_meta.components[j].reportId = _request_report_id;
+                    for(var j = 0; j < dashboard_meta.dashboardMetadata.components.length;j++) {
+                        console.log('++ [trailhead_resetOrg] Dashboard - Meta file report ID value : ['  + j + '], id = [' + dashboard_meta.dashboardMetadata.components[j].reportId + ']');
+                        if(dashboard_meta.dashboardMetadata.components[j].reportId != null) {
+                            dashboard_meta.dashboardMetadata.components[j].reportId = _request_report_id;
                             console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID update ['  + j + ']');
                         } 
                     }
