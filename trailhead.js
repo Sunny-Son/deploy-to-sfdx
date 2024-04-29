@@ -112,10 +112,6 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
-                //console.log(res);
-                //console.log("user id => CreatedById : [" + res.id + "]");
-                //return res.id;
-                //return conn;
             }
           });
     }
@@ -123,17 +119,26 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
         console.log("Username and password not setup.")
     }
 
-    //conn = await login(_chk_username, _chk_password);
-    var query_string = 'SELECT Department__c, Destination_State__c, Purpose_of_Trip__c, Total_Expenses__c';
-    query_string += ' FROM Travel_Approval__c';
-    query_string += ' WHERE Destination_State__c = \'KR\'';
-    query_string += ' AND Purpose_of_Trip__c = \'Salesforce Live\'';
-    query_string += ' AND Trip_Start_Date__c = 2023-05-23';
-    query_string += ' AND Trip_End_Date__c = 2023-05-23';
-    //query_string += ' AND CreatedById = \'' + _res_id + '\'';
+    var record;
+    await conn.query("SELECT username, alias, id FROM User WHERE alias='UUser'", function(err, result) {
+        if (err) { return console.error(err); }
+        //console.log('++ checkReports : Query Vehicle__c');
+        if(result.records.length == 0) {
+          response_bad.errormsg = '++ [trailhead_resetOrg] Data 가 존재하지 않습니다';
+          console.log("++ [trailhead_resetOrg]Delete data fail :" + JSON.stringify(response_bad));
+          _tmp1 = response_bad;
+          //return response_bad;
+        } else record = result.records[0];
+        console.log('++ [trailhead_resetOrg] Data record ID : ' + record.Id);
+    });
 
-    //SELECT Destination_State__c,Name,Purpose_of_Trip__c,Trip_End_Date__c,Trip_Start_Date__c FROM Travel_Approval__c WHERE Destination_State__c = 'KR' AND Purpose_of_Trip__c = 'Salesforce Live' AND Trip_Start_Date__c = 2023-05-23 AND Trip_End_Date__c = 2023-05-23
-    //a008G000002OtzwQAC
+    if(_tmp1 != null) return _tmp1;
+
+    //conn = await login(_chk_username, _chk_password);
+    var query_string = 'SELECT Id';
+    query_string += ' FROM Vehicle__c';
+    query_string += ' WHERE createdbyid = \'' + record.Id + '\'';
+
     console.log('checkTravelApprovalRecord : ready to query');
     await conn.query(query_string, function(err, result) {
         if (err) { 
@@ -144,20 +149,13 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
         } else {
             console.log("total : " + result.totalSize);
             if(result.totalSize > 0) {
-                for (var i=0; i<result.records.length; i++) {
-                    var record = result.records[i];
-                    console.log("Department: " + record.Department__c);
-                    console.log("Destination State: " + record.Destination_State__c);
-                    console.log("Purpose of Trip: " + record.Purpose_of_Trip__c);
-                    console.log("Total Expenses: " + record.Total_Expenses__c);
-                }
                 response_good.successmsg = '설명서에 표시된 데이터를 정확하게 입력하셨습니다! 축하합니다!!';
                 console.log("success :" + JSON.stringify(response_good));
                 _tmp1 = response_good;
                 //return JSON.stringify(response_good);
             } else {
                 //console.log("Task #1 isn't achived yet");
-                response_bad.errormsg = '데이터가 정확하지 않습니다. 다시 확인 부탁드립니다.';
+                response_bad.errormsg = '데이터를 입력하지 않으셨습니다. 다시 확인 부탁드립니다.';
                 console.log("fail :" + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
                 //return JSON.stringify(response_bad);
@@ -260,7 +258,12 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
     if(_chk_username && _chk_password) {
         console.log('loginurl = ' + conn.loginUrl);
         await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) { return console.error(err); }
+            if (err) {
+                response_bad.errormsg = '++ [trailhead_dashboard check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                console.log("++ [trailhead_dashboard check : " + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                //return console.error(err); 
+            }
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
@@ -322,7 +325,12 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
     if(_chk_username && _chk_password) {
         console.log('loginurl = ' + conn.loginUrl);
         await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) { return console.error(err); }
+            if (err) {
+                response_bad.errormsg = '++ [trailhead_dashboard check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                console.log("++ [trailhead_dashboard check : " + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                //return console.error(err); 
+            }
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
@@ -332,6 +340,8 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
     else {
         console.log("Username and password not setup.")
     }
+    
+    if(_tmp1 != null) return _tmp1;
 
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Vehicle Dashboard\' and FolderName = \'Public1\'", function(err, result) {
@@ -359,7 +369,7 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
     _request.url = '/services/data/v60.0/analytics/dashboards/' + record.Id + '/describe';
 
     await conn.request(_request, function(err, resp) {
-        console.log(JSON.stringify(resp));
+        //console.log(JSON.stringify(resp));
         //var vardashboardcheck = JSON.stringify(resp);
         response_bad.errormsg = '대시보드를 다시 확인하시기 바랍니다.';
         //console.log("fail :" + JSON.stringify(response_bad));
@@ -394,7 +404,12 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     if(_chk_username && _chk_password) {
         console.log('loginurl = ' + conn.loginUrl);
         await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) { return console.error(err); }
+            if (err) {
+                response_bad.errormsg = '++ [trailhead_dashboard check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                console.log("++ [trailhead_dashboard check : " + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                //return console.error(err); 
+            }
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
@@ -408,6 +423,7 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     else {
         console.log("Username and password not setup.")
     }
+    if(_tmp1 != null) return _tmp1;
 
     /*
     ** Dynamic Forms reset
@@ -530,10 +546,10 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
                     _request_report_id = resp.dashboardMetadata.components[i].reportId;
                     console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID : '  + _request_report_id);
                     for(var j = 0; j < dashboard_meta.components.length;j++) {
-                        console.log('++ [trailhead_resetOrg] Dashboard - Meta file report ID value : ['  + j + '], id = [' + dashboard_meta.components[j].reportId + ']');
+                        //console.log('++ [trailhead_resetOrg] Dashboard - Meta file report ID value set : ['  + j + '], id = [' + dashboard_meta.components[j].reportId + ']');
                         if(dashboard_meta.components[j].reportId != null) {
                             dashboard_meta.components[j].reportId = _request_report_id;
-                            console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID update ['  + j + ']');
+                            console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID update set ['  + j + '], id = [' + dashboard_meta.components[j].reportId + ']');
                         } 
                     }
                     break;
