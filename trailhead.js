@@ -529,10 +529,10 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
                     console.log('++ [trailhead_resetOrg] Dashboard - report ID to be replaced [' + resp.dashboardMetadata.components[i].reportId + ']');
                     _request_report_id = resp.dashboardMetadata.components[i].reportId;
                     console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID : '  + _request_report_id);
-                    for(var j = 0; j < dashboard_meta.dashboardMetadata.components.length;j++) {
-                        console.log('++ [trailhead_resetOrg] Dashboard - Meta file report ID value : ['  + j + '], id = [' + dashboard_meta.dashboardMetadata.components[j].reportId + ']');
-                        if(dashboard_meta.dashboardMetadata.components[j].reportId != null) {
-                            dashboard_meta.dashboardMetadata.components[j].reportId = _request_report_id;
+                    for(var j = 0; j < dashboard_meta.components.length;j++) {
+                        console.log('++ [trailhead_resetOrg] Dashboard - Meta file report ID value : ['  + j + '], id = [' + dashboard_meta.components[j].reportId + ']');
+                        if(dashboard_meta.components[j].reportId != null) {
+                            dashboard_meta.components[j].reportId = _request_report_id;
                             console.log('++ [trailhead_resetOrg] Dashboard metadata - report ID update ['  + j + ']');
                         } 
                     }
