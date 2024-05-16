@@ -165,7 +165,7 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
       return _tmp1;
 }
 
-// May 10th 2023 Insun - #2
+// May 10th 2023 Insun - #2 -> 화면 레이아웃 변경
 async function trailhead_checkField(_chk_username, _chk_password) {
     var _tmp1;
   
