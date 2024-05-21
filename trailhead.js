@@ -197,34 +197,35 @@ async function trailhead_checkField(_chk_username, _chk_password) {
     /*
     ** Dynamic Forms 검증
     */
-
-    var _request_url = conn.instanceUrl + '/services/data/v60.0/sobjects/Vehicle__c/describe/layouts';
-
     var flexipage_id;
     await conn.tooling.sobject('FlexiPage')
         .find({ DeveloperName: "Vehicle_Record_Page" })
         .execute(function(err, records) {
             if (err) { 
-                response_bad.errormsg = '++ [trailhead_resetOrg]Flexipage query 에 문제 발생';
+                response_bad.errormsg = '++ [trailhead_Dynamic Forms]Flexipage query 에 문제 발생';
                 console.log("fail :" + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
                 return console.error(err); 
             }
             else {
-                console.log("++ [trailhead_resetOrg]Flexipage Records Length : " + records.length);
+                //console.log("++ [trailhead_resetOrg]Flexipage Records Length : " + records.length);
                 var flexipage_metadata = records[0].Metadata;
-                console.log("++ [trailhead_resetOrg]Flexipage flexiPageRegions Length : " + flexipage_metadata.flexiPageRegions.length);
-                console.log("++ [trailhead_resetOrg]Flexipage itemInstances Length : " + flexipage_metadata.flexiPageRegions[5].itemInstances.length);
-
-                console.log("++ [trailhead_resetOrg]Flexipage fetched Metadata -> flexiPageRegions[6] -> itemInstances[6] -> fieldInstance.fieldItem: " 
-                    + flexipage_metadata.flexiPageRegions[5].itemInstances[5].fieldInstance.fieldItem );
-                console.log("++ [trailhead_resetOrg]Flexipage fetched : " + records.length);
-                for (var i=0; i < records.length; i++) {
-                    var record = records[i];
-                    console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
-                    console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
-                    flexipage_id = record.Id;
+                if(flexipage_metadata.flexiPageRegions[5].itemInstances.length == 6) {
+                    response_good.successmsg = '오른쪽애 있는 필드를 왼쪽으로 옮기셨습니다! 축하합니다!!';
+                    console.log("success :" + JSON.stringify(response_good));
+                    _tmp1 = response_good;
+                } else {
+                    response_bad.errormsg = '오른쪽 필드를 옮기지 않으셨습니다. 다시 확인 부탁드립니다.';
+                    console.log("fail :" + JSON.stringify(response_bad));
+                    _tmp1 = response_bad;
                 }
+                //console.log("++ [trailhead_resetOrg]Flexipage flexiPageRegions Length : " + flexipage_metadata.flexiPageRegions.length);
+                //console.log("++ [trailhead_resetOrg]Flexipage itemInstances Length : " + flexipage_metadata.flexiPageRegions[5].itemInstances.length);
+
+                //console.log("++ [trailhead_resetOrg]Flexipage fetched Metadata -> flexiPageRegions[6] -> itemInstances[6] -> fieldInstance.fieldItem: " 
+                //    + flexipage_metadata.flexiPageRegions[5].itemInstances[5].fieldInstance.fieldItem );
+                //console.log("++ [trailhead_resetOrg]Flexipage fetched : " + records.length);
+                
             }
     });
 
