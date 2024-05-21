@@ -191,25 +191,30 @@ async function trailhead_checkField(_chk_username, _chk_password) {
         console.log("Username and password not setup.")
     }
     
-    //var conn = await login(_chk_username, _chk_password);
-    await conn.describe("Travel_Approval__c", function(err, meta) {
-        if (err) { return console.error(err); }
-        //console.log("total : " + meta.totalSize);
-        //console.log('Label : ' + meta.label);
-        //console.log('Num of Fields : ' + meta.fields.length);
-        //console.log('Num of Fields : ' + JSON.stringify(meta));
-
-        response_bad.errormsg = '설명서에 제시된 필드를 추가해 주세요.';
-        _tmp1 = response_bad;
-
-        for (var i=0; i<meta.fields.length; i++) {
-            var record = meta.fields[i].name;
-            //console.log("[" + i + "] field name : [" + record + "]");
-            if(record == 'Transport_Type__c' &&  meta.fields[i].length == 255 && meta.fields[i].type == 'string') {
-                response_good.successmsg = '필드를 정확하게 생성하였습니다. 축하합니다!!';
-                _tmp1 = response_good;
+    /*
+    ** Dynamic Forms 검증
+    */
+    var flexipage_id;
+    await conn.tooling.sobject('FlexiPage')
+        .find({ DeveloperName: "Vehicle_Record_Page" })
+        .execute(function(err, records) {
+            if (err) { 
+                response_bad.errormsg = '++ [trailhead_resetOrg]Flexipage query 에 문제 발생';
+                console.log("fail :" + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                return console.error(err); 
             }
-        }
+            else {
+                console.log("++ [trailhead_resetOrg]Flexipage fetched : " + records.length);
+                for (var i=0; i < records.length; i++) {
+                    var record = records[i];
+                    console.log('++ [trailhead_resetOrg]Flexipage Id: ' + JSON.stringify(record));
+                    console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.JSON);
+                    console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
+                    console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
+                    flexipage_id = record.Id;
+                }
+            }
     });
   
     return _tmp1;
