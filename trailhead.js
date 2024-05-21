@@ -214,10 +214,10 @@ async function trailhead_checkField(_chk_username, _chk_password) {
                 console.log("++ [trailhead_resetOrg]Flexipage Records Length : " + records.length);
                 var flexipage_metadata = records[0].Metadata;
                 console.log("++ [trailhead_resetOrg]Flexipage flexiPageRegions Length : " + flexipage_metadata.flexiPageRegions.length);
-                console.log("++ [trailhead_resetOrg]Flexipage itemInstances Length : " + flexipage_metadata.flexiPageRegions[6].itemInstances.length);
+                console.log("++ [trailhead_resetOrg]Flexipage itemInstances Length : " + flexipage_metadata.flexiPageRegions[5].itemInstances.length);
 
                 console.log("++ [trailhead_resetOrg]Flexipage fetched Metadata -> flexiPageRegions[6] -> itemInstances[6] -> fieldInstance.fieldItem: " 
-                    + flexipage_metadata.flexiPageRegions[6].itemInstances[6].fieldInstance.fieldItem );
+                    + flexipage_metadata.flexiPageRegions[5].itemInstances[5].fieldInstance.fieldItem );
                 console.log("++ [trailhead_resetOrg]Flexipage fetched : " + records.length);
                 for (var i=0; i < records.length; i++) {
                     var record = records[i];
