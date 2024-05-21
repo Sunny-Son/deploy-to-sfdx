@@ -211,7 +211,13 @@ async function trailhead_checkField(_chk_username, _chk_password) {
                 return console.error(err); 
             }
             else {
-                console.log("++ [trailhead_resetOrg]Flexipage fetched : " + JSON.stringify(records));
+                var flexipage_metadata = records.Metadata;
+                console.log("++ [trailhead_resetOrg]Flexipage flexiPageRegions Length : " + flexipage_metadata.flexiPageRegions.length);
+                console.log("++ [trailhead_resetOrg]Flexipage itemInstances Length : " + flexipage_metadata.flexiPageRegions[4].itemInstances.length);
+                
+                console.log("++ [trailhead_resetOrg]Flexipage fetched Metadata -> flexiPageRegions[4] -> itemInstances[4] -> fieldInstance.fieldItem: " 
+                    + flexipage_metadata.flexiPageRegions[4].itemInstances[4].fieldInstance.fieldItem
+                );
                 console.log("++ [trailhead_resetOrg]Flexipage fetched : " + records.length);
                 for (var i=0; i < records.length; i++) {
                     var record = records[i];
