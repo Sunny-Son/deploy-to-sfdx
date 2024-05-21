@@ -8,6 +8,7 @@ var dashboard_meta = require('./meta/dashboard.json');
 var report_meta = require('./meta/report.json');
 var flexipage_meta = require('./meta/flexipage.json');
 var flexipage_verifiy_meta = require('./meta/flexipage_verify.json');
+const deepEqual = require('deep-equal');
 
 var loggedIn = false;
 
@@ -217,7 +218,7 @@ async function trailhead_checkField(_chk_username, _chk_password) {
                     //console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
                     //console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
                     flexipage_id = record.Id;
-                    if(_.isEqual(flexipage_verifiy_meta, record.Metadata)) {
+                    if(deepEqual(flexipage_verifiy_meta, record.Metadata)) {
                         response_good.successmsg = '설명서에 표시된 데이터를 정확하게 입력하셨습니다! 축하합니다!!';
                         console.log("success :" + JSON.stringify(response_good));
                         _tmp1 = response_good;
