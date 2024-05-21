@@ -199,7 +199,31 @@ async function trailhead_checkField(_chk_username, _chk_password) {
 
     var _request_url = conn.instanceUrl + '/services/data/v60.0/sobjects/Vehicle__c/describe/layouts';
 
+    var flexipage_id;
+    await conn.tooling.sobject('FlexiPage')
+        .find({ DeveloperName: "Vehicle_Record_Page" })
+        .execute(function(err, records) {
+            if (err) { 
+                response_bad.errormsg = '++ [trailhead_resetOrg]Flexipage query 에 문제 발생';
+                console.log("fail :" + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                return console.error(err); 
+            }
+            else {
+                console.log("++ [trailhead_resetOrg]Flexipage fetched : " + JSON.stringify(records));
+                console.log("++ [trailhead_resetOrg]Flexipage fetched : " + records.length);
+                for (var i=0; i < records.length; i++) {
+                    var record = records[i];
+                    console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
+                    console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
+                    flexipage_id = record.Id;
+                }
+            }
+    });
 
+    if(_tmp1 != null) return _tmp1;
+
+    /*
 
     var metadata = await conn.metadata.describe('60.0')
     console.log(`organizationNamespace: ${metadata.organizationNamespace}`);
