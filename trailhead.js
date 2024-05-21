@@ -201,11 +201,14 @@ async function trailhead_checkField(_chk_username, _chk_password) {
 
 
 
-    const metadata = await conn.metadata.describe('60.0')
+    var metadata = await conn.metadata.describe('60.0')
     console.log(`organizationNamespace: ${metadata.organizationNamespace}`);
     console.log(`partialSaveAllowed: ${metadata.partialSaveAllowed}`);
     console.log(`testRequired: ${metadata.testRequired}`);
     console.log(`metadataObjects count: ${metadata.metadataObjects.length}`);
+
+    const fullNames = [ 'Vehicle_Record_Page' ];
+    var metadata = await conn.metadata.read('FlexiPage', fullNames);
 /*
     await conn.request(_request_url, function(err, resp) {
         //console.log(JSON.stringify(resp));
