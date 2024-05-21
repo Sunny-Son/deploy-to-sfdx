@@ -209,7 +209,7 @@ async function trailhead_checkField(_chk_username, _chk_password) {
                 for (var i=0; i < records.length; i++) {
                     var record = records[i];
                     console.log('++ [trailhead_resetOrg]Flexipage Id: ' + JSON.stringify(record));
-                    console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.JSON);
+                    console.log('++ [trailhead_resetOrg]Flexipage meta: ' + JSON.stringify(record.meta));
                     console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
                     console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
                     flexipage_id = record.Id;
