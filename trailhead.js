@@ -214,8 +214,8 @@ async function trailhead_checkField(_chk_username, _chk_password) {
             console.log('++ [Check Dynamic Form] Length2: ' + resp.layouts.length);
             console.log('++ [Check Dynamic Form] Length3: ' + resp.layouts[0].id); 
             console.log('++ [Check Dynamic Form] Length: ' + resp.layouts[0].detailLayoutSections.length); 
-            for (var i=0; i < resp.layouts.detailLayoutSections.length; i++) {
-                var record = resp.layouts.detailLayoutSections[i];
+            for (var i=0; i < resp.layouts[0].detailLayoutSections.length; i++) {
+                var record = resp.layouts[0].detailLayoutSections[i];
                 console.log('++ [Check Dynamic Form] heading: ' + record.heading);
                 if(record.heading == 'Customization') {
                     if(record.layoutRows.layoutItems[0].label == '페인트 코드' &&
