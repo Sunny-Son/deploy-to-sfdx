@@ -7,6 +7,7 @@ const logger = require('heroku-logger');
 var dashboard_meta = require('./meta/dashboard.json');
 var report_meta = require('./meta/report.json');
 var flexipage_meta = require('./meta/flexipage.json');
+var flexipage_verifiy_meta = require('./meta/flexipage_verify.json');
 
 var loggedIn = false;
 
@@ -206,13 +207,22 @@ async function trailhead_checkField(_chk_username, _chk_password) {
             }
             else {
                 console.log("++ [trailhead_resetOrg]Flexipage fetched : " + records.length);
+                response_bad.errormsg = '데이터를 입력하지 않으셨습니다. 다시 확인 부탁드립니다.';
+                console.log("fail :" + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
                 for (var i=0; i < records.length; i++) {
                     var record = records[i];
-                    console.log('++ [trailhead_resetOrg]Flexipage Id: ' + JSON.stringify(record));
+                    //console.log('++ [trailhead_resetOrg]Flexipage Id: ' + JSON.stringify(record));
                     console.log('++ [trailhead_resetOrg]Flexipage meta: ' + JSON.stringify(record.Metadata));
-                    console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
-                    console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
+                    //console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
+                    //console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
                     flexipage_id = record.Id;
+                    if(_.isEqual(flexipage_verifiy_meta, record.Metadata)) {
+                        response_good.successmsg = '설명서에 표시된 데이터를 정확하게 입력하셨습니다! 축하합니다!!';
+                        console.log("success :" + JSON.stringify(response_good));
+                        _tmp1 = response_good;
+                        break;
+                    }
                 }
             }
     });
