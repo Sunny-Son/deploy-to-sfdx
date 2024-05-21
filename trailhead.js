@@ -196,6 +196,59 @@ async function trailhead_checkField(_chk_username, _chk_password) {
     /*
     ** Dynamic Forms 검증
     */
+
+    var _request_url = conn.instanceUrl + '/services/data/v60.0/sobjects/Vehicle__c/describe/layouts';
+
+    await conn.request(_request_url, function(err, resp) {
+        //console.log(JSON.stringify(resp));
+        var vardashboardcheck = JSON.stringify(resp);
+        //console.log('++ [trailhead_resetOrg] Dashboard reset result : '  + vardashboardcheck);
+        if (err) { 
+            response_bad.errormsg = '++ [trailhead_resetOrg] Record page reset 장애. 부스 담당자에게 문의 바랍니다.';
+            console.log("++ [trailhead_resetOrg]Flexipage fail :" + JSON.stringify(response_bad));
+            _tmp1 = response_bad;
+            //return console.error(err); 
+        } else {
+            // it should be 5
+            console.log('++ [Check Dynamic Form] Length: ' + resp[0].layouts[0].detailLayoutSections.length);
+            for (var i=0; i < resp[0].layouts[0].detailLayoutSections.length; i++) {
+                var record = resp[0].layouts[0].detailLayoutSections[i];
+                console.log('++ [Check Dynamic Form] heading: ' + record.heading);
+                if(record.heading == 'Customization') {
+                    if(record.layoutRows.layoutItems[0].label == '페인트 코드' &&
+                        record.layoutRows.layoutItems[1].label == '자동 운전 기능') {
+                            response_good.errormsg = '설명서에 표시된 레이아웃을 변경하지 않았습니다. 변경해 주세요!!';
+                            console.log("Fail :" + JSON.stringify(response_good));
+                            _tmp1 = response_bad;
+                            break;
+                        } else {
+                            response_good.successmsg = '설명서에 표시된 레이아웃을 변경 하셨습니다! 축하합니다!!';
+                            console.log("success :" + JSON.stringify(response_good));
+                            _tmp1 = response_good;
+                            break;
+                        }
+                    
+                }
+                //console.log('++ [trailhead_resetOrg]Flexipage Id: ' + JSON.stringify(record));
+                //console.log('++ [trailhead_resetOrg]Flexipage meta: ' + JSON.stringify(record.Metadata));
+                //console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
+                //console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
+                //flexipage_id = record.Id;
+                /*
+                if(deepEqual(flexipage_verifiy_meta, record.Metadata)) {
+                    response_good.successmsg = '설명서에 표시된 데이터를 정확하게 입력하셨습니다! 축하합니다!!';
+                    console.log("success :" + JSON.stringify(response_good));
+                    _tmp1 = response_good;
+                    break;
+                }
+                */
+            }
+        }
+        return _tmp1;
+    });
+    
+}
+   /*
     var flexipage_id;
     await conn.tooling.sobject('FlexiPage')
         .find({ DeveloperName: "Vehicle_Record_Page" })
@@ -209,12 +262,12 @@ async function trailhead_checkField(_chk_username, _chk_password) {
             else {
                 console.log("++ [trailhead_resetOrg]Flexipage fetched : " + records.length);
                 response_bad.errormsg = '데이터를 입력하지 않으셨습니다. 다시 확인 부탁드립니다.';
-                console.log("fail :" + JSON.stringify(response_bad));
+                //console.log("fail :" + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
                 for (var i=0; i < records.length; i++) {
                     var record = records[i];
                     //console.log('++ [trailhead_resetOrg]Flexipage Id: ' + JSON.stringify(record));
-                    console.log('++ [trailhead_resetOrg]Flexipage meta: ' + JSON.stringify(record.Metadata));
+                    //console.log('++ [trailhead_resetOrg]Flexipage meta: ' + JSON.stringify(record.Metadata));
                     //console.log('++ [trailhead_resetOrg]Flexipage Id: ' + record.Id);
                     //console.log('++ [trailhead_resetOrg]Flexipage Name: ' + record.MasterLabel);
                     flexipage_id = record.Id;
@@ -229,7 +282,8 @@ async function trailhead_checkField(_chk_username, _chk_password) {
     });
   
     return _tmp1;
-  }
+  }*/
+
 
 function displayReports() {
     conn.query("SELECT Id, DeveloperName, FolderName, Name FROM Report", function(err, result) {
