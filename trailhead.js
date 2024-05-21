@@ -212,7 +212,7 @@ async function trailhead_checkField(_chk_username, _chk_password) {
             // it should be 5
             console.log('++ [Check Dynamic Form] Length1: ' + resp.length);
             console.log('++ [Check Dynamic Form] Length2: ' + resp.layouts.length);
-            console.log('++ [Check Dynamic Form] Length: ' + resp.layouts.detailLayoutSections.length);
+            console.log('++ [Check Dynamic Form] Length: ' + resp.layouts.detailLayoutSections.length); 
             for (var i=0; i < resp.layouts.detailLayoutSections.length; i++) {
                 var record = resp.layouts.detailLayoutSections[i];
                 console.log('++ [Check Dynamic Form] heading: ' + record.heading);
