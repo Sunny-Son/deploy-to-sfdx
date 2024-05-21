@@ -41,7 +41,8 @@
     "sleep": "^6.3.0",
     "universal-analytics": "^0.4.15",
     "utf-8-validate": "6.0.3",
-    "ws": "8.13.0"
+    "ws": "8.13.0",
+    "deep-equal": "2.2.3"
   },
  "devDependencies": {
     "chai": "^4.3.7",
