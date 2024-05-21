@@ -220,7 +220,13 @@ async function trailhead_checkField(_chk_username, _chk_password) {
                 }
             }
     });
-
+    
+    const fullNames = [ 'Vehicle_Record_Page' ];
+    var metadata = await conn.metadata.read('FlexiPage', fullNames);
+    console.log('metadata = ' + metadata.JSON);
+    console.log('metadata = ' + JSON.stringify(metadata));
+    console.log('metadata = ' + metadata.FlexiPageRegion.length);
+    console.log('metadata = ' + metadata.FlexiPageRegion[0].itemInstances.length);
     if(_tmp1 != null) return _tmp1;
 
     /*
