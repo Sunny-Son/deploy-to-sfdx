@@ -212,7 +212,7 @@ async function trailhead_checkField(_chk_username, _chk_password) {
             }
             else {
                 console.log("++ [trailhead_resetOrg]Flexipage Records Length : " + records.length);
-                console.log("++ [trailhead_resetOrg]Flexipage Records Length : " + records.Metadata.length);
+                console.log("++ [trailhead_resetOrg]Flexipage Records Length : " + records[0].Metadata.length);
                 var flexipage_metadata = records[0].Metadata;
                 console.log("++ [trailhead_resetOrg]Flexipage flexiPageRegions Length : " + flexipage_metadata.flexiPageRegions.length);
                 console.log("++ [trailhead_resetOrg]Flexipage itemInstances Length : " + flexipage_metadata.flexiPageRegions[4].itemInstances.length);
