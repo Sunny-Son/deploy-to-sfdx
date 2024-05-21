@@ -211,6 +211,8 @@ async function trailhead_checkField(_chk_username, _chk_password) {
     var metadata = await conn.metadata.read('FlexiPage', fullNames);
     console.log('metadata = ' + metadata.JSON);
     console.log('metadata = ' + JSON.stringify(metadata));
+    console.log('metadata = ' + metadata.FlexiPageRegion.length);
+    console.log('metadata = ' + metadata.FlexiPageRegion[0].itemInstances.length);
 /*
     await conn.request(_request_url, function(err, resp) {
         //console.log(JSON.stringify(resp));
