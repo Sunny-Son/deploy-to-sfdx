@@ -211,10 +211,12 @@ async function trailhead_checkField(_chk_username, _chk_password) {
                 return console.error(err); 
             }
             else {
-                var flexipage_metadata = records.Metadata;
+                console.log("++ [trailhead_resetOrg]Flexipage Records Length : " + records.length);
+                console.log("++ [trailhead_resetOrg]Flexipage Records Length : " + records.Metadata.length);
+                var flexipage_metadata = records[0].Metadata;
                 console.log("++ [trailhead_resetOrg]Flexipage flexiPageRegions Length : " + flexipage_metadata.flexiPageRegions.length);
                 console.log("++ [trailhead_resetOrg]Flexipage itemInstances Length : " + flexipage_metadata.flexiPageRegions[4].itemInstances.length);
-                
+
                 console.log("++ [trailhead_resetOrg]Flexipage fetched Metadata -> flexiPageRegions[4] -> itemInstances[4] -> fieldInstance.fieldItem: " 
                     + flexipage_metadata.flexiPageRegions[4].itemInstances[4].fieldInstance.fieldItem
                 );
