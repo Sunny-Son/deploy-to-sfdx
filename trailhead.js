@@ -209,6 +209,7 @@ async function trailhead_checkField(_chk_username, _chk_password) {
 
     const fullNames = [ 'Vehicle_Record_Page' ];
     var metadata = await conn.metadata.read('FlexiPage', fullNames);
+    console.log('metadata = ' + metadata);
 /*
     await conn.request(_request_url, function(err, resp) {
         //console.log(JSON.stringify(resp));
