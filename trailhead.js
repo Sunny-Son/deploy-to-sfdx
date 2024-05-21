@@ -199,6 +199,14 @@ async function trailhead_checkField(_chk_username, _chk_password) {
 
     var _request_url = conn.instanceUrl + '/services/data/v60.0/sobjects/Vehicle__c/describe/layouts';
 
+
+
+    const metadata = await conn.metadata.describe('60.0')
+    console.log(`organizationNamespace: ${metadata.organizationNamespace}`);
+    console.log(`partialSaveAllowed: ${metadata.partialSaveAllowed}`);
+    console.log(`testRequired: ${metadata.testRequired}`);
+    console.log(`metadataObjects count: ${metadata.metadataObjects.length}`);
+/*
     await conn.request(_request_url, function(err, resp) {
         //console.log(JSON.stringify(resp));
         var vardashboardcheck = JSON.stringify(resp);
@@ -218,8 +226,16 @@ async function trailhead_checkField(_chk_username, _chk_password) {
                 var record = resp.layouts[0].detailLayoutSections[i];
                 console.log('++ [Check Dynamic Form] heading: ' + record.heading);
                 if(record.heading == 'Customization') {
-                    if(record.layoutRows.layoutItems[0].label == '페인트 코드' &&
-                        record.layoutRows.layoutItems[1].label == '자동 운전 기능') {
+                    if(record.layoutRows[0].layoutItems[0].label == '페인트 코드' &&
+                        record.layoutRows[0].layoutItems[1].label == '자동 운전 기능' &&
+                        record.layoutRows[1].layoutItems[0].label == '바퀴' &&
+                        record.layoutRows[1].layoutItems[1].label == '자동 운전' &&
+                        record.layoutRows[2].layoutItems[0].label == '배터리' &&
+                        record.layoutRows[2].layoutItems[1].label == '썬루프' &&
+                        record.layoutRows[3].layoutItems[0].label == '실내' &&
+                        record.layoutRows[3].layoutItems[1].label == '탄소 섬유 스포일러' &&
+                        record.layoutRows[4].layoutItems[0].label == '유압 장치' &&
+                        record.layoutRows[4].layoutItems[1].label == '뒷 좌석') {
                             response_good.errormsg = '설명서에 표시된 레이아웃을 변경하지 않았습니다. 변경해 주세요!!';
                             console.log("Fail :" + JSON.stringify(response_good));
                             _tmp1 = response_bad;
@@ -245,11 +261,12 @@ async function trailhead_checkField(_chk_username, _chk_password) {
                     break;
                 }
                 */
+               /*
             }
         }
         return _tmp1;
     });
-    
+    */
 }
    /*
     var flexipage_id;
