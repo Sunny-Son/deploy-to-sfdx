@@ -7,8 +7,6 @@ const logger = require('heroku-logger');
 var dashboard_meta = require('./meta/dashboard.json');
 var report_meta = require('./meta/report.json');
 var flexipage_meta = require('./meta/flexipage.json');
-var flexipage_verifiy_meta = require('./meta/flexipage_verify.json');
-const deepEqual = require('deep-equal');
 
 var loggedIn = false;
 
