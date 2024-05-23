@@ -105,23 +105,31 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
     conn.loginUrl = 'https://test.salesforce.com';
     
     var callback = null;
-    if(_chk_username && _chk_password) {
-        console.log('loginurl = ' + conn.loginUrl);
-        await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) {
-                response_bad.errormsg = '++ [trailhead_Data check] Login 실패, 부스 담당자에게 문의 바랍니다.';
-                console.log("++ [trailhead_Data check : " + JSON.stringify(response_bad));
-                _tmp1 = response_bad;
-                return _tmp1;
-            }
-            else {
-                loggedIn = true;
-                console.log("Succcessfully logged into Salesforce.");
-            }
-          });
-    }
-    else {
-        console.log("Username and password not setup.")
+    try {
+        if(_chk_username && _chk_password) {
+            console.log('loginurl = ' + conn.loginUrl);
+            await conn.login(_chk_username, _chk_password, function(err, res) {
+                if (err) {
+                    response_bad.errormsg = '++ [trailhead_Data check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                    console.log("++ [trailhead_Data check : " + JSON.stringify(response_bad));
+                    _tmp1 = response_bad;
+                    return _tmp1;
+                }
+                else {
+                    loggedIn = true;
+                    console.log("Succcessfully logged into Salesforce.");
+                }
+            });
+        }
+        else {
+            console.log("Username and password not setup.")
+        }
+    } catch (e) {
+        console.log(e);
+        response_bad.errormsg = '++ [trailhead_Data check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+        console.log("++ [trailhead_Data check : " + JSON.stringify(response_bad));
+        _tmp1 = response_bad;
+        return _tmp1;
     }
 
     var record;
