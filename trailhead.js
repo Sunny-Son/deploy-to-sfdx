@@ -108,7 +108,12 @@ async function trailhead_checkTravelApprovalRecord(_chk_username, _chk_password)
     if(_chk_username && _chk_password) {
         console.log('loginurl = ' + conn.loginUrl);
         await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) { return console.error(err); }
+            if (err) {
+                response_bad.errormsg = '++ [trailhead_Data check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                console.log("++ [trailhead_Data check : " + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                return _tmp1;
+            }
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
@@ -177,7 +182,12 @@ async function trailhead_checkField(_chk_username, _chk_password) {
     if(_chk_username && _chk_password) {
         console.log('loginurl = ' + conn.loginUrl);
         await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) { return console.error(err); }
+            if (err) {
+                response_bad.errormsg = '++ [trailhead_Field Layout check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                console.log("++ [trailhead_Field Layout check : " + JSON.stringify(response_bad));
+                _tmp1 = response_bad;
+                return _tmp1;
+            }
             else {
                 loggedIn = true;
                 console.log("Succcessfully logged into Salesforce.");
@@ -387,9 +397,10 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
         console.log('loginurl = ' + conn.loginUrl);
         await conn.login(_chk_username, _chk_password, function(err, res) {
             if (err) {
-                response_bad.errormsg = '++ [trailhead_dashboard check] Login 실패, 부스 담당자에게 문의 바랍니다.';
-                console.log("++ [trailhead_dashboard check : " + JSON.stringify(response_bad));
+                response_bad.errormsg = '++ [trailhead_Report check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                console.log("++ [trailhead_Report check : " + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
+                return _tmp1;
                 //return console.error(err); 
             }
             else {
@@ -457,7 +468,7 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
                 response_bad.errormsg = '++ [trailhead_dashboard check] Login 실패, 부스 담당자에게 문의 바랍니다.';
                 console.log("++ [trailhead_dashboard check : " + JSON.stringify(response_bad));
                 _tmp1 = response_bad;
-                //return console.error(err); 
+                return _tmp1;
             }
             else {
                 loggedIn = true;
