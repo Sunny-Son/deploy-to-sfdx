@@ -187,27 +187,37 @@ async function trailhead_checkField(_chk_username, _chk_password) {
     conn.version = '60.0';
     
     var callback = null;
-    if(_chk_username && _chk_password) {
-        console.log('loginurl = ' + conn.loginUrl);
-        await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) {
-                response_bad.errormsg = '++ [trailhead_Field Layout check] Login 실패, 부스 담당자에게 문의 바랍니다.';
-                console.log("++ [trailhead_Field Layout check : " + JSON.stringify(response_bad));
-                _tmp1 = response_bad;
-                return _tmp1;
-            }
-            else {
-                loggedIn = true;
-                console.log("Succcessfully logged into Salesforce.");
-                //console.log(res);
-                //console.log("user id => CreatedById : [" + res.id + "]");
-                //return res.id;
-                //return conn;
-            }
-          });
-    }
-    else {
-        console.log("Username and password not setup.")
+    try {
+
+    
+        if(_chk_username && _chk_password) {
+            console.log('loginurl = ' + conn.loginUrl);
+            await conn.login(_chk_username, _chk_password, function(err, res) {
+                if (err) {
+                    response_bad.errormsg = '++ [trailhead_Field Layout check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                    console.log("++ [trailhead_Field Layout check : " + JSON.stringify(response_bad));
+                    _tmp1 = response_bad;
+                    return _tmp1;
+                }
+                else {
+                    loggedIn = true;
+                    console.log("Succcessfully logged into Salesforce.");
+                    //console.log(res);
+                    //console.log("user id => CreatedById : [" + res.id + "]");
+                    //return res.id;
+                    //return conn;
+                }
+            });
+        }
+        else {
+            console.log("Username and password not setup.")
+        }
+    } catch (e) {
+        console.log(e);
+        response_bad.errormsg = '++ [trailhead_Field Layout check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+        console.log("++ [trailhead_Field Layout check : " + JSON.stringify(response_bad));
+        _tmp1 = response_bad;
+        return _tmp1;
     }
     
     /*
@@ -401,24 +411,32 @@ async function trailhead_checkReports(_chk_username, _chk_password) {
     conn.loginUrl = 'https://test.salesforce.com';
     
     var callback = null;
-    if(_chk_username && _chk_password) {
-        console.log('loginurl = ' + conn.loginUrl);
-        await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) {
-                response_bad.errormsg = '++ [trailhead_Report check] Login 실패, 부스 담당자에게 문의 바랍니다.';
-                console.log("++ [trailhead_Report check : " + JSON.stringify(response_bad));
-                _tmp1 = response_bad;
-                return _tmp1;
-                //return console.error(err); 
-            }
-            else {
-                loggedIn = true;
-                console.log("Succcessfully logged into Salesforce.");
-            }
-          });
-    }
-    else {
-        console.log("Username and password not setup.")
+    try {
+        if(_chk_username && _chk_password) {
+            console.log('loginurl = ' + conn.loginUrl);
+            await conn.login(_chk_username, _chk_password, function(err, res) {
+                if (err) {
+                    response_bad.errormsg = '++ [trailhead_Report check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                    console.log("++ [trailhead_Report check : " + JSON.stringify(response_bad));
+                    _tmp1 = response_bad;
+                    return _tmp1;
+                    //return console.error(err); 
+                }
+                else {
+                    loggedIn = true;
+                    console.log("Succcessfully logged into Salesforce.");
+                }
+            });
+        }
+        else {
+            console.log("Username and password not setup.")
+        }
+    } catch (e) {
+        console.log(e);
+        response_bad.errormsg = '++ [trailhead_Report check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+        console.log("++ [trailhead_Report check : " + JSON.stringify(response_bad));
+        _tmp1 = response_bad;
+        return _tmp1;
     }
     
     //var conn = await login(_chk_username, _chk_password);
@@ -469,26 +487,34 @@ async function trailhead_checkDashboards(_chk_username, _chk_password) {
     conn.loginUrl = 'https://test.salesforce.com';
     
     var callback = null;
-    if(_chk_username && _chk_password) {
-        console.log('loginurl = ' + conn.loginUrl);
-        await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) {
-                response_bad.errormsg = '++ [trailhead_dashboard check] Login 실패, 부스 담당자에게 문의 바랍니다.';
-                console.log("++ [trailhead_dashboard check : " + JSON.stringify(response_bad));
-                _tmp1 = response_bad;
-                return _tmp1;
-            }
-            else {
-                loggedIn = true;
-                console.log("Succcessfully logged into Salesforce.");
-            }
-          });
-    }
-    else {
-        console.log("Username and password not setup.")
-    }
+    try {
+        if(_chk_username && _chk_password) {
+            console.log('loginurl = ' + conn.loginUrl);
+            await conn.login(_chk_username, _chk_password, function(err, res) {
+                if (err) {
+                    response_bad.errormsg = '++ [trailhead_dashboard check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                    console.log("++ [trailhead_dashboard check : " + JSON.stringify(response_bad));
+                    _tmp1 = response_bad;
+                    return _tmp1;
+                }
+                else {
+                    loggedIn = true;
+                    console.log("Succcessfully logged into Salesforce.");
+                }
+            });
+        }
+        else {
+            console.log("Username and password not setup.")
+        }
     
-    if(_tmp1 != null) return _tmp1;
+        if(_tmp1 != null) return _tmp1;
+    } catch (e) {
+        console.log(e);
+        response_bad.errormsg = '++ [trailhead_dashboard check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+        console.log("++ [trailhead_dashboard check : " + JSON.stringify(response_bad));
+        _tmp1 = response_bad;
+        return _tmp1;
+    }
 
     var record;
     await conn.query("SELECT Id, DeveloperName, FolderName, Title FROM Dashboard WHERE Title = \'Vehicle Dashboard\' and FolderName = \'Public1\'", function(err, result) {
@@ -548,29 +574,39 @@ async function trailhead_resetOrg(_chk_username, _chk_password) {
     conn.loginUrl = 'https://test.salesforce.com';
     
     var callback = null;
-    if(_chk_username && _chk_password) {
-        console.log('loginurl = ' + conn.loginUrl);
-        await conn.login(_chk_username, _chk_password, function(err, res) {
-            if (err) {
-                response_bad.errormsg = '++ [trailhead_dashboard check] Login 실패, 부스 담당자에게 문의 바랍니다.';
-                console.log("++ [trailhead_dashboard check : " + JSON.stringify(response_bad));
-                _tmp1 = response_bad;
-                //return console.error(err); 
-            }
-            else {
-                loggedIn = true;
-                console.log("Succcessfully logged into Salesforce.");
-                console.log(res);
-                //console.log("user id => CreatedById : [" + res.id + "]");
-                //return res.id;
-                //return conn;
-            }
-          });
+    try {
+        if(_chk_username && _chk_password) {
+            console.log('loginurl = ' + conn.loginUrl);
+            await conn.login(_chk_username, _chk_password, function(err, res) {
+                if (err) {
+                    response_bad.errormsg = '++ [trailhead_reset check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+                    console.log("++ [trailhead_reset check : " + JSON.stringify(response_bad));
+                    _tmp1 = response_bad;
+                    return _tmp1;
+                    //return console.error(err); 
+                }
+                else {
+                    loggedIn = true;
+                    console.log("Succcessfully logged into Salesforce.");
+                    console.log(res);
+                    //console.log("user id => CreatedById : [" + res.id + "]");
+                    //return res.id;
+                    //return conn;
+                }
+            });
+        }
+        else {
+            console.log("Username and password not setup.")
+            
+        }
+        if(_tmp1 != null) return _tmp1;
+    } catch (e) {
+        console.log(e);
+        response_bad.errormsg = '++ [trailhead_reset check] Login 실패, 부스 담당자에게 문의 바랍니다.';
+        console.log("++ [trailhead_reset check : " + JSON.stringify(response_bad));
+        _tmp1 = response_bad;
+        return _tmp1;
     }
-    else {
-        console.log("Username and password not setup.")
-    }
-    if(_tmp1 != null) return _tmp1;
 
     /*
     ** Dynamic Forms reset
