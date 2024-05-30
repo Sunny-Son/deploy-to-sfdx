@@ -3,7 +3,6 @@ var path = require("path");
 var configpath = path.normalize("./");
 //var config = require(configpath+"config.js");
 const logger = require('heroku-logger');
-//var conn = new jsforce.Connection();
 var dashboard_meta = require('./meta/dashboard.json');
 var report_meta = require('./meta/report.json');
 var flexipage_meta = require('./meta/flexipage.json');
