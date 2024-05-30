@@ -1,7 +1,6 @@
 var jsforce = require("jsforce");
 var path = require("path");
 var configpath = path.normalize("./");
-//var config = require(configpath+"config.js");
 const logger = require('heroku-logger');
 var dashboard_meta = require('./meta/dashboard.json');
 var report_meta = require('./meta/report.json');
